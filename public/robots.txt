@@ -1,0 +1,21 @@
+# Collectium robots policy
+# Public presentation pages can be indexed.
+# Private, admin, API and system routes are blocked.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /min-side/
+Disallow: /samling/
+Disallow: /forhandler/
+Disallow: /system/
+Disallow: /_next/data/
+
+# Explicit public routes
+Allow: /startside
+Allow: /landingsside
+Allow: /katalog
+Allow: /medlemskap
+
+Sitemap: https://app.collectium.no/sitemap.xml
