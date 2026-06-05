@@ -21,7 +21,7 @@
  * MariaDB → API/backend → Next.js → React → UI
  */
 
-import { CollectiumStartsideV6 } from "@/components/collectium/startside/CollectiumStartsideV6";
+import CollectiumStartsideV6 from "@/components/collectium/startside/CollectiumStartsideV6";
 
 export default function StartsidePage() {
   return <CollectiumStartsideV6 />;

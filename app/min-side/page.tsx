@@ -24,7 +24,7 @@
  * MariaDB → API/backend → Next.js → React → UI
  */
 
-import { CollectiumMinsideV6 } from "@/components/collectium/minside/CollectiumMinsideV6";
+import CollectiumMinsideV6 from "@/components/collectium/minside/CollectiumMinsideV6";
 
 export default function MinSidePage() {
   return <CollectiumMinsideV6 />;
