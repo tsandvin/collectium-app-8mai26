@@ -2,60 +2,60 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Startside page
+ * Public Startside Route
  *
- * Definering / formål:
- * Egen sidefil for /startside. Siden eier ikke shell/design og bruker
- * CollectiumStartTemplate for topbar, sidemeny, rammer, signatur og footer.
+ * Definering / formal:
+ * Next.js route for offentlig startside uten sidemeny. Siden eier ikke design.
+ * Den rendrer innhold inne i global public template/layout.
  *
- * Bruksområde:
- * Offentlig startside for Collectium.
+ * Bruksomrade:
+ * Route: /startside
  *
- * Berørte sider / routes:
+ * Berorte sider / routes:
  * - /startside
  *
- * Berørte DB-brytere / feature_keys:
+ * Berorte DB-brytere / feature_keys:
  * - landing.view
- * - landing.register
  * - landing.login
+ * - landing.register
  * - landing.membership
  * - catalog.view
+ * - auction.view
+ * - dealer.view
  *
- * Berørte API-ruter:
- * - GET /api/catalog/featured senere
- * - GET /api/index/market-preview senere
+ * Berorte API-ruter:
+ * - Ingen direkte API-kall i statisk public-versjon.
  *
- * Berørte tabeller / views:
- * - ct_v_catalog_objects_resolved senere
- * - ct_v_catalog_market_summary senere
+ * Berorte tabeller / views:
+ * - Ingen direkte tabell/view i denne route-filen.
  *
  * Dataretning:
- * MariaDB/API senere -> Next.js -> React -> UI.
+ * Public content -> Next.js -> React -> UI. Dynamisk data skal senere gaa via API/backend.
  *
  * Logging:
  * log_category: landing
- * log_action: startside.view
+ * log_action: view
  *
  * Versjon:
- * CT-FILE-START-V30-PAGE-STARTSIDE / CHANGE-2026-06-05-START-V30
+ * CT-STARTSIDE-PAGE-V2 / CHANGE-2026-06-05-STARTSIDE-TEMPLATE-COMPLIANT
+ *
+ * Endringsregel:
+ * Ikke legg design, shell, sidebar, topbar, global CSS eller skinlogikk i denne filen.
  */
 
-import { CollectiumStartContent } from "../../components/startside/CollectiumStartContent";
+import type { Metadata } from "next";
+import CollectiumStartside from "../../components/startside/CollectiumStartside";
 import { CollectiumStartTemplate } from "../../components/templates/CollectiumStartTemplate";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Collectium · Startside",
-  description: "Collectium startside for samlere, historikk, katalog, auksjon og markedsutvikling.",
-  robots: {
-    index: true,
-    follow: true,
-  },
+  description: "Offentlig startside for Collectium uten sidemeny.",
 };
 
 export default function StartsidePage() {
   return (
-    <CollectiumStartTemplate showSidebar>
-      <CollectiumStartContent />
+    <CollectiumStartTemplate showSidebar={false}>
+      <CollectiumStartside />
     </CollectiumStartTemplate>
   );
 }
