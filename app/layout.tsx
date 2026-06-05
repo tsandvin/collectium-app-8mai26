@@ -1,15 +1,49 @@
-import type { Metadata } from 'next';
-import './globals.css';
+﻿/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * Root Layout
+ *
+ * Definering / formål:
+ * One global Next.js layout for the Collectium application shell.
+ *
+ * Bruksområde:
+ * Wraps every route in CollectiumAppShell.
+ *
+ * Berørte sider / routes:
+ * - All app routes
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - local.template.root_layout
+ *
+ * Dataretning:
+ * Template/layout only. API/MariaDB remains source of truth.
+ *
+ * Versjon:
+ * CT-PATCH-STRUCTURE-FIX-V1
+ */
+
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { CollectiumAppShell } from "@/components/layout/CollectiumAppShell";
+import "./globals.css";
+import "@/styles/collectium-structure-fix.css";
 
 export const metadata: Metadata = {
-  title: 'Collectium Min side',
-  description: 'Rollebasert Min side for Collectium'
+  title: "Collectium",
+  description: "Samlerplattform for norske sedler, mynter, historie og markedsutvikling.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export type RootLayoutProps = {
+  readonly children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html lang="no">
-      <body>{children}</body>
+    <html lang="no" data-template="collectium" data-skin="signature-light" data-vp="pc">
+      <body>
+        <CollectiumAppShell>{children}</CollectiumAppShell>
+      </body>
     </html>
   );
 }
