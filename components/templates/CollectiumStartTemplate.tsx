@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { CollectiumPublicSidebar } from "../layout/CollectiumPublicSidebar";
 import { CollectiumPublicTopbar } from "../layout/CollectiumPublicTopbar";
 import styles from "./CollectiumStartTemplate.module.css";
-import "./CollectiumPublicTemplateGlobals.module.css";
+import "./CollectiumPublicTemplateGlobals.css";
 
 type CollectiumStartTemplateProps = {
   children: ReactNode;
@@ -26,3 +26,4 @@ export function CollectiumStartTemplate({ children, showSidebar = true }: Collec
     </div>
   );
 }
+
