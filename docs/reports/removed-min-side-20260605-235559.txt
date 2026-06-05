@@ -1,0 +1,108 @@
+COLLECTIUM REMOVE MIN SIDE REPORT
+Timestamp: 20260605-235559
+
+BACKUP + REMOVE: app\min-side
+BACKUP + REMOVE: app\minside
+BACKUP + REMOVE: components\MinsideShell.tsx
+BACKUP + REMOVE: components\MinsideShell.backup-before-remove-duplicate-shell.tsx
+BACKUP + REMOVE: components\minside
+
+REMAINING REFERENCES:
+
+PATTERN: min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:14: app/min-side/page.tsx
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:49: /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:50: /min-side?role=dealer
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:51: /min-side?role=admin
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:17: Alias er også lagt inn for `/min-side/*` og videresender til `/minside/*`.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\actions\collectium.ts:301: revalidatePath('/min-side')
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\api\auth\login\route.ts:17: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\api\auth\login\route.ts:148: redirectTo: user.isAdmin ? '/admin' : '/min-side',
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\api\auth\logout\route.ts:15: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\api\auth\session\route.ts:15: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\AppShell.tsx:13: * Brukes rundt alle vanlige app-sider som /, /login, /min-side, /katalog og /admin.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\AppShell.tsx:18: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Sidebar.tsx:18: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Sidebar.tsx:68: { href: "/min-side", label: "Min side", icon: "ti-user-circle", group: "role" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Topbar.tsx:17: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Topbar.tsx:55: { type: "Varsel", text: "3 prosesser krever handling", href: "/min-side?panel=prosesser" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Topbar.tsx:88: <Link href="/min-side?panel=aktivitet">Apne alle</Link>
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\app\components\Topbar.tsx:100: <Link href="/min-side" className="ct-topbar-pill ct-hide-mobile">
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\main-nav.tsx:16: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\main-nav.tsx:83: <Link href="/min-side">Min side</Link>
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\auth\CollectiumLoginClient.tsx:96: const redirectTo = result.user?.isAdmin ? '/admin' : '/min-side'
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\layout\CollectiumMobileMenu.tsx:41: <Link href="/min-side">Min side</Link>
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\layout\CollectiumPublicTopbar.tsx:119: <a href="/min-side">Åpne Min side</a>
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\layout\CollectiumSidebar.tsx:39: { href: "/min-side", label: "Min side", icon: "?" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\startside-filer-v8-manifest.md:61: /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\changes\CHANGE-2026-06-05-0001-minside-login-design.md:13: - Ny /min-side-side som rollebasert kontrollsenter for bruker, forhandler og admin.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\changes\CHANGE-2026-06-05-0001-minside-login-design.md:29: - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\changes\CHANGE-2026-06-05-0001-minside-login-design.md:30: - /minside -> /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\design\collectium-ai-design-index-v5.json:14: "creating catalog/object/min-side/admin UI"
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\auth-client.ts:17: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\auth.ts:16: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.backup-before-remove-duplicate-shell.tsx:13: * Brukes av /min-side som innhold inne i eksisterende global Collectium-layout.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.backup-before-remove-duplicate-shell.tsx:16: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.backup-before-remove-duplicate-shell.tsx:38: <section className="ct-minside-content" data-page="min-side">
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.tsx:13: * Brukes av /min-side som innhold inne i eksisterende global Collectium-layout.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.tsx:16: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_MinsideShell.tsx:38: <section className="ct-minside-content" data-page="min-side">
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\minside-data.ts:14: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\minside-data.ts:84: { title: "Medlemskap", value: "Silver", meta: "Aktiv til 04.06.2027", href: "/min-side?panel=medlemskap", featureKey: "membership.view" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\minside-data.ts:86: { title: "Onskeliste", value: "22", meta: "Hjerte / wishlist", href: "/min-side?panel=onskeliste", featureKey: "collection.wishlist.view" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\minside-data.ts:87: { title: "Favoritter", value: "14", meta: "Stjerne / favoritt", href: "/min-side?panel=favoritter", featureKey: "collection.favorite.view" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\minside-data.ts:88: { title: "Transaksjoner", value: "18", meta: "Kjop, salg, bud og oppgjor", href: "/min-side?panel=transaksjoner", featureKey: "transactions.view" },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\MinsideDashboard.tsx:11: * Vises paa /min-side og /minside.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\MinsideDashboard.tsx:14: * - /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\_archive\removed-min-side-20260605-235559\components_minside\MinsideDashboard.tsx:93: <Link key={item} href={`/min-side?role=${item}`} className={item === role ? "is-active" : ""}>
+
+PATTERN: minside
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\package-lock.json:2: "name": "collectium-minside-nextjs-v3",
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\package-lock.json:8: "name": "collectium-minside-nextjs-v3",
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\package.json:2: "name": "collectium-minside-nextjs-v3",
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:15: app/minside/page.tsx
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:19: components/minside/MinsideDashboard.tsx
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:20: components/minside/minside-data.ts
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:22: docs/changes/CHANGE-2026-06-05-0001-minside-login-design.md
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README-collectium-minside-login-design-v1.md:52: /minside
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:7: - `/minside`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:8: - `/minside/profil`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:9: - `/minside/aktivitet`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:10: - `/minside/samling`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:11: - `/minside/finans`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:12: - `/minside/deling`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:13: - `/minside/innstillinger`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:14: - `/minside/forhandler`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:15: - `/minside/admin`
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\README.md:17: Alias er også lagt inn for `/min-side/*` og videresender til `/minside/*`.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\ActivityLog.tsx:1: import { activityFilters, activityLog } from '@/lib/minside-data';
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\ActivityLog.tsx:2: import { StatusChip } from '@/components/MinsideShell';
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\CollectionCatalog.tsx:1: import { collectionFilters, collectionObjects } from '@/lib/minside-data';
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\components\CollectionCatalog.tsx:2: import { StatusChip } from '@/components/MinsideShell';
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\changes\CHANGE-2026-06-05-0001-minside-login-design.md:14: - /minside, /sign-in og /sign-up beholdes som alias/redirect.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\changes\CHANGE-2026-06-05-0001-minside-login-design.md:30: - /minside -> /min-side
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\patches\CT-PATCH-STRUCTURE-FIX-V1-20260605-191047\app\page.tsx:4: redirect('/minside');
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\docs\patches\CT-PATCH-STRUCTURE-FIX-V1-20260605-191047\app\admin\page.tsx:5: * Adminside med Collectium MariaDB-auth
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:12: * Brukes av app/minside/*-sidene og MinsideShell.
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:15: * - /minside
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:16: * - /minside/profil
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:17: * - /minside/aktivitet
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:18: * - /minside/samling
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:19: * - /minside/finans
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:20: * - /minside/deling
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:21: * - /minside/innstillinger
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:22: * - /minside/forhandler
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:23: * - /minside/admin
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:26: * - next.minside.* / profile.* / activity.* / collection.* / index.* / share.* / settings.*
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:60: { key: 'oversikt', label: 'Oversikt', href: '/minside' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:61: { key: 'profil', label: 'Profil', href: '/minside/profil' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:62: { key: 'aktivitet', label: 'Aktivitet', href: '/minside/aktivitet' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:63: { key: 'samling', label: 'Samling', href: '/minside/samling' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:64: { key: 'finans', label: 'Index / Finans', href: '/minside/finans' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:65: { key: 'deling', label: 'Deling', href: '/minside/deling' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:66: { key: 'innstillinger', label: 'Innstillinger', href: '/minside/innstillinger' }
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:70: { key: 'bruker', label: 'Bruker', href: '/minside' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:71: { key: 'forhandler', label: 'Forhandler', href: '/minside/forhandler' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:72: { key: 'admin', label: 'Admin', href: '/minside/admin' }
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:76: { title: 'Profil og medlemskap', href: '/minside/profil', status: 'Silver aktiv', meta: 'Profil 86 % · telefon mangler', text: 'Persondata, medlemskap, varighet, verifisering, sikkerhet og sesjoner.' },
+C:\Users\Bruker\Pictures\Collectium app clean\collectium-app-8mai26\lib\minside-data.ts:77: { title: 'Aktivitet og logg', href: '/minside/aktivitet', status: '7 aktiviteter', meta: '3 varsler · 2 krever handling', text: 'Varsler, transaksjoner, prosesser, meldinger, dokumenter og systemhendelser.' },
