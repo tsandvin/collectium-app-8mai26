@@ -1,61 +1,51 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Public Startside Route
+ * Startside Page
  *
- * Definering / formal:
- * Next.js route for offentlig startside uten sidemeny. Siden eier ikke design.
- * Den rendrer innhold inne i global public template/layout.
+ * Definering / formål:
+ * Startside rendered inside global Collectium template.
  *
- * Bruksomrade:
- * Route: /startside
+ * Bruksområde:
+ * Route /startside
  *
- * Berorte sider / routes:
+ * Berørte sider / routes:
  * - /startside
  *
- * Berorte DB-brytere / feature_keys:
+ * Berørte DB-brytere / feature_keys:
  * - landing.view
- * - landing.login
- * - landing.register
- * - landing.membership
- * - catalog.view
- * - auction.view
- * - dealer.view
- *
- * Berorte API-ruter:
- * - Ingen direkte API-kall i statisk public-versjon.
- *
- * Berorte tabeller / views:
- * - Ingen direkte tabell/view i denne route-filen.
  *
  * Dataretning:
- * Public content -> Next.js -> React -> UI. Dynamisk data skal senere gaa via API/backend.
- *
- * Logging:
- * log_category: landing
- * log_action: view
+ * Presentation only.
  *
  * Versjon:
- * CT-STARTSIDE-PAGE-V2 / CHANGE-2026-06-05-STARTSIDE-TEMPLATE-COMPLIANT
- *
- * Endringsregel:
- * Ikke legg design, shell, sidebar, topbar, global CSS eller skinlogikk i denne filen.
+ * CT-PATCH-STRUCTURE-FIX-V1
  */
 
-import type { Metadata } from "next";
-import CollectiumStartside from "../../components/startside/CollectiumStartside";
-import { CollectiumStartTemplate } from "../../components/templates/CollectiumStartTemplate";
+import Link from "next/link";
+import { StartsideContent } from "@/components/frontpage/StartsideContent";
+import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
 
-export const metadata: Metadata = {
-  title: "Collectium · Startside",
-  description: "Offentlig startside for Collectium uten sidemeny.",
-};
-
-export default function StartsidePage() {
+export default function StartsidePage(): JSX.Element {
   return (
-    <CollectiumStartTemplate showSidebar={false}>
-      <CollectiumStartside />
-    </CollectiumStartTemplate>
+    <CollectiumPageTemplate
+      title="For samlere. Av samlere. Alt på ett sted."
+      eyebrow="For samlere · for historien · for markedet"
+      description="Collectium samler katalog, egen samling, historiske relasjoner, auksjon, forhandlerkontakt og markedsutvikling i ett miljø."
+      variant="landing"
+      actions={
+        <>
+          <Link className="ct-button ct-button--primary" href="/registrering">
+            Start gratis
+          </Link>
+          <Link className="ct-button" href="/katalog">
+            Se katalog
+          </Link>
+        </>
+      }
+    >
+      <StartsideContent />
+    </CollectiumPageTemplate>
   );
 }

@@ -1,61 +1,40 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Landingsside page
+ * Landingsside Page
  *
  * Definering / formål:
- * Egen sidefil for /landingsside. Bruker samme template og innholdskomponent
- * som /startside, men kan brukes som kampanje-/public route uten separat design.
+ * Landing page rendered inside global Collectium template.
  *
  * Bruksområde:
- * Offentlig landingsside for Collectium.
+ * Route /landingsside
  *
  * Berørte sider / routes:
  * - /landingsside
  *
  * Berørte DB-brytere / feature_keys:
  * - landing.view
- * - landing.register
- * - landing.login
- * - landing.membership
- * - catalog.view
- *
- * Berørte API-ruter:
- * - GET /api/catalog/featured senere
- * - GET /api/index/market-preview senere
- *
- * Berørte tabeller / views:
- * - ct_v_catalog_objects_resolved senere
- * - ct_v_catalog_market_summary senere
  *
  * Dataretning:
- * MariaDB/API senere -> Next.js -> React -> UI.
- *
- * Logging:
- * log_category: landing
- * log_action: landingsside.view
+ * Presentation only.
  *
  * Versjon:
- * CT-FILE-START-V30-PAGE-LANDING / CHANGE-2026-06-05-START-V30
+ * CT-PATCH-STRUCTURE-FIX-V1
  */
 
-import { CollectiumStartContent } from "../../components/startside/CollectiumStartContent";
-import { CollectiumStartTemplate } from "../../components/templates/CollectiumStartTemplate";
+import { LandingssideContent } from "@/components/frontpage/LandingssideContent";
+import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
 
-export const metadata = {
-  title: "Collectium · Landingsside",
-  description: "Collectium landingsside for samlere, katalog, historikk, marked, auksjon og medlemskap.",
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
-
-export default function LandingssidePage() {
+export default function LandingssidePage(): JSX.Element {
   return (
-    <CollectiumStartTemplate showSidebar={false}>
-      <CollectiumStartContent />
-    </CollectiumStartTemplate>
+    <CollectiumPageTemplate
+      title="Collectium"
+      eyebrow="Samlerplattform"
+      description="En samlet plattform for norske sedler, mynter, historiske relasjoner, samling, marked, auksjon og forhandlere."
+      variant="landing"
+    >
+      <LandingssideContent />
+    </CollectiumPageTemplate>
   );
 }

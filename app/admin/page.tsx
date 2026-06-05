@@ -1,93 +1,43 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Adminside med Collectium MariaDB-auth
+ * Admin Page
  *
  * Definering / formål:
- * Erstatter gammel Drizzle/Better Auth-adminsjekk med session fra lib/auth og adminstatistikk fra app/actions/collectium.
+ * Admin page rendered inside global Collectium template.
  *
  * Bruksområde:
- * Server Component for /admin.
+ * Route /admin
  *
  * Berørte sider / routes:
  * - /admin
  *
  * Berørte DB-brytere / feature_keys:
  * - admin.dashboard.view
- * - admin.users.view
  *
  * Berørte API-ruter:
- * - Intern server action: getAdminStats
- * - Intern server action: getAllUsers
- *
- * Berørte tabeller / views:
- * - ct_users
- * - ct_user_roles
- * - ct_roles
+ * - Future: GET /api/admin/system/dashboard
  *
  * Dataretning:
- * MariaDB -> server action -> Next.js -> React -> UI
- *
- * Logging:
- * log_category: admin
- * log_action: dashboard.view
+ * MariaDB/API later. Current route only repairs structure.
  *
  * Versjon:
- * CT-FILE-APP-ADMIN-PAGE-0002 / CHANGE-2026-06-05-AUTH-BUILD-FIX-0002
+ * CT-PATCH-STRUCTURE-FIX-V1
  */
 
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
-import { auth, isPrivilegedRole } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
-import { AdminStats } from '@/components/admin/admin-stats'
-import { UserManagement } from '@/components/admin/user-management'
-import { getAdminStats, getAllUsers } from '@/app/actions/collectium'
+import { AdminDashboard } from "@/components/admin/AdminDashboard";
+import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
 
-export default async function AdminPage() {
-  const session = await auth.api.getSession({ headers: await headers() })
-
-  if (!session?.user) {
-    redirect('/sign-in')
-  }
-
-  const hasAdminAccess =
-    Boolean(session.user.isAdmin) ||
-    session.user.roles?.some(isPrivilegedRole) ||
-    isPrivilegedRole(session.user.role)
-
-  if (!hasAdminAccess) {
-    redirect('/')
-  }
-
-  const stats = await getAdminStats()
-  const users = await getAllUsers()
-
+export default function AdminPage(): JSX.Element {
   return (
-    <AppShell>
-      <header style={{ marginBottom: 32 }}>
-        <h1
-          style={{
-            fontFamily: "var(--ct-font-display)",
-            fontSize: "2em",
-            letterSpacing: "-0.02em",
-            color: "var(--ct-text)",
-            lineHeight: 1.1,
-            marginBottom: 4,
-          }}
-        >
-          Admin Dashboard
-        </h1>
-        <p style={{ color: "var(--ct-text-muted)", fontFamily: "var(--ct-font-ui)", fontSize: "0.93em" }}>
-          Administrer brukere og overvåk plattformen
-        </p>
-      </header>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-        <AdminStats stats={stats} />
-        <UserManagement users={users} />
-      </div>
-    </AppShell>
-  )
+    <CollectiumPageTemplate
+      title="Admin"
+      eyebrow="Kontrollsenter"
+      description="Administrer brukere, sider, brytere, API-ruter, datakvalitet og systemstatus."
+      variant="admin"
+    >
+      <AdminDashboard />
+    </CollectiumPageTemplate>
+  );
 }
