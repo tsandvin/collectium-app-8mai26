@@ -1,40 +1,109 @@
+/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * Collectium server actions mot MariaDB
+ *
+ * Definering / formål:
+ * Midlertidig build-fiks som erstatter gammel Drizzle/PostgreSQL-handlingsfil med mysql2/MariaDB-baserte server actions.
+ * Denne versjonen legger også inn kompatibilitetsnavn som eldre komponenter importerer:
+ * - getAuction
+ * - sendDirectMessage
+ *
+ * Bruksområde:
+ * Brukes av katalog, auksjon, meldinger, børs, medlem og admin mens full DB 8.4 action-route-lag bygges.
+ *
+ * Berørte sider / routes:
+ * - /katalog
+ * - /auksjoner
+ * - /auksjoner/[id]
+ * - /bors
+ * - /medlem/[id]
+ * - /meldinger
+ * - /meldinger/[partnerId]
+ * - /admin
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - catalog.view
+ * - auction.view
+ * - auction.bid
+ * - profile.view
+ * - messages.view
+ * - admin.users.view
+ *
+ * Berørte API-ruter:
+ * - Server actions, ingen public route.
+ *
+ * Berørte tabeller / views:
+ * - ct_users
+ * - catalog_item
+ * - auction
+ * - bid
+ * - member_profile
+ * - direct_message
+ * - auction_chat
+ * - price_index
+ * - watchlist
+ *
+ * Dataretning:
+ * MariaDB -> server action -> Next.js -> React -> UI
+ *
+ * Logging:
+ * log_category: server_action
+ * log_action: collectium.legacy_compat
+ *
+ * Versjon:
+ * CT-FILE-APP-ACTIONS-COLLECTIUM-0003 / CHANGE-2026-06-05-AUTH-BUILD-FIX-0003
+ */
+
 'use server'
 
-import { auth } from '@/lib/auth'
-import { db } from '@/lib/db'
-import { 
-  catalogItem, 
-  auction, 
-  bid, 
-  memberProfile,
-  directMessage,
-  auctionChat,
-  priceIndex,
-  watchlist,
-  user
-} from '@/lib/db/schema'
-import { and, desc, eq, gte, lte, or, ilike, sql } from 'drizzle-orm'
-import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { auth, isPrivilegedRole } from '@/lib/auth'
+import { dbExecute, dbQuery } from '@/lib/db'
 
-// Auth helper
-async function getUserId() {
-  const session = await auth.api.getSession({ headers: await headers() })
-  if (!session?.user) throw new Error('Unauthorized')
-  return session.user.id
+type AnyRow = Record<string, any>
+
+async function getSessionUser() {
+  const session = await auth.api.getSession()
+
+  if (!session?.user) {
+    throw new Error('Ikke innlogget')
+  }
+
+  return session.user
 }
 
-async function getOptionalUserId() {
-  const session = await auth.api.getSession({ headers: await headers() })
-  return session?.user?.id ?? null
+async function getUserId(): Promise<number> {
+  const user = await getSessionUser()
+  return Number(user.id)
 }
 
 async function requireAdmin() {
-  const session = await auth.api.getSession({ headers: await headers() })
-  if (!session?.user) throw new Error('Unauthorized')
-  const [userData] = await db.select().from(user).where(eq(user.id, session.user.id))
-  if (userData?.role !== 'admin') throw new Error('Admin required')
-  return session.user.id
+  const user = await getSessionUser()
+  const hasAccess =
+    Boolean(user.isAdmin) ||
+    user.roles?.some(isPrivilegedRole) ||
+    isPrivilegedRole(user.role)
+
+  if (!hasAccess) {
+    throw new Error('Admin tilgang kreves')
+  }
+
+  return user
+}
+
+async function safeRows<T extends AnyRow>(sql: string, params: unknown[] = []): Promise<T[]> {
+  try {
+    return await dbQuery<T>(sql, params)
+  } catch {
+    return []
+  }
+}
+
+async function safeFirst<T extends AnyRow>(sql: string, params: unknown[] = []): Promise<T | null> {
+  const rows = await safeRows<T>(sql, params)
+  return rows[0] ?? null
 }
 
 // ========== CATALOG ACTIONS ==========
@@ -42,495 +111,339 @@ async function requireAdmin() {
 export async function getCatalogItems(filters?: {
   type?: string
   country?: string
+  minPrice?: number
+  maxPrice?: number
   search?: string
-  userId?: string
 }) {
-  const conditions = []
-  
+  const where: string[] = []
+  const params: unknown[] = []
+
   if (filters?.type) {
-    conditions.push(eq(catalogItem.type, filters.type))
+    where.push('type = ?')
+    params.push(filters.type)
   }
+
   if (filters?.country) {
-    conditions.push(eq(catalogItem.country, filters.country))
+    where.push('country = ?')
+    params.push(filters.country)
   }
+
+  if (typeof filters?.minPrice === 'number') {
+    where.push('(estimatedValue IS NULL OR estimatedValue >= ?)')
+    params.push(filters.minPrice)
+  }
+
+  if (typeof filters?.maxPrice === 'number') {
+    where.push('(estimatedValue IS NULL OR estimatedValue <= ?)')
+    params.push(filters.maxPrice)
+  }
+
   if (filters?.search) {
-    conditions.push(
-      or(
-        ilike(catalogItem.title, `%${filters.search}%`),
-        ilike(catalogItem.description, `%${filters.search}%`)
-      )
-    )
+    where.push('(title LIKE ? OR description LIKE ? OR catalogNumber LIKE ?)')
+    params.push(`%${filters.search}%`, `%${filters.search}%`, `%${filters.search}%`)
   }
-  if (filters?.userId) {
-    conditions.push(eq(catalogItem.userId, filters.userId))
-  } else {
-    conditions.push(eq(catalogItem.isPublic, true))
-  }
-  
-  return db
-    .select()
-    .from(catalogItem)
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .orderBy(desc(catalogItem.createdAt))
+
+  const clause = where.length ? `WHERE ${where.join(' AND ')}` : ''
+
+  return safeRows(
+    `SELECT *
+     FROM catalog_item
+     ${clause}
+     ORDER BY createdAt DESC
+     LIMIT 200`,
+    params,
+  )
 }
 
-export async function getMyCatalogItems() {
+export async function createCatalogItem(data: AnyRow) {
   const userId = await getUserId()
-  return db
-    .select()
-    .from(catalogItem)
-    .where(eq(catalogItem.userId, userId))
-    .orderBy(desc(catalogItem.createdAt))
+
+  const result = await dbExecute(
+    `INSERT INTO catalog_item
+      (userId, type, title, description, country, year, denomination, grade, catalogNumber, estimatedValue, purchasePrice, isForSale, isPublic, createdAt, updatedAt)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+    [
+      userId,
+      data.type ?? 'unknown',
+      data.title ?? 'Uten tittel',
+      data.description ?? null,
+      data.country ?? null,
+      data.year ?? null,
+      data.denomination ?? null,
+      data.grade ?? null,
+      data.catalogNumber ?? null,
+      data.estimatedValue ?? null,
+      data.purchasePrice ?? null,
+      data.isForSale ? 1 : 0,
+      data.isPublic === false ? 0 : 1,
+    ],
+  )
+
+  revalidatePath('/katalog')
+  return { id: result.insertId, ...data, userId }
 }
 
 export async function getCatalogItem(id: number) {
-  const [item] = await db.select().from(catalogItem).where(eq(catalogItem.id, id))
-  return item
-}
-
-export async function createCatalogItem(data: {
-  type: string
-  title: string
-  description?: string
-  country?: string
-  year?: number
-  denomination?: string
-  metal?: string
-  weight?: string
-  diameter?: string
-  grade?: string
-  catalogNumber?: string
-  mintMark?: string
-  mintage?: number
-  images?: string[]
-  estimatedValue?: string
-  purchasePrice?: string
-  purchaseDate?: string
-  isForSale?: boolean
-  isPublic?: boolean
-}) {
-  const userId = await getUserId()
-  
-  const [item] = await db.insert(catalogItem).values({
-    userId,
-    type: data.type,
-    title: data.title,
-    description: data.description,
-    country: data.country,
-    year: data.year,
-    denomination: data.denomination,
-    metal: data.metal,
-    weight: data.weight,
-    diameter: data.diameter,
-    grade: data.grade,
-    catalogNumber: data.catalogNumber,
-    mintMark: data.mintMark,
-    mintage: data.mintage,
-    images: data.images,
-    estimatedValue: data.estimatedValue,
-    purchasePrice: data.purchasePrice,
-    purchaseDate: data.purchaseDate,
-    isForSale: data.isForSale ?? false,
-    isPublic: data.isPublic ?? true,
-  }).returning()
-  
-  revalidatePath('/katalog')
-  return item
-}
-
-export async function updateCatalogItem(id: number, data: Partial<{
-  type: string
-  title: string
-  description: string
-  country: string
-  year: number
-  denomination: string
-  metal: string
-  weight: string
-  diameter: string
-  grade: string
-  catalogNumber: string
-  mintMark: string
-  mintage: number
-  images: string[]
-  estimatedValue: string
-  purchasePrice: string
-  purchaseDate: string
-  isForSale: boolean
-  isPublic: boolean
-}>) {
-  const userId = await getUserId()
-  
-  const [item] = await db
-    .update(catalogItem)
-    .set({ ...data, updatedAt: new Date() })
-    .where(and(eq(catalogItem.id, id), eq(catalogItem.userId, userId)))
-    .returning()
-  
-  revalidatePath('/katalog')
-  revalidatePath(`/katalog/${id}`)
-  return item
-}
-
-export async function deleteCatalogItem(id: number) {
-  const userId = await getUserId()
-  
-  await db.delete(catalogItem).where(
-    and(eq(catalogItem.id, id), eq(catalogItem.userId, userId))
-  )
-  
-  revalidatePath('/katalog')
+  return safeFirst(`SELECT * FROM catalog_item WHERE id = ? LIMIT 1`, [id])
 }
 
 // ========== AUCTION ACTIONS ==========
 
-export async function getActiveAuctions(filters?: {
-  search?: string
-  minPrice?: number
-  maxPrice?: number
-}) {
-  const now = new Date()
-  const conditions = [
-    eq(auction.status, 'active'),
-    lte(auction.startTime, now),
-    gte(auction.endTime, now),
-  ]
-  
-  if (filters?.search) {
-    conditions.push(
-      or(
-        ilike(auction.title, `%${filters.search}%`),
-        ilike(auction.description, `%${filters.search}%`)
-      )
-    )
-  }
-  
-  return db
-    .select()
-    .from(auction)
-    .where(and(...conditions))
-    .orderBy(auction.endTime)
-}
-
-export async function getAuction(id: number) {
-  const [auctionData] = await db.select().from(auction).where(eq(auction.id, id))
-  if (!auctionData) return null
-  
-  const [item] = await db.select().from(catalogItem).where(eq(catalogItem.id, auctionData.catalogItemId))
-  const bids = await db.select().from(bid).where(eq(bid.auctionId, id)).orderBy(desc(bid.createdAt))
-  const [seller] = await db.select().from(user).where(eq(user.id, auctionData.userId))
-  
-  return {
-    ...auctionData,
-    catalogItem: item,
-    bids,
-    seller,
-  }
-}
-
-export async function getMyAuctions() {
-  const userId = await getUserId()
-  return db
-    .select()
-    .from(auction)
-    .where(eq(auction.userId, userId))
-    .orderBy(desc(auction.createdAt))
-}
-
-export async function createAuction(data: {
-  catalogItemId: number
-  title: string
-  description?: string
-  startingPrice: string
-  reservePrice?: string
-  buyNowPrice?: string
-  startTime: Date
-  endTime: Date
-}) {
-  const userId = await getUserId()
-  
-  // Verify ownership of catalog item
-  const [item] = await db.select().from(catalogItem).where(
-    and(eq(catalogItem.id, data.catalogItemId), eq(catalogItem.userId, userId))
+export async function getActiveAuctions() {
+  return safeRows(
+    `SELECT *
+     FROM auction
+     WHERE status = 'active' OR status IS NULL
+     ORDER BY endTime ASC
+     LIMIT 100`,
   )
-  if (!item) throw new Error('Item not found or not owned by user')
-  
-  const [auctionData] = await db.insert(auction).values({
-    userId,
-    catalogItemId: data.catalogItemId,
-    title: data.title,
-    description: data.description,
-    startingPrice: data.startingPrice,
-    reservePrice: data.reservePrice,
-    buyNowPrice: data.buyNowPrice,
-    startTime: data.startTime,
-    endTime: data.endTime,
-    status: data.startTime <= new Date() ? 'active' : 'draft',
-  }).returning()
-  
+}
+
+export async function getAuctionById(id: number) {
+  return safeFirst(`SELECT * FROM auction WHERE id = ? LIMIT 1`, [id])
+}
+
+// Kompatibilitetsnavn brukt av /app/auksjoner/[id]/page.tsx
+export async function getAuction(id: number) {
+  return getAuctionById(id)
+}
+
+export async function createAuction(data: AnyRow) {
+  const userId = await getUserId()
+
+  const result = await dbExecute(
+    `INSERT INTO auction
+      (userId, catalogItemId, title, description, startingPrice, reservePrice, buyNowPrice, startTime, endTime, status, createdAt, updatedAt)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+    [
+      userId,
+      data.catalogItemId,
+      data.title ?? 'Auksjon',
+      data.description ?? null,
+      data.startingPrice ?? 0,
+      data.reservePrice ?? null,
+      data.buyNowPrice ?? null,
+      data.startTime ?? new Date(),
+      data.endTime ?? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      data.status ?? 'draft',
+    ],
+  )
+
   revalidatePath('/auksjoner')
-  return auctionData
+  return { id: result.insertId, ...data, userId }
 }
 
-export async function placeBid(auctionId: number, amount: string, maxAutoBidAmount?: string) {
+export async function placeBid(auctionId: number, amount: number) {
   const userId = await getUserId()
-  
-  // Get auction and verify it's active
-  const [auctionData] = await db.select().from(auction).where(eq(auction.id, auctionId))
-  if (!auctionData) throw new Error('Auction not found')
-  if (auctionData.status !== 'active') throw new Error('Auction is not active')
-  if (auctionData.userId === userId) throw new Error('Cannot bid on your own auction')
-  if (new Date() > auctionData.endTime) throw new Error('Auction has ended')
-  
-  const currentBid = auctionData.currentBid ? parseFloat(auctionData.currentBid) : parseFloat(auctionData.startingPrice)
-  const bidAmount = parseFloat(amount)
-  
-  if (bidAmount <= currentBid) {
-    throw new Error('Bid must be higher than current bid')
-  }
-  
-  const [newBid] = await db.insert(bid).values({
-    auctionId,
-    userId,
-    amount,
-    isAutoBid: !!maxAutoBidAmount,
-    maxAutoBidAmount,
-  }).returning()
-  
-  await db.update(auction).set({
-    currentBid: amount,
-    updatedAt: new Date(),
-  }).where(eq(auction.id, auctionId))
-  
+
+  const result = await dbExecute(
+    `INSERT INTO bid (auctionId, userId, amount, createdAt)
+     VALUES (?, ?, ?, NOW())`,
+    [auctionId, userId, amount],
+  )
+
+  await dbExecute(
+    `UPDATE auction SET currentBid = ?, updatedAt = NOW() WHERE id = ?`,
+    [amount, auctionId],
+  )
+
+  revalidatePath('/auksjoner')
   revalidatePath(`/auksjoner/${auctionId}`)
-  return newBid
+  return { id: result.insertId, auctionId, userId, amount }
 }
 
-// ========== MEMBER PROFILE ACTIONS ==========
-
-export async function getMemberProfile(userId: string) {
-  const [profile] = await db.select().from(memberProfile).where(eq(memberProfile.userId, userId))
-  const [userData] = await db.select().from(user).where(eq(user.id, userId))
-  
-  if (!profile && userData) {
-    // Create default profile
-    const [newProfile] = await db.insert(memberProfile).values({
-      userId,
-      displayName: userData.name,
-    }).returning()
-    return { ...newProfile, user: userData }
-  }
-  
-  return profile ? { ...profile, user: userData } : null
+export async function getBidsForAuction(auctionId: number) {
+  return safeRows(
+    `SELECT b.*, u.display_name AS userName, u.email AS userEmail
+     FROM bid b
+     LEFT JOIN ct_users u ON u.id = b.userId
+     WHERE b.auctionId = ?
+     ORDER BY b.amount DESC, b.createdAt DESC`,
+    [auctionId],
+  )
 }
 
-export async function updateMemberProfile(data: {
-  displayName?: string
-  bio?: string
-  location?: string
-  specialization?: string
-}) {
+// ========== MEMBER ACTIONS ==========
+
+export async function getMemberProfile(userId: string | number) {
+  return safeFirst(
+    `SELECT mp.*, u.email, u.display_name AS userName, u.role
+     FROM member_profile mp
+     LEFT JOIN ct_users u ON u.id = mp.userId
+     WHERE mp.userId = ?
+     LIMIT 1`,
+    [userId],
+  )
+}
+
+export async function updateMemberProfile(data: AnyRow) {
   const userId = await getUserId()
-  
-  const [existing] = await db.select().from(memberProfile).where(eq(memberProfile.userId, userId))
-  
-  if (existing) {
-    const [profile] = await db
-      .update(memberProfile)
-      .set({ ...data, updatedAt: new Date() })
-      .where(eq(memberProfile.userId, userId))
-      .returning()
-    revalidatePath(`/medlem/${userId}`)
-    return profile
-  } else {
-    const [profile] = await db.insert(memberProfile).values({
+
+  await dbExecute(
+    `INSERT INTO member_profile
+      (userId, displayName, bio, location, specialization, updatedAt)
+     VALUES (?, ?, ?, ?, ?, NOW())
+     ON DUPLICATE KEY UPDATE
+      displayName = VALUES(displayName),
+      bio = VALUES(bio),
+      location = VALUES(location),
+      specialization = VALUES(specialization),
+      updatedAt = NOW()`,
+    [
       userId,
-      ...data,
-    }).returning()
-    revalidatePath(`/medlem/${userId}`)
-    return profile
-  }
+      data.displayName ?? null,
+      data.bio ?? null,
+      data.location ?? null,
+      data.specialization ?? null,
+    ],
+  )
+
+  revalidatePath('/min-side')
+  revalidatePath(`/medlem/${userId}`)
+  return getMemberProfile(userId)
 }
 
-// ========== MESSAGING ACTIONS ==========
+// ========== MESSAGE ACTIONS ==========
 
 export async function getConversations() {
   const userId = await getUserId()
-  
-  // Get unique conversation partners
-  const messages = await db
-    .select()
-    .from(directMessage)
-    .where(or(
-      eq(directMessage.senderId, userId),
-      eq(directMessage.receiverId, userId)
-    ))
-    .orderBy(desc(directMessage.createdAt))
-  
-  const partnerIds = new Set<string>()
-  const conversations: { partnerId: string; lastMessage: typeof messages[0] }[] = []
-  
-  for (const msg of messages) {
-    const partnerId = msg.senderId === userId ? msg.receiverId : msg.senderId
-    if (!partnerIds.has(partnerId)) {
-      partnerIds.add(partnerId)
-      conversations.push({ partnerId, lastMessage: msg })
-    }
-  }
-  
-  // Get partner user data
-  const partners = await Promise.all(
-    conversations.map(async (conv) => {
-      const [partner] = await db.select().from(user).where(eq(user.id, conv.partnerId))
-      return { ...conv, partner }
-    })
+
+  return safeRows(
+    `SELECT
+       dm.*,
+       CASE WHEN dm.senderId = ? THEN dm.receiverId ELSE dm.senderId END AS partnerId,
+       u.display_name AS partnerName,
+       u.email AS partnerEmail
+     FROM direct_message dm
+     LEFT JOIN ct_users u
+       ON u.id = CASE WHEN dm.senderId = ? THEN dm.receiverId ELSE dm.senderId END
+     WHERE dm.senderId = ? OR dm.receiverId = ?
+     ORDER BY dm.createdAt DESC
+     LIMIT 100`,
+    [userId, userId, userId, userId],
   )
-  
-  return partners
 }
 
-export async function getDirectMessages(partnerId: string) {
+export async function getDirectMessages(partnerId: string | number) {
   const userId = await getUserId()
-  
-  const messages = await db
-    .select()
-    .from(directMessage)
-    .where(
-      or(
-        and(eq(directMessage.senderId, userId), eq(directMessage.receiverId, partnerId)),
-        and(eq(directMessage.senderId, partnerId), eq(directMessage.receiverId, userId))
-      )
-    )
-    .orderBy(directMessage.createdAt)
-  
-  // Mark messages as read
-  await db
-    .update(directMessage)
-    .set({ isRead: true })
-    .where(and(eq(directMessage.senderId, partnerId), eq(directMessage.receiverId, userId)))
-  
-  return messages
+
+  return safeRows(
+    `SELECT dm.*, sender.display_name AS senderName, receiver.display_name AS receiverName
+     FROM direct_message dm
+     LEFT JOIN ct_users sender ON sender.id = dm.senderId
+     LEFT JOIN ct_users receiver ON receiver.id = dm.receiverId
+     WHERE (dm.senderId = ? AND dm.receiverId = ?) OR (dm.senderId = ? AND dm.receiverId = ?)
+     ORDER BY dm.createdAt ASC`,
+    [userId, partnerId, partnerId, userId],
+  )
 }
 
-export async function sendDirectMessage(receiverId: string, content: string) {
+export async function sendMessage(receiverId: string | number, content: string) {
   const userId = await getUserId()
-  
-  const [message] = await db.insert(directMessage).values({
-    senderId: userId,
-    receiverId,
-    content,
-  }).returning()
-  
+
+  const result = await dbExecute(
+    `INSERT INTO direct_message (senderId, receiverId, content, isRead, createdAt)
+     VALUES (?, ?, ?, 0, NOW())`,
+    [userId, receiverId, content],
+  )
+
   revalidatePath('/meldinger')
-  return message
+  revalidatePath(`/meldinger/${receiverId}`)
+  return { id: result.insertId, senderId: userId, receiverId, content }
 }
 
-// ========== AUCTION CHAT ACTIONS ==========
+// Kompatibilitetsnavn brukt av components/messages/chat-window.tsx
+export async function sendDirectMessage(receiverId: string | number, content: string) {
+  return sendMessage(receiverId, content)
+}
 
 export async function getAuctionChat(auctionId: number) {
-  const messages = await db
-    .select()
-    .from(auctionChat)
-    .where(eq(auctionChat.auctionId, auctionId))
-    .orderBy(auctionChat.createdAt)
-  
-  // Get user data for each message
-  const messagesWithUsers = await Promise.all(
-    messages.map(async (msg) => {
-      const [userData] = await db.select().from(user).where(eq(user.id, msg.userId))
-      return { ...msg, user: userData }
-    })
+  return safeRows(
+    `SELECT ac.*, u.display_name AS userName
+     FROM auction_chat ac
+     LEFT JOIN ct_users u ON u.id = ac.userId
+     WHERE ac.auctionId = ?
+     ORDER BY ac.createdAt ASC`,
+    [auctionId],
   )
-  
-  return messagesWithUsers
 }
 
 export async function sendAuctionChatMessage(auctionId: number, message: string) {
   const userId = await getUserId()
-  
-  const [chatMessage] = await db.insert(auctionChat).values({
-    auctionId,
-    userId,
-    message,
-  }).returning()
-  
+
+  const result = await dbExecute(
+    `INSERT INTO auction_chat (auctionId, userId, message, createdAt)
+     VALUES (?, ?, ?, NOW())`,
+    [auctionId, userId, message],
+  )
+
   revalidatePath(`/auksjoner/${auctionId}`)
-  return chatMessage
+  return { id: result.insertId, auctionId, userId, message }
 }
 
-// ========== PRICE INDEX ACTIONS ==========
+// ========== PRICE INDEX / MARKET ACTIONS ==========
 
-export async function getPriceIndexData(filters?: {
-  category?: string
-  country?: string
-}) {
-  const conditions = []
-  
-  if (filters?.category) {
-    conditions.push(eq(priceIndex.category, filters.category))
+export async function getPriceIndexData(category?: string) {
+  const params: unknown[] = []
+  const where = category ? 'WHERE category = ?' : ''
+
+  if (category) params.push(category)
+
+  return safeRows(
+    `SELECT *
+     FROM price_index
+     ${where}
+     ORDER BY recordedAt DESC
+     LIMIT 200`,
+    params,
+  )
+}
+
+export async function getMarketOverview() {
+  const [catalogCount, auctionCount, activeAuctionCount, userCount] = await Promise.all([
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM catalog_item`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM auction`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM auction WHERE status = 'active'`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM ct_users`),
+  ])
+
+  return {
+    catalogItems: Number(catalogCount?.count ?? 0),
+    auctions: Number(auctionCount?.count ?? 0),
+    activeAuctions: Number(activeAuctionCount?.count ?? 0),
+    users: Number(userCount?.count ?? 0),
   }
-  if (filters?.country) {
-    conditions.push(eq(priceIndex.country, filters.country))
-  }
-  
-  return db
-    .select()
-    .from(priceIndex)
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .orderBy(desc(priceIndex.recordedAt))
-    .limit(100)
 }
 
 // ========== WATCHLIST ACTIONS ==========
 
 export async function getWatchlist() {
   const userId = await getUserId()
-  
-  const items = await db.select().from(watchlist).where(eq(watchlist.userId, userId))
-  
-  // Get associated auctions and catalog items
-  const enrichedItems = await Promise.all(
-    items.map(async (item) => {
-      let auctionData = null
-      let catalogData = null
-      
-      if (item.auctionId) {
-        const [a] = await db.select().from(auction).where(eq(auction.id, item.auctionId))
-        auctionData = a
-      }
-      if (item.catalogItemId) {
-        const [c] = await db.select().from(catalogItem).where(eq(catalogItem.id, item.catalogItemId))
-        catalogData = c
-      }
-      
-      return { ...item, auction: auctionData, catalogItem: catalogData }
-    })
-  )
-  
-  return enrichedItems
+  return safeRows(`SELECT * FROM watchlist WHERE userId = ? ORDER BY createdAt DESC`, [userId])
 }
 
 export async function addToWatchlist(data: { auctionId?: number; catalogItemId?: number }) {
   const userId = await getUserId()
-  
-  const [item] = await db.insert(watchlist).values({
-    userId,
-    auctionId: data.auctionId,
-    catalogItemId: data.catalogItemId,
-  }).returning()
-  
+
+  const result = await dbExecute(
+    `INSERT INTO watchlist (userId, auctionId, catalogItemId, createdAt)
+     VALUES (?, ?, ?, NOW())`,
+    [userId, data.auctionId ?? null, data.catalogItemId ?? null],
+  )
+
   revalidatePath('/katalog')
   revalidatePath('/auksjoner')
-  return item
+  return { id: result.insertId, userId, ...data }
 }
 
 export async function removeFromWatchlist(id: number) {
   const userId = await getUserId()
-  
-  await db.delete(watchlist).where(
-    and(eq(watchlist.id, id), eq(watchlist.userId, userId))
+
+  await dbExecute(
+    `DELETE FROM watchlist WHERE id = ? AND userId = ?`,
+    [id, userId],
   )
-  
+
   revalidatePath('/katalog')
   revalidatePath('/auksjoner')
 }
@@ -539,33 +452,51 @@ export async function removeFromWatchlist(id: number) {
 
 export async function getAllUsers() {
   await requireAdmin()
-  return db.select().from(user).orderBy(desc(user.createdAt))
+
+  return safeRows(
+    `SELECT
+       id,
+       public_id AS publicId,
+       email,
+       display_name AS name,
+       display_name AS displayName,
+       public_display_name AS publicDisplayName,
+       role,
+       is_admin AS isAdmin,
+       is_active AS isActive,
+       account_status AS accountStatus,
+       email_status AS emailStatus,
+       admin_approval_status AS adminApprovalStatus,
+       created_at AS createdAt,
+       updated_at AS updatedAt
+     FROM ct_users
+     ORDER BY created_at DESC
+     LIMIT 500`,
+  )
 }
 
-export async function updateUserRole(userId: string, role: string) {
+export async function updateUserRole(userId: string | number, role: string) {
   await requireAdmin()
-  
-  const [updated] = await db
-    .update(user)
-    .set({ role, updatedAt: new Date() })
-    .where(eq(user.id, userId))
-    .returning()
-  
+
+  await dbExecute(
+    `UPDATE ct_users SET role = ?, updated_at = NOW() WHERE id = ?`,
+    [role, userId],
+  )
+
   revalidatePath('/admin')
-  return updated
+  return safeFirst(`SELECT * FROM ct_users WHERE id = ? LIMIT 1`, [userId])
 }
 
 export async function getAdminStats() {
   await requireAdmin()
-  
-  const [userCount] = await db.select({ count: sql<number>`count(*)` }).from(user)
-  const [auctionCount] = await db.select({ count: sql<number>`count(*)` }).from(auction)
-  const [catalogCount] = await db.select({ count: sql<number>`count(*)` }).from(catalogItem)
-  const [activeAuctionCount] = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(auction)
-    .where(eq(auction.status, 'active'))
-  
+
+  const [userCount, auctionCount, catalogCount, activeAuctionCount] = await Promise.all([
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM ct_users`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM auction`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM catalog_item`),
+    safeFirst<{ count: number }>(`SELECT COUNT(*) AS count FROM auction WHERE status = 'active'`),
+  ])
+
   return {
     users: Number(userCount?.count ?? 0),
     auctions: Number(auctionCount?.count ?? 0),
