@@ -1,45 +1,68 @@
-﻿/**
+﻿"use client";
+
+/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Collectium AppShell
+ * CollectiumAppShell
  *
  * Definering / formål:
- * One global Collectium shell for topbar, sidebar, mobile behavior and page frame.
+ * Globalt Collectium-skall for Next.js appen.
+ * Eier toppbar, eventuell sidemeny, ruteavhengig public/app-layout og PageFrame.
  *
  * Bruksområde:
- * Used by app/layout.tsx. Individual pages must not create shell/topbar/sidebar.
+ * Brukes av app/layout.tsx rundt alle routes.
  *
- * Berørte sider / routes:
- * - All routes
- *
- * Berørte DB-brytere / feature_keys:
- * - local.template.app_shell
- *
- * Dataretning:
- * Template/layout only. Data remains API/MariaDB controlled.
- *
- * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * Regler:
+ * - /startside, /landingsside og / skal ikke ha sidemeny.
+ * - App-sider som /katalog, /min-side, /auksjoner, /meldinger, /admin skal ha sidemeny.
+ * - Ingen enkeltside skal lage egen AppShell, toppbar eller sidemeny.
  */
 
 import type { ReactNode } from "react";
-import { CollectiumPageFrame } from "./CollectiumPageFrame";
-import { CollectiumSidebar } from "./CollectiumSidebar";
+import { usePathname } from "next/navigation";
 import { CollectiumTopbar } from "./CollectiumTopbar";
+import { CollectiumSidebar } from "./CollectiumSidebar";
+import { CollectiumPageFrame } from "./CollectiumPageFrame";
 
-export type CollectiumAppShellProps = {
-  readonly children: ReactNode;
+type CollectiumAppShellProps = {
+  children: ReactNode;
 };
 
+const PUBLIC_NO_SIDEBAR_ROUTES = new Set<string>([
+  "/",
+  "/startside",
+  "/landingsside",
+]);
+
 export function CollectiumAppShell({ children }: CollectiumAppShellProps): JSX.Element {
+  const pathname = usePathname() || "/";
+  const isPublicNoSidebar = PUBLIC_NO_SIDEBAR_ROUTES.has(pathname);
+
   return (
-    <div className="ct-app-shell">
+    <div
+      className={
+        isPublicNoSidebar
+          ? "ct-shell ct-shell--public"
+          : "ct-shell ct-shell--app"
+      }
+      data-route-mode={isPublicNoSidebar ? "public" : "app"}
+    >
       <CollectiumTopbar />
-      <CollectiumSidebar />
-      <main className="ct-main" id="main-content">
-        <CollectiumPageFrame>{children}</CollectiumPageFrame>
-      </main>
+
+      <div className="ct-shell__body">
+        {!isPublicNoSidebar ? <CollectiumSidebar /> : null}
+
+        <main className="ct-shell__main" id="main-content">
+          {isPublicNoSidebar ? (
+            children
+          ) : (
+            <CollectiumPageFrame>{children}</CollectiumPageFrame>
+          )}
+        </main>
+      </div>
     </div>
   );
 }
+
+export default CollectiumAppShell;

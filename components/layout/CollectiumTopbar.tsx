@@ -1,78 +1,101 @@
-﻿/**
+﻿"use client";
+
+/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Collectium Topbar
+ * CollectiumTopbar
  *
  * Definering / formål:
- * Global topbar for Collectium pages. Individual pages must not create their own topbar.
+ * Global toppbar for Collectium. Skal brukes på både public og app-routes.
  *
  * Bruksområde:
- * Used by CollectiumAppShell.
+ * Eies kun av CollectiumAppShell.
  *
- * Berørte sider / routes:
- * - All routes under app/layout.tsx
- *
- * Berørte DB-brytere / feature_keys:
- * - local.template.navigation
- *
- * Dataretning:
- * Template/layout only.
- *
- * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * Innhold:
+ * Logo, hovedlenker, søk, Design-knapp, login/min side og gratis start.
  */
 
 import Link from "next/link";
+import { useState } from "react";
 
-export type CollectiumTopbarLink = {
-  readonly href: string;
-  readonly label: string;
+type TopbarLink = {
+  href: string;
+  label: string;
 };
 
-const primaryLinks: readonly CollectiumTopbarLink[] = [
+const primaryLinks: readonly TopbarLink[] = [
   { href: "/katalog", label: "Katalog" },
   { href: "/medlemskap", label: "Medlemskap" },
-  { href: "/forhandlere", label: "Forhandlere" },
+  { href: "/forhandler", label: "Forhandlere" },
   { href: "/auksjoner", label: "Auksjon" },
 ];
 
 export function CollectiumTopbar(): JSX.Element {
+  const [designOpen, setDesignOpen] = useState(false);
+
   return (
-    <header className="ct-topbar" aria-label="Collectium toppmeny">
-      <Link href="/" className="ct-topbar__brand" aria-label="Collectium startside">
-        <span className="ct-topbar__mark">C</span>
-        <span>Collectium</span>
-      </Link>
+    <header className="ct-topbar">
+      <div className="ct-topbar__inner">
+        <Link className="ct-topbar__brand" href="/startside" aria-label="Collectium startside">
+          <span className="ct-topbar__mark">C</span>
+          <span>Collectium</span>
+        </Link>
 
-      <nav className="ct-topbar__nav" aria-label="Hovednavigasjon">
-        {primaryLinks.map((link: CollectiumTopbarLink) => (
-          <Link key={link.href} href={link.href}>
-            {link.label}
+        <nav className="ct-topbar__nav" aria-label="Hovedmeny">
+          {primaryLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="ct-topbar__actions">
+          <Link className="ct-topbar__link" href="/katalog">
+            Søk
           </Link>
-        ))}
-      </nav>
 
-      <div className="ct-topbar__actions" aria-label="Brukerhandlinger">
-        <Link className="ct-topbar__action" href="/sok">
-          Søk
-        </Link>
-        <Link className="ct-topbar__action" href="/login">
-          Logg inn
-        </Link>
-        <Link className="ct-topbar__primary" href="/registrering">
-          Kom i gang gratis
-        </Link>
+          <button
+            className="ct-topbar__button"
+            type="button"
+            aria-expanded={designOpen}
+            aria-controls="ct-design-panel"
+            onClick={() => setDesignOpen((value) => !value)}
+          >
+            Design
+          </button>
+
+          <Link className="ct-topbar__link" href="/login">
+            Logg inn
+          </Link>
+
+          <Link className="ct-topbar__link" href="/min-side">
+            Min side
+          </Link>
+
+          <Link className="ct-topbar__primary" href="/sign-up">
+            Kom i gang gratis
+          </Link>
+        </div>
       </div>
 
-      <div className="ct-mobile-menu" aria-label="Mobilhandlinger">
-        <Link className="ct-topbar__action" href="/sok">
-          Søk
-        </Link>
-        <Link className="ct-topbar__action" href="/login">
-          Meny
-        </Link>
-      </div>
+      {designOpen ? (
+        <div className="ct-design-panel" id="ct-design-panel">
+          <div>
+            <p className="ct-design-panel__eyebrow">Design</p>
+            <h2>Collectium Signature Light</h2>
+            <p>
+              Global template styrer skall, toppbar, sidemeny, rammer og responsivitet.
+              Sideinnhold skal ikke lage eget skall.
+            </p>
+          </div>
+          <button type="button" onClick={() => setDesignOpen(false)}>
+            Lukk
+          </button>
+        </div>
+      ) : null}
     </header>
   );
 }
+
+export default CollectiumTopbar;

@@ -2,33 +2,21 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Collectium PageFrame
+ * CollectiumPageFrame
  *
  * Definering / formål:
- * Global page frame. All page content must render inside this frame.
- *
- * Bruksområde:
- * Used by CollectiumAppShell.
- *
- * Berørte sider / routes:
- * - All routes under app/layout.tsx
- *
- * Berørte DB-brytere / feature_keys:
- * - local.template.page_frame
- *
- * Dataretning:
- * Template/layout only.
- *
- * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * App-sideinnramming for interne Collectium-sider.
+ * Public routes som /startside bruker ikke PageFrame.
  */
 
 import type { ReactNode } from "react";
 
-export type CollectiumPageFrameProps = {
-  readonly children: ReactNode;
+type CollectiumPageFrameProps = {
+  children: ReactNode;
 };
 
 export function CollectiumPageFrame({ children }: CollectiumPageFrameProps): JSX.Element {
   return <div className="ct-page-frame">{children}</div>;
 }
+
+export default CollectiumPageFrame;
