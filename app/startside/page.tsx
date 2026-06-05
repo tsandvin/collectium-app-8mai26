@@ -24,5 +24,9 @@
 import CollectiumStartsideV6 from "@/components/collectium/startside/CollectiumStartsideV6";
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV6 />;
+  return (
+    <div className="ct-public-startside">
+      <CollectiumStartsideV6 />
+    </div>
+  );
 }

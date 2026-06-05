@@ -429,3 +429,43 @@ button { font: inherit; }
   }
 }
 
+
+/* ============================================================
+   COLLECTIUM STARTSIDE PUBLIC WIDTH FIX
+   Startside skal være public/landing, ikke dashboard.
+   Den skal ha luft på sidene og maks ca. 80% bredde på innhold.
+   ============================================================ */
+
+.ct-public-startside {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.ct-public-startside > * {
+  width: min(80vw, 1500px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ct-public-startside section,
+.ct-public-startside [class*="section"],
+.ct-public-startside [class*="hero"] {
+  max-width: 100%;
+}
+
+.ct-public-startside h1 {
+  max-width: 760px;
+}
+
+@media (max-width: 1180px) {
+  .ct-public-startside > * {
+    width: min(92vw, 980px);
+  }
+}
+
+@media (max-width: 720px) {
+  .ct-public-startside > * {
+    width: min(92vw, 520px);
+  }
+}
+
