@@ -1,27 +1,66 @@
+/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * Adminside med Collectium MariaDB-auth
+ *
+ * Definering / formål:
+ * Erstatter gammel Drizzle/Better Auth-adminsjekk med session fra lib/auth og adminstatistikk fra app/actions/collectium.
+ *
+ * Bruksområde:
+ * Server Component for /admin.
+ *
+ * Berørte sider / routes:
+ * - /admin
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - admin.dashboard.view
+ * - admin.users.view
+ *
+ * Berørte API-ruter:
+ * - Intern server action: getAdminStats
+ * - Intern server action: getAllUsers
+ *
+ * Berørte tabeller / views:
+ * - ct_users
+ * - ct_user_roles
+ * - ct_roles
+ *
+ * Dataretning:
+ * MariaDB -> server action -> Next.js -> React -> UI
+ *
+ * Logging:
+ * log_category: admin
+ * log_action: dashboard.view
+ *
+ * Versjon:
+ * CT-FILE-APP-ADMIN-PAGE-0002 / CHANGE-2026-06-05-AUTH-BUILD-FIX-0002
+ */
+
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { auth } from '@/lib/auth'
+import { auth, isPrivilegedRole } from '@/lib/auth'
 import AppShell from '@/app/components/AppShell'
 import { AdminStats } from '@/components/admin/admin-stats'
 import { UserManagement } from '@/components/admin/user-management'
 import { getAdminStats, getAllUsers } from '@/app/actions/collectium'
-import { db } from '@/lib/db'
-import { user } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({ headers: await headers() })
-  
+
   if (!session?.user) {
     redirect('/sign-in')
   }
-  
-  // Check admin role
-  const [userData] = await db.select().from(user).where(eq(user.id, session.user.id))
-  if (userData?.role !== 'admin') {
+
+  const hasAdminAccess =
+    Boolean(session.user.isAdmin) ||
+    session.user.roles?.some(isPrivilegedRole) ||
+    isPrivilegedRole(session.user.role)
+
+  if (!hasAdminAccess) {
     redirect('/')
   }
-  
+
   const stats = await getAdminStats()
   const users = await getAllUsers()
 
@@ -41,7 +80,7 @@ export default async function AdminPage() {
           Admin Dashboard
         </h1>
         <p style={{ color: "var(--ct-text-muted)", fontFamily: "var(--ct-font-ui)", fontSize: "0.93em" }}>
-          Administrer brukere og overvak plattformen
+          Administrer brukere og overvåk plattformen
         </p>
       </header>
 

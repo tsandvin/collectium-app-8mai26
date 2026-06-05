@@ -4,30 +4,31 @@
  * Overskrift:
  * Collectium server-auth mot MariaDB
  *
- * Definering / formal:
- * Erstatter Better Auth med kontrollert Collectium-auth basert paa ct_users, ct_user_roles, ct_roles og ct_user_sessions.
+ * Definering / formål:
+ * Erstatter Better Auth med kontrollert Collectium-auth basert på ct_users, ct_user_roles, ct_roles og ct_user_sessions.
+ * Inneholder også en midlertidig kompatibilitets-wrapper `auth.api.getSession(...)` fordi eldre sider fortsatt importerer `auth`.
  *
- * Bruksomrade:
- * Brukes av API-ruter og serverkode for aa lese session, validere bruker og hente roller.
+ * Bruksområde:
+ * Brukes av API-ruter og serverkode for å lese session, validere bruker og hente roller.
  *
- * Berorte sider / routes:
+ * Berørte sider / routes:
  * - /login
  * - /min-side
  * - /admin
  *
- * Berorte DB-brytere / feature_keys:
+ * Berørte DB-brytere / feature_keys:
  * - auth.login
  * - auth.logout
  * - auth.session
  * - auth.register
  *
- * Berorte API-ruter:
+ * Berørte API-ruter:
  * - POST /api/auth/login
  * - POST /api/auth/logout
  * - GET /api/auth/session
  * - POST /api/auth/register
  *
- * Berorte tabeller / views:
+ * Berørte tabeller / views:
  * - ct_users
  * - ct_user_sessions
  * - ct_user_roles
@@ -41,7 +42,7 @@
  * log_action: session
  *
  * Versjon:
- * CT-FILE-LIB-AUTH-MARIADB-0001 / CHANGE-2026-06-05-AUTH-MARIADB-0001
+ * CT-FILE-LIB-AUTH-MARIADB-0002 / CHANGE-2026-06-05-AUTH-BUILD-FIX-0002
  */
 
 import "server-only";
@@ -175,17 +176,14 @@ async function findSessionUserByToken(token: string): Promise<CollectiumSessionU
 
   const sessionLookups = [
     {
-      title: "token_hash",
       sql: `SELECT user_id FROM ct_user_sessions WHERE token_hash = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
       params: [hashed],
     },
     {
-      title: "session_token_hash",
       sql: `SELECT user_id FROM ct_user_sessions WHERE session_token_hash = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
       params: [hashed],
     },
     {
-      title: "session_token_plain",
       sql: `SELECT user_id FROM ct_user_sessions WHERE session_token = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
       params: [token],
     },
@@ -282,3 +280,31 @@ export function getCookieOptions() {
     maxAge: SESSION_MAX_AGE_SECONDS,
   };
 }
+
+/**
+ * Compatibility wrapper.
+ *
+ * Eldre sider i prosjektet importerer fortsatt:
+ *   import { auth } from "@/lib/auth"
+ *   await auth.api.getSession({ headers: await headers() })
+ *
+ * Denne wrapperen gjør at sidene bygger uten Better Auth.
+ */
+export const auth = {
+  api: {
+    async getSession(): Promise<{ user: (CollectiumSessionUser & { name: string }) } | null> {
+      const session = await getCollectiumSession();
+
+      if (!session.authenticated || !session.user) {
+        return null;
+      }
+
+      return {
+        user: {
+          ...session.user,
+          name: session.user.displayName || session.user.email,
+        },
+      };
+    },
+  },
+};
