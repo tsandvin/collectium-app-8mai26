@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Erstatter Better Auth med kontrollert Collectium-auth basert på ct_users, ct_user_roles, ct_roles og ct_user_sessions.
- * Inneholder også en midlertidig kompatibilitets-wrapper `auth.api.getSession(...)` fordi eldre sider fortsatt importerer `auth`.
+ * Inneholder kompatibilitets-wrapper `auth.api.getSession(...)` fordi eldre sider fortsatt importerer `auth`.
  *
  * Bruksområde:
  * Brukes av API-ruter og serverkode for å lese session, validere bruker og hente roller.
@@ -42,7 +42,7 @@
  * log_action: session
  *
  * Versjon:
- * CT-FILE-LIB-AUTH-MARIADB-0002 / CHANGE-2026-06-05-AUTH-BUILD-FIX-0002
+ * CT-FILE-LIB-AUTH-MARIADB-0004 / CHANGE-2026-06-05-AUTH-SESSION-FIX-0004
  */
 
 import "server-only";
@@ -176,11 +176,11 @@ async function findSessionUserByToken(token: string): Promise<CollectiumSessionU
 
   const sessionLookups = [
     {
-      sql: `SELECT user_id FROM ct_user_sessions WHERE token_hash = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
+      sql: `SELECT user_id FROM ct_user_sessions WHERE session_token_hash = ? AND (revoked_at IS NULL) AND expires_at > NOW() LIMIT 1`,
       params: [hashed],
     },
     {
-      sql: `SELECT user_id FROM ct_user_sessions WHERE session_token_hash = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
+      sql: `SELECT user_id FROM ct_user_sessions WHERE token_hash = ? AND (expires_at IS NULL OR expires_at > NOW()) LIMIT 1`,
       params: [hashed],
     },
     {
@@ -220,20 +220,39 @@ export async function getCollectiumSession(): Promise<CollectiumSession> {
 export async function persistSession(userId: number, token: string): Promise<void> {
   const hashed = tokenHash(token);
 
+  // Current DB shape from collectiumno01:
+  // ct_user_sessions(user_id, session_token_hash, ip_address, user_agent, expires_at,
+  // created_at, browser_name, os_name, anonymous_id, started_at, ended_at,
+  // last_seen_at, device_type, referrer_url, landing_page, ...)
+  //
+  // Important: this table does NOT have updated_at.
   const attempts = [
     {
-      sql: `INSERT INTO ct_user_sessions (user_id, token_hash, expires_at, created_at, updated_at)
-            VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW(), NOW())`,
+      sql: `INSERT INTO ct_user_sessions
+              (user_id, session_token_hash, expires_at, created_at, started_at, last_seen_at, device_type)
+            VALUES
+              (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW(), NOW(), NOW(), 'unknown')`,
       params: [userId, hashed],
     },
     {
-      sql: `INSERT INTO ct_user_sessions (user_id, session_token_hash, expires_at, created_at, updated_at)
-            VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW(), NOW())`,
+      sql: `INSERT INTO ct_user_sessions
+              (user_id, session_token_hash, expires_at, created_at)
+            VALUES
+              (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW())`,
       params: [userId, hashed],
     },
     {
-      sql: `INSERT INTO ct_user_sessions (user_id, session_token, expires_at, created_at, updated_at)
-            VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW(), NOW())`,
+      sql: `INSERT INTO ct_user_sessions
+              (user_id, token_hash, expires_at, created_at)
+            VALUES
+              (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW())`,
+      params: [userId, hashed],
+    },
+    {
+      sql: `INSERT INTO ct_user_sessions
+              (user_id, session_token, expires_at, created_at)
+            VALUES
+              (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), NOW())`,
       params: [userId, token],
     },
   ];
@@ -257,8 +276,8 @@ export async function destroyCurrentSession(): Promise<void> {
 
   const hashed = tokenHash(token);
   const attempts = [
+    { sql: `UPDATE ct_user_sessions SET revoked_at = NOW(), ended_at = NOW() WHERE session_token_hash = ?`, params: [hashed] },
     { sql: `DELETE FROM ct_user_sessions WHERE token_hash = ?`, params: [hashed] },
-    { sql: `DELETE FROM ct_user_sessions WHERE session_token_hash = ?`, params: [hashed] },
     { sql: `DELETE FROM ct_user_sessions WHERE session_token = ?`, params: [token] },
   ];
 

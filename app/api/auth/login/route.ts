@@ -4,26 +4,27 @@
  * Overskrift:
  * Collectium login API
  *
- * Definering / formal:
+ * Definering / formål:
  * Logger inn bruker mot ct_users.password_hash med bcryptjs og oppretter Collectium-session.
+ * Returnerer alltid kontrollert JSON ved feil.
  *
- * Bruksomrade:
+ * Bruksområde:
  * Brukes av /login, /sign-in og auth-komponenter.
  *
- * Berorte sider / routes:
+ * Berørte sider / routes:
  * - /login
  * - /sign-in
  * - /min-side
  * - /admin
  *
- * Berorte DB-brytere / feature_keys:
+ * Berørte DB-brytere / feature_keys:
  * - auth.login
  * - auth.session.create
  *
- * Berorte API-ruter:
+ * Berørte API-ruter:
  * - POST /api/auth/login
  *
- * Berorte tabeller / views:
+ * Berørte tabeller / views:
  * - ct_users
  * - ct_user_sessions
  * - ct_user_roles
@@ -37,7 +38,7 @@
  * log_action: login
  *
  * Versjon:
- * CT-FILE-API-AUTH-LOGIN-0001 / CHANGE-2026-06-05-AUTH-MARIADB-0001
+ * CT-FILE-API-AUTH-LOGIN-0004 / CHANGE-2026-06-05-AUTH-SESSION-FIX-0004
  */
 
 import { NextResponse } from 'next/server'
@@ -62,7 +63,7 @@ type LoginUserRow = {
   admin_approval_status: string
 }
 
-function fail(status: number, error_code: string, message: string) {
+function fail(status: number, error_code: string, message: string, details?: string) {
   return NextResponse.json(
     {
       ok: false,
@@ -70,83 +71,92 @@ function fail(status: number, error_code: string, message: string) {
       error_code,
       message,
       data: null,
-      errors: [],
+      errors: details ? [{ message: details }] : [],
     },
     { status },
   )
 }
 
 export async function POST(request: Request) {
-  let payload: { email?: string; password?: string }
-
   try {
-    payload = await request.json()
-  } catch {
-    return fail(400, 'INVALID_JSON', 'Ugyldig login-foresporsel.')
+    let payload: { email?: string; password?: string }
+
+    try {
+      payload = await request.json()
+    } catch {
+      return fail(400, 'INVALID_JSON', 'Ugyldig login-forespørsel.')
+    }
+
+    const email = String(payload.email || '').trim().toLowerCase()
+    const password = String(payload.password || '')
+
+    if (!email || !password) {
+      return fail(400, 'MISSING_CREDENTIALS', 'E-post og passord må fylles ut.')
+    }
+
+    const rows = await dbQuery<LoginUserRow>(
+      `SELECT id, public_id, email, password_hash, display_name, public_display_name, first_name, last_name,
+              role, is_admin, is_active, account_status, email_status, admin_approval_status
+       FROM ct_users
+       WHERE LOWER(email) = ?
+       LIMIT 1`,
+      [email],
+    )
+
+    if (!rows.length || !rows[0].password_hash) {
+      return fail(401, 'INVALID_CREDENTIALS', 'Innlogging feilet. Kontroller e-post og passord.')
+    }
+
+    const dbUser = rows[0]
+    const passwordOk = await bcrypt.compare(password, dbUser.password_hash)
+
+    if (!passwordOk) {
+      return fail(401, 'INVALID_CREDENTIALS', 'Innlogging feilet. Kontroller e-post og passord.')
+    }
+
+    if (!Number(dbUser.is_active) || dbUser.account_status !== 'active') {
+      return fail(403, 'ACCOUNT_INACTIVE', 'Brukeren er ikke aktiv.')
+    }
+
+    if (dbUser.email_status !== 'verified') {
+      return fail(403, 'EMAIL_NOT_VERIFIED', 'E-postadressen er ikke verifisert.')
+    }
+
+    if (dbUser.admin_approval_status !== 'approved') {
+      return fail(403, 'ADMIN_APPROVAL_REQUIRED', 'Kontoen venter på godkjenning.')
+    }
+
+    const token = createSessionToken()
+    await persistSession(Number(dbUser.id), token)
+
+    await dbExecute(
+      `UPDATE ct_users
+       SET last_login_at = NOW(), last_active_at = NOW(), is_online = 1, updated_at = NOW()
+       WHERE id = ?`,
+      [dbUser.id],
+    )
+
+    const roles = await getUserRoles(Number(dbUser.id))
+    const user = mapUserRow(dbUser, roles)
+
+    const response = NextResponse.json({
+      ok: true,
+      authenticated: true,
+      feature_key: 'auth.login',
+      source: 'mariadb',
+      user,
+      redirectTo: user.isAdmin ? '/admin' : '/min-side',
+      errors: [],
+    })
+
+    response.cookies.set(COLLECTIUM_SESSION_COOKIE, token, getCookieOptions())
+    return response
+  } catch (error) {
+    return fail(
+      500,
+      'AUTH_LOGIN_INTERNAL_ERROR',
+      'Innlogging feilet på serveren. Kontroller session-tabellen og auth-loggen.',
+      error instanceof Error ? error.message : 'Ukjent serverfeil',
+    )
   }
-
-  const email = String(payload.email || '').trim().toLowerCase()
-  const password = String(payload.password || '')
-
-  if (!email || !password) {
-    return fail(400, 'MISSING_CREDENTIALS', 'E-post og passord maa fylles ut.')
-  }
-
-  const rows = await dbQuery<LoginUserRow>(
-    `SELECT id, public_id, email, password_hash, display_name, public_display_name, first_name, last_name,
-            role, is_admin, is_active, account_status, email_status, admin_approval_status
-     FROM ct_users
-     WHERE LOWER(email) = ?
-     LIMIT 1`,
-    [email],
-  )
-
-  if (!rows.length || !rows[0].password_hash) {
-    return fail(401, 'INVALID_CREDENTIALS', 'Innlogging feilet. Kontroller e-post og passord.')
-  }
-
-  const dbUser = rows[0]
-  const passwordOk = await bcrypt.compare(password, dbUser.password_hash)
-
-  if (!passwordOk) {
-    return fail(401, 'INVALID_CREDENTIALS', 'Innlogging feilet. Kontroller e-post og passord.')
-  }
-
-  if (!Number(dbUser.is_active) || dbUser.account_status !== 'active') {
-    return fail(403, 'ACCOUNT_INACTIVE', 'Brukeren er ikke aktiv.')
-  }
-
-  if (dbUser.email_status !== 'verified') {
-    return fail(403, 'EMAIL_NOT_VERIFIED', 'E-postadressen er ikke verifisert.')
-  }
-
-  if (dbUser.admin_approval_status !== 'approved') {
-    return fail(403, 'ADMIN_APPROVAL_REQUIRED', 'Kontoen venter paa godkjenning.')
-  }
-
-  const token = createSessionToken()
-  await persistSession(Number(dbUser.id), token)
-
-  await dbExecute(
-    `UPDATE ct_users
-     SET last_login_at = NOW(), last_active_at = NOW(), is_online = 1, updated_at = NOW()
-     WHERE id = ?`,
-    [dbUser.id],
-  )
-
-  const roles = await getUserRoles(Number(dbUser.id))
-  const user = mapUserRow(dbUser, roles)
-
-  const response = NextResponse.json({
-    ok: true,
-    authenticated: true,
-    feature_key: 'auth.login',
-    source: 'mariadb',
-    user,
-    redirectTo: user.isAdmin ? '/admin' : '/min-side',
-    errors: [],
-  })
-
-  response.cookies.set(COLLECTIUM_SESSION_COOKIE, token, getCookieOptions())
-  return response
 }
