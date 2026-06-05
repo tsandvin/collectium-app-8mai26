@@ -1,41 +1,27 @@
-/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * Legacy alias for Min side
- *
- * Definering / formal:
- * Sender /minside til ny Next.js-standard /min-side.
- *
- * Bruksomrade:
- * Brukes for bakoverkompatibilitet med tidligere URL-navn.
- *
- * Berorte sider / routes:
- * - /minside
- * - /min-side
- *
- * Berorte DB-brytere / feature_keys:
- * - profile.view
- *
- * Berorte API-ruter:
- * - Ingen direkte
- *
- * Berorte tabeller / views:
- * - Ingen direkte
- *
- * Dataretning:
- * MariaDB -> API/backend -> Next.js -> React -> UI
- *
- * Logging:
- * log_category: route
- * log_action: minside.alias
- *
- * Versjon:
- * CT-FILE-ROUTE-MINSIDE-ALIAS-0001 / CHANGE-2026-06-05-0001
- */
+import { MinsideShell, Panel, StatusChip } from '@/components/MinsideShell';
+import { getRoleFromSearchParams, overviewCards, roleQuery, type SearchParamsInput } from '@/lib/minside-data';
 
-import { redirect } from "next/navigation";
-
-export default function LegacyMinsidePage() {
-  redirect("/min-side");
+export default async function MinsideOverview({ searchParams }: { searchParams?: SearchParamsInput }) {
+  const role = await getRoleFromSearchParams(searchParams);
+  const q = roleQuery(role);
+  return (
+    <MinsideShell role={role} activeRole="bruker" activeSection="oversikt" title="Oversikt" intro="Ren inngangsside for brukerstatus. Hver seksjon kan åpnes som egen sidevisning." isOverview>
+      <section className="ct-grid three">
+        {overviewCards.map((card) => (
+          <Panel key={card.title} title={card.title} text={card.text} href={`${card.href}${q}`}>
+            <div className="ct-metric"><strong>{card.status}</strong><span>{card.meta}</span></div>
+            <div className="ct-actions"><span className="ct-action">Åpne side</span></div>
+          </Panel>
+        ))}
+      </section>
+      {role !== 'user' ? (
+        <section className="ct-grid two" style={{ marginTop: 16 }}>
+          <Panel title="Forhandler" text="Innleveringer, objektgrupper, auksjon, nettbutikk, dokumentasjon og oppgjør." href={`/minside/forhandler${q}`}>
+            <div className="ct-chip-row"><StatusChip tone="good">Aktiv rolle</StatusChip><StatusChip tone="warn">2 krever handling</StatusChip></div>
+          </Panel>
+          {role === 'admin' ? <Panel title="Admin" text="Kontroll, brukere, import, tilgang, sider og systemstatus." href={`/minside/admin${q}`}><div className="ct-chip-row"><StatusChip tone="good">Admin aktiv</StatusChip><StatusChip tone="warn">4 kontrollpunkter</StatusChip></div></Panel> : null}
+        </section>
+      ) : null}
+    </MinsideShell>
+  );
 }

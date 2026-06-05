@@ -1,0 +1,129 @@
+/**
+ * COLLECTIUM FILE HEADER
+ * Overskrift: Collectium Design Mega Menu CSS
+ * Definering / formal: Template/layout CSS for design-megameny. Bruker globale tokens med fallback.
+ * Versjon: CT-DESIGN-MEGA-MENU-CSS-V8 / CHANGE-2026-06-05-STARTSIDE-FILES-V8
+ */
+
+.mega {
+  --ct-local-bg: var(--ct-bg, var(--ct-app-bg, #fbf7ef));
+  --ct-local-panel: var(--ct-panel, var(--ct-card-bg, #fffaf2));
+  --ct-local-panel-2: var(--ct-panel-2, var(--ct-card-bg-soft, #f7efe3));
+  --ct-local-text: var(--ct-text, #102f25);
+  --ct-local-muted: var(--ct-muted, #53665e);
+  --ct-local-line: var(--ct-line, #e0d1b8);
+  --ct-local-accent: var(--ct-accent, #0f6d4f);
+  --ct-local-accent-2: var(--ct-accent-2, #c89b3c);
+  position: fixed;
+  z-index: 100;
+  top: 92px;
+  left: 50%;
+  width: min(90vw, 1180px);
+  max-height: calc(100vh - 130px);
+  overflow: auto;
+  border: 1px solid var(--ct-local-line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--ct-local-panel) 94%, transparent);
+  box-shadow: 0 34px 120px rgba(0,0,0,.24);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-10px);
+  transition: .18s ease;
+  color: var(--ct-local-text);
+}
+
+.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--ct-local-line);
+  padding: 20px 24px;
+  gap: 18px;
+}
+
+.head p {
+  margin: 0 0 5px;
+  color: var(--ct-local-accent);
+  font-size: .78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+}
+
+.head h2,
+.body h3 {
+  margin: 0;
+  font-family: var(--ct-font-display, Georgia, serif);
+}
+
+.head button,
+.body button {
+  border: 1px solid var(--ct-local-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ct-local-panel-2) 90%, transparent);
+  color: var(--ct-local-text);
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr .9fr;
+  gap: 20px;
+}
+
+.body p,
+.skinCard small {
+  color: var(--ct-local-muted);
+  line-height: 1.55;
+}
+
+.skinGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.skinCard {
+  border-radius: 18px !important;
+  padding: 16px !important;
+  text-align: left;
+  background: var(--ct-local-panel-2) !important;
+  display: grid;
+  gap: 7px;
+}
+
+.swatch {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--ct-local-line);
+  background: linear-gradient(135deg, var(--ct-local-panel) 0 48%, var(--ct-local-accent) 49% 100%);
+}
+
+.modeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modeGrid button[data-active="true"] {
+  outline: 2px solid var(--ct-local-accent);
+}
+
+@media (max-width: 900px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}

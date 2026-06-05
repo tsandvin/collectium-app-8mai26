@@ -6,105 +6,129 @@
  * Overskrift:
  * Collectium Public Topbar
  *
- * Definering / formål:
- * Egen topbar-fil for offentlige Collectium-sider. Topbaren bruker template-CSS
- * og eier ikke sidebakgrunn, rammer eller datalogikk.
+ * Definering / formal:
+ * Public toppmeny uten sidemeny. Logo til venstre, menyvalg midtstilt,
+ * og globale brytere til hoyre: sok, design-megameny og login/min side.
  *
- * Bruksområde:
- * Brukes av CollectiumStartTemplate på /startside og /landingsside.
+ * Bruksomrade:
+ * Brukes i CollectiumPublicStartTemplate.
  *
- * Berørte sider / routes:
+ * Berorte sider / routes:
  * - /startside
- * - /landingsside
+ * - public landingssider senere
  *
- * Berørte DB-brytere / feature_keys:
- * - landing.view
+ * Berorte DB-brytere / feature_keys:
  * - landing.login
  * - landing.register
- * - catalog.view
+ * - profile.view
+ * - catalog.search
+ * - local.template.view
  *
- * Berørte API-ruter:
- * - GET /api/auth/session senere
- * - GET /api/menu/public senere
+ * Berorte API-ruter:
+ * - Ingen direkte API-kall i denne public preview-versjonen.
+ *
+ * Berorte tabeller / views:
+ * - Ingen direkte tabell/view i denne komponenten.
  *
  * Dataretning:
- * MariaDB/API senere -> Next.js -> React -> UI.
+ * Lokal templatekontroll -> UI. Login/status kobles senere til auth/session API.
  *
  * Logging:
- * log_category: landing
- * log_action: topbar.view
+ * log_category: navigation
+ * log_action: public_topbar.view
  *
  * Versjon:
- * CT-FILE-START-V30-TOPBAR / CHANGE-2026-06-05-START-V30
+ * CT-PUBLIC-TOPBAR-V8 / CHANGE-2026-06-05-STARTSIDE-FILES-V8
  */
 
-import Link from "next/link";
 import { useState } from "react";
-import styles from "../templates/CollectiumStartTemplate.module.css";
+import { CollectiumDesignMegaMenu } from "./CollectiumDesignMegaMenu";
+import styles from "./CollectiumPublicTopbar.module.css";
 
-type PublicNavItem = {
-  label: string;
-  href: string;
-  featureKey: string;
-};
-
-const publicNav: PublicNavItem[] = [
-  { label: "Katalog", href: "/katalog", featureKey: "catalog.view" },
-  { label: "Medlemskap", href: "/medlemskap", featureKey: "landing.membership" },
-  { label: "Forhandlere", href: "/forhandler", featureKey: "dealer.public.view" },
-  { label: "Auksjon", href: "/auksjon", featureKey: "auction.public.view" },
+const menuItems = [
+  { label: "Katalog", href: "/katalog" },
+  { label: "Medlemskap", href: "/medlemskap" },
+  { label: "Forhandlere", href: "/forhandler" },
+  { label: "Auksjon", href: "/auksjon" },
 ];
 
 export function CollectiumPublicTopbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [openPanel, setOpenPanel] = useState<"search" | "design" | "user" | null>(null);
+  const [isMemberPreview, setIsMemberPreview] = useState(false);
+
+  const toggle = (panel: "search" | "design" | "user") => {
+    setOpenPanel((current) => (current === panel ? null : panel));
+  };
 
   return (
-    <header className={styles.topbar} data-ct-component="public-topbar">
-      <Link className={styles.brand} href="/startside" data-feature-key="landing.view">
-        <span className={styles.mark} aria-hidden="true">C</span>
-        <span>Collectium</span>
-      </Link>
+    <header className={styles.topbar} data-ct-topbar="public">
+      <div className={styles.inner}>
+        <a className={styles.logo} href="/startside" aria-label="Collectium startside">
+          <img src="/collectium-tema/collectium-tema-logo-wide.png" alt="Collectium" />
+        </a>
 
-      <nav className={styles.nav} aria-label="Hovedmeny">
-        {publicNav.map((item) => (
-          <Link key={item.href} href={item.href} data-feature-key={item.featureKey}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+        <nav className={styles.nav} aria-label="Hovedmeny">
+          {menuItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-      <div className={styles.actions}>
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-expanded={isOpen}
-          aria-controls="collectium-mobile-public-menu"
-          onClick={() => setIsOpen((value) => !value)}
-        >
-          Meny
-        </button>
-        <Link className={styles.ghost} href="/login" data-feature-key="landing.login">
-          Logg inn
-        </Link>
-        <Link className={`${styles.button} ${styles.buttonGold}`} href="/registrering" data-feature-key="landing.register">
-          Kom i gang gratis
-        </Link>
+        <div className={styles.actions}>
+          <button className={styles.iconButton} type="button" onClick={() => toggle("search")} aria-expanded={openPanel === "search"} aria-controls="collectium-public-search">
+            <span aria-hidden="true">⌕</span>
+            <span className={styles.srOnly}>Søk</span>
+          </button>
+          <button className={styles.actionButton} type="button" onClick={() => toggle("design")} aria-expanded={openPanel === "design"} aria-controls="collectium-design-mega">
+            Design
+          </button>
+          <button className={styles.actionButton} type="button" onClick={() => toggle("user")} aria-expanded={openPanel === "user"} aria-controls="collectium-user-menu">
+            {isMemberPreview ? "Min side" : "Logg inn"}
+          </button>
+          {!isMemberPreview ? (
+            <a className={`${styles.actionButton} ${styles.primary}`} href="/medlemskap">
+              Kom i gang gratis
+            </a>
+          ) : null}
+        </div>
       </div>
 
-      <nav
-        id="collectium-mobile-public-menu"
-        className={styles.mobileMenu}
-        data-open={isOpen ? "true" : "false"}
-        aria-label="Mobilmeny"
-      >
-        {publicNav.map((item) => (
-          <Link key={item.href} href={item.href} data-feature-key={item.featureKey} onClick={() => setIsOpen(false)}>
-            {item.label}
-          </Link>
-        ))}
-        <Link href="/login" data-feature-key="landing.login" onClick={() => setIsOpen(false)}>Logg inn</Link>
-        <Link href="/registrering" data-feature-key="landing.register" onClick={() => setIsOpen(false)}>Registrer deg</Link>
-      </nav>
+      <div id="collectium-public-search" className={`${styles.panel} ${openPanel === "search" ? styles.open : ""}`}>
+        <div className={styles.panelHeader}>
+          <h2>Søk i Collectium</h2>
+          <button type="button" onClick={() => setOpenPanel(null)}>Lukk</button>
+        </div>
+        <input type="search" placeholder="Søk i katalog · objekter, kilder, varianter..." />
+        <div className={styles.searchTypes}>
+          <span>Katalogsøk</span>
+          <span>AI-søk</span>
+          <span>Sidesøk</span>
+        </div>
+      </div>
+
+      <CollectiumDesignMegaMenu open={openPanel === "design"} onClose={() => setOpenPanel(null)} />
+
+      <div id="collectium-user-menu" className={`${styles.userPanel} ${openPanel === "user" ? styles.open : ""}`}>
+        <div className={styles.panelHeader}>
+          <h2>{isMemberPreview ? "Min side" : "Logg inn"}</h2>
+          <button type="button" onClick={() => setOpenPanel(null)}>Lukk</button>
+        </div>
+        {isMemberPreview ? (
+          <div className={styles.userLinks}>
+            <a href="/min-side">Åpne Min side</a>
+            <a href="/samling">Min samling</a>
+            <a href="/meldinger">Meldinger</a>
+            <button type="button" onClick={() => setIsMemberPreview(false)}>Simuler logg ut</button>
+          </div>
+        ) : (
+          <div className={styles.userLinks}>
+            <a href="/login">Logg inn</a>
+            <a href="/medlemskap">Bli medlem</a>
+            <button type="button" onClick={() => setIsMemberPreview(true)}>Simuler innlogget visning</button>
+          </div>
+        )}
+      </div>
     </header>
   );
 }
