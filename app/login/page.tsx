@@ -1,4 +1,4 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
@@ -43,7 +43,7 @@
 
 import { Suspense } from "react";
 import AppShell from "../components/AppShell";
-import { CollectiumLoginClient } from "@/components/auth/CollectiumLoginClient";
+import CollectiumLoginClient from "@/components/auth/CollectiumLoginClient";
 
 export default function LoginPage() {
   return (
