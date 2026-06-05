@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 /**
  * COLLECTIUM FILE HEADER
@@ -87,7 +87,7 @@ export default function Sidebar() {
         <div className="ct-brand-mark" aria-hidden />
         <div>
           <div className="ct-brand-title">Collectium</div>
-          <div className="ct-brand-sub">For samlere · For historien</div>
+          <div className="ct-brand-sub">For samlere Â· For historien</div>
         </div>
       </Link>
 
@@ -111,12 +111,13 @@ export default function Sidebar() {
       <div className="ct-sidebar-watermark" aria-hidden />
 
       <div className="ct-sidebar-footer">
-        <Link href="/login" className="ct-sidebar-login">
+        <Link href="/support" className="ct-sidebar-login">
           <i className="ti ti-login" aria-hidden />
-          <span>Logg inn / registrer</span>
+          <span>Support</span>
         </Link>
-        <span className="ct-sidebar-note">Signature Light · DB 8.4</span>
-      </div>
+</div>
     </aside>
   );
 }
+
+
