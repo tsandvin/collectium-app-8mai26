@@ -1,6 +1,5 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { AuctionGrid } from '@/components/auction/auction-grid'
 import { getActiveAuctions } from '@/app/actions/collectium'
 import Link from 'next/link'
@@ -17,8 +16,7 @@ export default async function AuksjonerPage({
   })
 
   return (
-    <AppShell>
-      <header style={{ marginBottom: 32 }}>
+    <><header style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <div>
             <h1
@@ -46,7 +44,7 @@ export default async function AuksjonerPage({
         </div>
       </header>
 
-      <AuctionGrid auctions={auctions} />
-    </AppShell>
+      <AuctionGrid auctions={auctions} /></>
   )
 }
+

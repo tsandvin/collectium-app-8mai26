@@ -1,7 +1,6 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { NewItemForm } from '@/components/catalog/new-item-form'
 
 export default async function NewItemPage() {
@@ -12,8 +11,7 @@ export default async function NewItemPage() {
   }
 
   return (
-    <AppShell>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
+    <><div style={{ maxWidth: 640, margin: '0 auto' }}>
         <header style={{ marginBottom: 32 }}>
           <h1
             style={{
@@ -33,7 +31,7 @@ export default async function NewItemPage() {
         </header>
         
         <NewItemForm />
-      </div>
-    </AppShell>
+      </div></>
   )
 }
+

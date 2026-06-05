@@ -1,7 +1,6 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { MemberProfileCard } from '@/components/member/member-profile-card'
 import { MemberCollection } from '@/components/member/member-collection'
 import { getMemberProfile, getCatalogItems } from '@/app/actions/collectium'
@@ -21,8 +20,7 @@ export default async function MemberPage({
   const isOwnProfile = session?.user?.id === id
 
   return (
-    <AppShell>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32 }}>
+    <><div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32 }}>
         <div>
           <MemberProfileCard 
             profile={profile}
@@ -34,7 +32,7 @@ export default async function MemberPage({
         <div>
           <MemberCollection items={collection} isOwnProfile={isOwnProfile} />
         </div>
-      </div>
-    </AppShell>
+      </div></>
   )
 }
+

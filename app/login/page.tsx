@@ -42,15 +42,13 @@
  */
 
 import { Suspense } from "react";
-import AppShell from "../components/AppShell";
 import CollectiumLoginClient from "@/components/auth/CollectiumLoginClient";
 
 export default function LoginPage() {
   return (
-    <AppShell>
-      <Suspense fallback={<div className="ct-panel-card ct-signature-frame">Laster login...</div>}>
+    <><Suspense fallback={<div className="ct-panel-card ct-signature-frame">Laster login...</div>}>
         <CollectiumLoginClient />
-      </Suspense>
-    </AppShell>
+      </Suspense></>
   );
 }
+

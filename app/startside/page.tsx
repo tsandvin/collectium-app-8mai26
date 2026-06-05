@@ -1,51 +1,54 @@
-﻿/**
+/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Startside Page
+ * /startside
  *
- * Definering / formål:
- * Startside rendered inside global Collectium template.
+ * Definering / formal:
+ * Next.js-side for ny Collectium startside. Siden bruker felles CollectiumAppShellV6 i denne pakken.
+ * Dersom prosjektet allerede har global AppShell i app/layout.tsx, bytt til innholdskomponenten alene.
  *
- * Bruksområde:
- * Route /startside
+ * Bruksomrade:
+ * Offentlig startside for Collectium-konsept, katalog, historie, marked, auksjon, forhandler og medlemskap.
  *
- * Berørte sider / routes:
+ * Berorte sider / routes:
  * - /startside
  *
- * Berørte DB-brytere / feature_keys:
+ * Berorte DB-brytere / feature_keys:
  * - landing.view
+ * - catalog.view
+ * - membership.plans.view
+ *
+ * Berorte API-ruter:
+ * - Fremtidig: GET /api/membership/plans
+ * - Fremtidig: GET /api/catalog/featured
+ *
+ * Berorte tabeller / views:
+ * - Fremtidig: ct_membership_plans
+ * - Fremtidig: ct_v_catalog_objects_resolved
  *
  * Dataretning:
- * Presentation only.
+ * MariaDB -> API/backend -> Next.js -> React -> UI
+ *
+ * Logging:
+ * log_category: landing
+ * log_action: view
  *
  * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * CT-FILE-STARTSIDE-MINSIDE-V6-0004
  */
+import CollectiumAppShellV6 from '../../components/collectium/layout/CollectiumAppShellV6';
+import CollectiumStartsideV6 from '../../components/collectium/startside/CollectiumStartsideV6';
 
-import Link from "next/link";
-import { StartsideContent } from "@/components/frontpage/StartsideContent";
-import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
+export const metadata = {
+  title: 'Startside | Collectium',
+  description: 'Collectium samler katalog, egen samling, historie, marked, auksjon og forhandlerkontakt i ett miljoo.',
+};
 
-export default function StartsidePage(): JSX.Element {
+export default function StartsidePage() {
   return (
-    <CollectiumPageTemplate
-      title="For samlere. Av samlere. Alt på ett sted."
-      eyebrow="For samlere · for historien · for markedet"
-      description="Collectium samler katalog, egen samling, historiske relasjoner, auksjon, forhandlerkontakt og markedsutvikling i ett miljø."
-      variant="landing"
-      actions={
-        <>
-          <Link className="ct-button ct-button--primary" href="/registrering">
-            Start gratis
-          </Link>
-          <Link className="ct-button" href="/katalog">
-            Se katalog
-          </Link>
-        </>
-      }
-    >
-      <StartsideContent />
-    </CollectiumPageTemplate>
+    <CollectiumAppShellV6 activeKey="startside" pageTitle="Collectium startside">
+      <CollectiumStartsideV6 />
+    </CollectiumAppShellV6>
   );
 }

@@ -1,7 +1,6 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { AuctionDetails } from '@/components/auction/auction-details'
 import { BidSection } from '@/components/auction/bid-section'
 import { AuctionChatSection } from '@/components/auction/auction-chat-section'
@@ -22,8 +21,7 @@ export default async function AuctionPage({
   const chatMessages = await getAuctionChat(auctionId)
 
   return (
-    <AppShell>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 32 }}>
+    <><div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 32 }}>
         {/* Main Content */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           <AuctionDetails auction={auction} />
@@ -42,7 +40,7 @@ export default async function AuctionPage({
             currentUserId={session?.user?.id}
           />
         </div>
-      </div>
-    </AppShell>
+      </div></>
   )
 }
+

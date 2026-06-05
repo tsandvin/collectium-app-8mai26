@@ -1,6 +1,5 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { CatalogGrid } from '@/components/catalog/catalog-grid'
 import { CatalogFilters } from '@/components/catalog/catalog-filters'
 import { getCatalogItems } from '@/app/actions/collectium'
@@ -20,8 +19,7 @@ export default async function KatalogPage({
   })
 
   return (
-    <AppShell>
-      <header style={{ marginBottom: 32 }}>
+    <><header style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <div>
             <h1
@@ -57,7 +55,7 @@ export default async function KatalogPage({
         <div style={{ flex: 1 }}>
           <CatalogGrid items={items} />
         </div>
-      </div>
-    </AppShell>
+      </div></>
   )
 }
+

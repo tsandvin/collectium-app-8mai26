@@ -1,6 +1,5 @@
-import { headers } from 'next/headers'
+﻿import { headers } from 'next/headers'
 import { auth } from '@/lib/auth'
-import AppShell from '@/app/components/AppShell'
 import { PriceIndexChart } from '@/components/bors/price-index-chart'
 import { MarketOverview } from '@/components/bors/market-overview'
 import { getPriceIndexData } from '@/app/actions/collectium'
@@ -10,8 +9,7 @@ export default async function BorsPage() {
   const priceData = await getPriceIndexData()
 
   return (
-    <AppShell>
-      <header style={{ marginBottom: 32 }}>
+    <><header style={{ marginBottom: 32 }}>
         <h1
           style={{
             fontFamily: "var(--ct-font-display)",
@@ -37,7 +35,7 @@ export default async function BorsPage() {
         <div>
           <MarketOverview data={priceData} />
         </div>
-      </div>
-    </AppShell>
+      </div></>
   )
 }
+

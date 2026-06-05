@@ -1,25 +1,25 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * Meldinger partner-side mot Collectium MariaDB-auth
  *
- * Definering / formål:
+ * Definering / formÃ¥l:
  * Fjerner gammel Drizzle/schema-import og henter partner direkte via MariaDB dbQuery.
  *
- * Bruksområde:
+ * BruksomrÃ¥de:
  * Server Component for /meldinger/[partnerId].
  *
- * Berørte sider / routes:
+ * BerÃ¸rte sider / routes:
  * - /meldinger/[partnerId]
  *
- * Berørte DB-brytere / feature_keys:
+ * BerÃ¸rte DB-brytere / feature_keys:
  * - messages.view
  *
- * Berørte API-ruter:
+ * BerÃ¸rte API-ruter:
  * - Server action: getDirectMessages
  *
- * Berørte tabeller / views:
+ * BerÃ¸rte tabeller / views:
  * - ct_users
  * - direct_message
  *
@@ -38,7 +38,6 @@ import { headers } from 'next/headers'
 import { redirect, notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { dbQuery } from '@/lib/db'
-import AppShell from '@/app/components/AppShell'
 import { ChatWindow } from '@/components/messages/chat-window'
 import { getDirectMessages } from '@/app/actions/collectium'
 
@@ -83,12 +82,11 @@ export default async function ChatPage({ params }: PageProps) {
   const messages = await getDirectMessages(partnerId)
 
   return (
-    <AppShell>
-      <ChatWindow
+    <><ChatWindow
         partner={partner}
         messages={messages}
         currentUserId={String(session.user.id)}
-      />
-    </AppShell>
+      /></>
   )
 }
+
