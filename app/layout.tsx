@@ -1,21 +1,21 @@
 ﻿import type { Metadata } from "next";
 import "./globals.css";
-import { CollectiumAppShell } from "@/components/layout/CollectiumAppShell";
+import { CollectiumShell } from "@/components/layout/CollectiumShell";
 
 export const metadata: Metadata = {
   title: "Collectium",
-  description: "Samlerplattform for katalog, samling, auksjon og marked.",
+  description: "Samlerplattform for katalog, samling, auksjon og marked."
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="no" data-ct-skin="collectium">
+    <html lang="no">
       <body>
-        <CollectiumAppShell>{children}</CollectiumAppShell>
+        <CollectiumShell>{children}</CollectiumShell>
       </body>
     </html>
   );

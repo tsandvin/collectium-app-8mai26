@@ -1,40 +1,34 @@
-﻿import Link from "next/link";
-
-export type CleanPageProps = {
+﻿export type CleanPageProps = {
   kicker: string;
   title: string;
   lead: string;
-  cards?: ReadonlyArray<{
-    title: string;
-    text: string;
-  }>;
 };
 
-export function CleanPage({ kicker, title, lead, cards = [] }: CleanPageProps): JSX.Element {
+export function CleanPage({ kicker, title, lead }: CleanPageProps): JSX.Element {
   return (
-    <section className="ct-page">
-      <div className="ct-hero">
-        <p className="ct-kicker">{kicker}</p>
+    <section className="collectium-page">
+      <div className="collectium-hero">
+        <p className="collectium-kicker">{kicker}</p>
         <h1>{title}</h1>
-        <p className="ct-lead">{lead}</p>
-
-        <div className="ct-actions">
-          <Link href="/katalog">Katalog</Link>
-          <Link href="/min-side">Min side</Link>
-          <Link href="/admin">Admin</Link>
-        </div>
+        <p className="collectium-lead">{lead}</p>
       </div>
 
-      {cards.length > 0 ? (
-        <div className="ct-grid">
-          {cards.map((card) => (
-            <article key={card.title} className="ct-card">
-              <h2>{card.title}</h2>
-              <p>{card.text}</p>
-            </article>
-          ))}
-        </div>
-      ) : null}
+      <div className="collectium-grid">
+        <article className="collectium-card">
+          <h2>Ren kjerne</h2>
+          <p>Dette er en ny minimal Next.js-kjerne uten gamle template- eller V42/V6-filer.</p>
+        </article>
+
+        <article className="collectium-card">
+          <h2>Klar for DB/API</h2>
+          <p>DB-filer, dokumentasjon og bilder er beholdt. Funksjoner kan bygges på nytt kontrollert.</p>
+        </article>
+
+        <article className="collectium-card">
+          <h2>Stabilt skall</h2>
+          <p>Topbar, sidemeny og hovedflate ligger i én ren shell-komponent.</p>
+        </article>
+      </div>
     </section>
   );
 }

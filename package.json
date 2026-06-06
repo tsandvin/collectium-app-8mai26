@@ -1,29 +1,22 @@
-{
-  "name": "collectium-minside-nextjs-v3",
-  "version": "0.3.0",
+﻿{
+  "name": "collectium-clean-core",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@base-ui/react": "^1.5.0",
-    "@tailwindcss/postcss": "^4.3.0",
-    "bcryptjs": "^3.0.3",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.17.0",
-    "mysql2": "^3.22.4",
-    "next": "^15.3.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.6.0"
+    "next": "15.5.19",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@types/node": "^22.15.29",
-    "@types/react": "^19.2.16",
-    "@types/react-dom": "^19.2.3",
-    "typescript": "^5.8.3"
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "typescript": "^5.7.2"
   }
 }
