@@ -1,12 +1,14 @@
-﻿{
-  "name": "collectium-clean-core",
+{
+  "name": "collectium-blank",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "next": "15.5.19",
@@ -19,7 +21,4 @@
     "@types/react-dom": "^19.0.2",
     "typescript": "^5.7.2"
   }
-}
-"engines": {
-  "node": "22.x"
 }
