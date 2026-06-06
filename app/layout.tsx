@@ -1,10 +1,9 @@
 ﻿import type { Metadata } from "next";
 import "./globals.css";
-import { CollectiumShell } from "@/components/layout/CollectiumShell";
 
 export const metadata: Metadata = {
   title: "Collectium",
-  description: "Samlerplattform for katalog, samling, auksjon og marked."
+  description: "Collectium"
 };
 
 export default function RootLayout({
@@ -14,9 +13,7 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="no">
-      <body>
-        <CollectiumShell>{children}</CollectiumShell>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

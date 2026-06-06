@@ -1,11 +1,7 @@
-﻿import { CleanPage } from "@/components/pages/CleanPage";
-
-export default function HomePage(): JSX.Element {
+﻿export default function HomePage(): JSX.Element {
   return (
-    <CleanPage
-      kicker="Startside"
-      title="Collectium"
-      lead="Samlerplattform for katalog, samling, auksjon og marked."
-    />
+    <main className="collectium-minimal">
+      <h1>Collectium</h1>
+    </main>
   );
 }
