@@ -2,30 +2,39 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Startside
+ * Startside page
  *
- * Definering / formÃ¥l:
- * Ren startsideinnholdsside for Collectium V42 React.
- * Skal ikke eie AppShell, Topbar, Sidebar, PageFrame, body, html eller global bakgrunn.
+ * Definering / formål:
+ * Ren Next.js-side for /startside.
+ * Siden bruker globalt skall og ren startsidekomponent.
  *
- * BruksomrÃ¥de:
- * Vises inne i global CollectiumAppShell fra app/layout.tsx.
- * Global toppbar hÃ¥ndteres av components/layout/CollectiumTopbar.tsx.
+ * Bruksområde:
+ * Offentlig startside.
  *
- * BerÃ¸rte sider / routes:
+ * Berørte sider / routes:
  * - /startside
  *
- * BerÃ¸rte DB-brytere / feature_keys:
+ * Berørte DB-brytere / feature_keys:
  * - landing.view
- * - catalog.view
- * - membership.view
+ *
+ * Berørte API-ruter:
+ * - Ingen direkte
+ *
+ * Berørte tabeller / views:
+ * - Ingen direkte
  *
  * Dataretning:
- * MariaDB â†’ API/backend â†’ Next.js â†’ React â†’ UI
+ * Global template → StartsideContent → UI
+ *
+ * Logging:
+ * Ingen direkte logging
+ *
+ * Versjon:
+ * CT-STARTSIDE-PAGE-CLEAN-0001 / CHANGE-REINSTALL-4-SKINS
  */
 
-import CollectiumStartsideV42React from "@/components/startside/CollectiumStartsideV42React";
+import { CollectiumStartsideClean } from "@/components/startside/CollectiumStartsideClean";
 
-export default function StartsidePage() {
-  return <CollectiumStartsideV42React />;
+export default function StartsidePage(): JSX.Element {
+  return <CollectiumStartsideClean />;
 }

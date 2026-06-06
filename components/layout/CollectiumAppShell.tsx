@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Globalt Collectium-skall med toppmeny, sidemeny og hovedinnhold.
- * Denne filen eier bare layoutstruktur, ikke data eller DB-logikk.
+ * Skallet støtter fire standard-skinn via globale CSS-variabler.
  *
  * Bruksområde:
  * Brukes av app/layout.tsx for alle sider.
@@ -30,7 +30,7 @@
  * Ingen direkte logging
  *
  * Versjon:
- * CT-APP-SHELL-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
+ * CT-APP-SHELL-4-SKINS-0001 / CHANGE-REINSTALL-4-SKINS
  */
 
 import { CollectiumSidebar } from "./CollectiumSidebar";
@@ -42,13 +42,13 @@ export function CollectiumAppShell({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <div className="ct-standard-shell">
+    <div className="ct-shell">
       <CollectiumTopbar />
 
-      <div className="ct-standard-body">
+      <div className="ct-shell-body">
         <CollectiumSidebar />
 
-        <main className="ct-standard-main">
+        <main className="ct-main">
           {children}
         </main>
       </div>

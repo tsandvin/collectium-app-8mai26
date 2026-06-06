@@ -2,13 +2,13 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Home Page
+ * Root page
  *
  * Definering / formål:
- * Root page rendered inside global Collectium template.
+ * Root route viser samme rene startside som /startside.
  *
  * Bruksområde:
- * Route /
+ * /
  *
  * Berørte sider / routes:
  * - /
@@ -16,36 +16,24 @@
  * Berørte DB-brytere / feature_keys:
  * - landing.view
  *
+ * Berørte API-ruter:
+ * - Ingen direkte
+ *
+ * Berørte tabeller / views:
+ * - Ingen direkte
+ *
  * Dataretning:
- * Presentation only.
+ * Global template → StartsideContent → UI
+ *
+ * Logging:
+ * Ingen direkte logging
  *
  * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * CT-ROOT-PAGE-CLEAN-0001 / CHANGE-REINSTALL-4-SKINS
  */
 
-import Link from "next/link";
-import { StartsideContent } from "@/components/frontpage/StartsideContent";
-import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
+import { CollectiumStartsideClean } from "@/components/startside/CollectiumStartsideClean";
 
 export default function HomePage(): JSX.Element {
-  return (
-    <CollectiumPageTemplate
-      title="For samlere. Av samlere. Alt på ett sted."
-      eyebrow="Collectium"
-      description="Samling, historie, marked og trygg oversikt i én strukturert plattform."
-      variant="landing"
-      actions={
-        <>
-          <Link className="ct-button ct-button--primary" href="/registrering">
-            Start gratis
-          </Link>
-          <Link className="ct-button" href="/katalog">
-            Se katalog
-          </Link>
-        </>
-      }
-    >
-      <StartsideContent />
-    </CollectiumPageTemplate>
-  );
+  return <CollectiumStartsideClean />;
 }

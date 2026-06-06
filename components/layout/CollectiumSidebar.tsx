@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Standard global sidemeny for Collectium.
- * Ingen skin-status, ingen Signature Light/DB 8.4-visning.
+ * Viser navigasjon, ikke teknisk skin-/DB-status.
  *
  * Bruksområde:
  * Global template/sidebar.
@@ -30,7 +30,7 @@
  * Ingen direkte logging
  *
  * Versjon:
- * CT-SIDEBAR-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
+ * CT-SIDEBAR-4-SKINS-0001 / CHANGE-REINSTALL-4-SKINS
  */
 
 import Link from "next/link";
@@ -49,19 +49,19 @@ const menuItems = [
 
 export function CollectiumSidebar(): JSX.Element {
   return (
-    <aside className="ct-standard-sidebar" aria-label="Collectium sidemeny">
-      <div className="ct-standard-sidebar-title">Plattform</div>
+    <aside className="ct-sidebar" aria-label="Collectium sidemeny">
+      <div className="ct-sidebar-title">Plattform</div>
 
-      <nav className="ct-standard-sidebar-nav">
+      <nav className="ct-sidebar-nav">
         {menuItems.map((item) => (
-          <Link key={item.href} href={item.href} className="ct-standard-sidebar-link">
+          <Link key={item.href} href={item.href} className="ct-sidebar-link">
             <span>{item.code}</span>
             <strong>{item.label}</strong>
           </Link>
         ))}
       </nav>
 
-      <div className="ct-standard-sidebar-card">
+      <div className="ct-sidebar-card">
         <strong>Collectium</strong>
         <span>Katalog · samling · auksjon · marked</span>
       </div>

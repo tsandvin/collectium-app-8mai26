@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Global Next.js root layout for Collectium.
- * Reinstallerer standard Collectium-template uten runtime designvelger.
+ * Bruker standard CollectiumAppShell og 4 kontrollerte skinn.
  *
  * Bruksområde:
  * Alle sider i app-router.
@@ -30,7 +30,7 @@
  * Ingen direkte logging
  *
  * Versjon:
- * CT-ROOT-LAYOUT-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
+ * CT-ROOT-LAYOUT-4-SKINS-0001 / CHANGE-REINSTALL-4-SKINS
  */
 
 import type { Metadata } from "next";
@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="no">
+    <html lang="no" data-ct-skin="collectium">
       <body>
         <CollectiumAppShell>{children}</CollectiumAppShell>
       </body>
