@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --ct-bg: #eef3f7;
   --ct-surface: #ffffff;
   --ct-surface-2: #f4f7fa;
@@ -432,8 +432,8 @@ button { font: inherit; }
 
 /* ============================================================
    COLLECTIUM STARTSIDE PUBLIC WIDTH FIX
-   Startside skal være public/landing, ikke dashboard.
-   Den skal ha luft på sidene og maks ca. 80% bredde på innhold.
+   Startside skal vÃ¦re public/landing, ikke dashboard.
+   Den skal ha luft pÃ¥ sidene og maks ca. 80% bredde pÃ¥ innhold.
    ============================================================ */
 
 .ct-public-startside {
@@ -885,4 +885,324 @@ button { font: inherit; }
     grid-template-columns: 1fr;
   }
 }
+/* === COLLECTIUM GLOBAL TOPBAR V42 START === */
+.ct-topbar-v42,
+.ct-topbar-v42 * {
+  box-sizing: border-box;
+}
 
+.ct-topbar-v42 {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  border-bottom: 1px solid rgba(31, 48, 62, 0.14);
+  background:
+    linear-gradient(180deg, rgba(248, 251, 253, 0.96), rgba(239, 246, 250, 0.92));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 50px rgba(18, 39, 56, 0.08);
+  color: #102f43;
+}
+
+.ct-topbar-v42__inner {
+  width: min(100% - 40px, 1800px);
+  min-height: 76px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) auto minmax(360px, 1fr);
+  align-items: center;
+  gap: 24px;
+}
+
+.ct-topbar-v42__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.ct-topbar-v42__logoMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  font-family: Georgia, serif;
+  font-weight: 800;
+  color: #fffaf2;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.34), transparent 26%),
+    linear-gradient(135deg, #9a7a25, #123f35 58%, #0f2f43);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 10px 24px rgba(16,47,67,.18);
+}
+
+.ct-topbar-v42__brandText {
+  display: grid;
+  gap: 1px;
+  line-height: 1.05;
+}
+
+.ct-topbar-v42__brandText strong {
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.ct-topbar-v42__brandText small {
+  font-size: max(10.5px, 0.72rem);
+  font-weight: 520;
+  color: rgba(16, 47, 67, 0.68);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ct-topbar-v42__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid rgba(31, 48, 62, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.74), 0 12px 32px rgba(18,39,56,.05);
+}
+
+.ct-topbar-v42__nav a,
+.ct-topbar-v42__button,
+.ct-topbar-v42__iconButton,
+.ct-topbar-v42__authSwitch a {
+  min-height: 42px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #102f43;
+  text-decoration: none;
+  font-size: max(10.5px, 0.86rem);
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.ct-topbar-v42__nav a {
+  padding: 0 20px;
+}
+
+.ct-topbar-v42__nav a:hover,
+.ct-topbar-v42__button:hover,
+.ct-topbar-v42__iconButton:hover,
+.ct-topbar-v42__authSwitch a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(31, 48, 62, 0.18);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 12px 28px rgba(18,39,56,.10);
+}
+
+.ct-topbar-v42__actions {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ct-topbar-v42__menuWrap {
+  position: relative;
+}
+
+.ct-topbar-v42__iconButton {
+  width: 46px;
+  padding: 0;
+  border-color: rgba(31, 48, 62, 0.14);
+  background: rgba(255,255,255,.64);
+  cursor: pointer;
+}
+
+.ct-topbar-v42__iconButton span {
+  font-size: 23px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.ct-topbar-v42__button {
+  padding: 0 20px;
+  border-color: rgba(31, 48, 62, 0.14);
+  background: rgba(255,255,255,.64);
+  cursor: pointer;
+}
+
+.ct-topbar-v42__authSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid rgba(31, 48, 62, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.ct-topbar-v42__authSwitch a {
+  padding: 0 18px;
+}
+
+.ct-topbar-v42__authSwitch a:last-child {
+  color: #fff;
+  background: linear-gradient(135deg, #207a59, #105d43);
+  box-shadow: 0 12px 28px rgba(16,93,67,.20);
+}
+
+.ct-topbar-v42__dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(420px, calc(100vw - 30px));
+  padding: 14px;
+  border: 1px solid rgba(31, 48, 62, 0.14);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(250, 253, 255, .98), rgba(236, 243, 248, .96));
+  box-shadow: 0 34px 90px rgba(18,39,56,.20);
+  backdrop-filter: blur(18px);
+}
+
+.ct-topbar-v42__dropdown--design {
+  width: min(470px, calc(100vw - 30px));
+}
+
+.ct-topbar-v42__dropdownKicker {
+  margin: 2px 8px 10px;
+  color: rgba(16,47,67,.58);
+  font-size: max(10.5px, .72rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+}
+
+.ct-topbar-v42__dropdownItem {
+  width: 100%;
+  border: 1px solid rgba(31, 48, 62, 0.10);
+  border-radius: 16px;
+  background: rgba(255,255,255,.58);
+  color: #102f43;
+  text-align: left;
+  text-decoration: none;
+  display: grid;
+  gap: 5px;
+  padding: 14px 15px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.ct-topbar-v42__dropdownItem:hover,
+.ct-topbar-v42__dropdownItem.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(32, 122, 89, 0.30);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 14px 34px rgba(18,39,56,.12);
+}
+
+.ct-topbar-v42__dropdownItem strong {
+  font-size: max(12px, .92rem);
+  font-weight: 900;
+}
+
+.ct-topbar-v42__dropdownItem span {
+  font-size: max(10.5px, .82rem);
+  line-height: 1.45;
+  color: rgba(16,47,67,.66);
+  font-weight: 440;
+}
+
+html[data-skin="enkel"] .ct-topbar-v42 {
+  background: linear-gradient(180deg, rgba(248, 251, 253, .97), rgba(231, 238, 244, .94));
+  color: #102f43;
+}
+
+html[data-skin="enkel"] .ct-topbar-v42__logoMark,
+html[data-skin="enkel"] .ct-topbar-v42__authSwitch a:last-child {
+  background: linear-gradient(135deg, #6f7d89, #173c5a);
+}
+
+html[data-skin="museum"] .ct-topbar-v42,
+html[data-skin="finans"] .ct-topbar-v42 {
+  border-bottom-color: rgba(232, 238, 242, .10);
+  background: linear-gradient(180deg, rgba(15, 18, 20, .96), rgba(20, 25, 29, .92));
+  color: #edf3f6;
+}
+
+html[data-skin="museum"] .ct-topbar-v42__brandText small,
+html[data-skin="finans"] .ct-topbar-v42__brandText small {
+  color: rgba(237,243,246,.62);
+}
+
+html[data-skin="museum"] .ct-topbar-v42__nav,
+html[data-skin="museum"] .ct-topbar-v42__button,
+html[data-skin="museum"] .ct-topbar-v42__iconButton,
+html[data-skin="museum"] .ct-topbar-v42__authSwitch,
+html[data-skin="finans"] .ct-topbar-v42__nav,
+html[data-skin="finans"] .ct-topbar-v42__button,
+html[data-skin="finans"] .ct-topbar-v42__iconButton,
+html[data-skin="finans"] .ct-topbar-v42__authSwitch {
+  background: rgba(233, 239, 243, .08);
+  border-color: rgba(233, 239, 243, .14);
+}
+
+html[data-skin="museum"] .ct-topbar-v42__nav a,
+html[data-skin="museum"] .ct-topbar-v42__button,
+html[data-skin="museum"] .ct-topbar-v42__iconButton,
+html[data-skin="museum"] .ct-topbar-v42__authSwitch a,
+html[data-skin="finans"] .ct-topbar-v42__nav a,
+html[data-skin="finans"] .ct-topbar-v42__button,
+html[data-skin="finans"] .ct-topbar-v42__iconButton,
+html[data-skin="finans"] .ct-topbar-v42__authSwitch a {
+  color: #edf3f6;
+}
+
+@media (max-width: 1120px) {
+  .ct-topbar-v42__inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+  }
+
+  .ct-topbar-v42__nav {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .ct-topbar-v42__inner {
+    width: min(100% - 20px, 1800px);
+    min-height: 68px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .ct-topbar-v42__brandText small {
+    display: none;
+  }
+
+  .ct-topbar-v42__authSwitch a:first-child {
+    display: none;
+  }
+
+  .ct-topbar-v42__button {
+    padding: 0 14px;
+  }
+
+  .ct-topbar-v42__authSwitch a {
+    padding: 0 14px;
+  }
+}
+/* === COLLECTIUM GLOBAL TOPBAR V42 END === */
