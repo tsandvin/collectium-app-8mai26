@@ -1,4 +1,4 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
@@ -47,7 +47,7 @@
  */
 
 import "server-only";
-import mysql, { type Pool, type PoolConnection, type RowDataPacket, type ResultSetHeader } from "mysql2/promise";
+import mysql, { type Pool, type PoolConnection, type RowDataPacket, type ResultSetHeader, type ExecuteValues } from "mysql2/promise";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -87,7 +87,7 @@ export const pool = dbPool;
 
 export async function dbQuery<T extends RowDataPacket = RowDataPacket>(
   sql: string,
-  params: unknown[] = [],
+  params: ExecuteValues = [],
 ): Promise<T[]> {
   const [rows] = await dbPool.query<T[]>(sql, params);
   return rows;
@@ -95,7 +95,7 @@ export async function dbQuery<T extends RowDataPacket = RowDataPacket>(
 
 export async function dbExecute(
   sql: string,
-  params: unknown[] = [],
+  params: ExecuteValues = [],
 ): Promise<ResultSetHeader> {
   const [result] = await dbPool.execute<ResultSetHeader>(sql, params);
   return result;
@@ -111,3 +111,4 @@ export const db = {
   getConnection: getDbConnection,
   pool: dbPool,
 };
+
