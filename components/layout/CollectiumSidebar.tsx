@@ -1,33 +1,31 @@
 ﻿import Link from "next/link";
 
-const menuItems = [
-  { href: "/startside", code: "ST", label: "Startside" },
-  { href: "/katalog", code: "KA", label: "Katalog" },
-  { href: "/auksjoner", code: "AU", label: "Auksjon" },
-  { href: "/min-side", code: "MS", label: "Min side" },
-  { href: "/admin", code: "AD", label: "Admin" },
+const menu = [
+  ["ST", "Startside", "/startside"],
+  ["KA", "Katalog", "/katalog"],
+  ["AU", "Auksjon", "/auksjoner"],
+  ["MS", "Min side", "/min-side"],
+  ["AD", "Admin", "/admin"],
 ] as const;
 
 export function CollectiumSidebar(): JSX.Element {
   return (
-    <aside className="ct-sidebar" aria-label="Collectium sidemeny">
-      <div className="ct-sidebar-title">Plattform</div>
+    <aside className="ct-sidebar">
+      <p className="ct-sidebarTitle">Plattform</p>
 
-      <nav className="ct-sidebar-nav">
-        {menuItems.map((item) => (
-          <Link key={item.href} href={item.href} className="ct-sidebar-link">
-            <span>{item.code}</span>
-            <strong>{item.label}</strong>
+      <nav className="ct-sidebarNav" aria-label="Sidemeny">
+        {menu.map(([code, label, href]) => (
+          <Link key={href} href={href} className="ct-sidebarLink">
+            <span>{code}</span>
+            <strong>{label}</strong>
           </Link>
         ))}
       </nav>
 
-      <div className="ct-sidebar-card">
+      <div className="ct-sidebarCard">
         <strong>Collectium</strong>
-        <span>Katalog · samling · auksjon · marked</span>
+        <p>Katalog · samling · auksjon · marked</p>
       </div>
     </aside>
   );
 }
-
-export default CollectiumSidebar;

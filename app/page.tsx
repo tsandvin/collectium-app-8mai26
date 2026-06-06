@@ -1,16 +1,25 @@
-﻿export default function Page(): JSX.Element {
-  return (
-    <section className="ct-page">
-      <div className="ct-hero">
-        <p className="ct-kicker">Startside</p>
-        <h1>Collectium</h1>
-        <p className="ct-lead">Samlerplattform for katalog, samling, auksjon og marked.</p>
-      </div>
+﻿import { CleanPage } from "@/components/pages/CleanPage";
 
-      <div className="ct-section">
-        <h2>Renset standardflate</h2>
-        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
-      </div>
-    </section>
+export default function HomePage(): JSX.Element {
+  return (
+    <CleanPage
+      kicker="Startside"
+      title="Collectium"
+      lead="Samlerplattform for katalog, samling, auksjon og marked."
+      cards={[
+        {
+          title: "Katalog",
+          text: "Utforsk Collectium-katalogen i et ryddet standardoppsett.",
+        },
+        {
+          title: "Samling",
+          text: "Bygg videre med brukerflate, samling, ønskeliste og favoritter.",
+        },
+        {
+          title: "Marked",
+          text: "Auksjon, verdi, trend og finansdata kan kobles på kontrollert.",
+        },
+      ]}
+    />
   );
 }

@@ -3,9 +3,9 @@
 export default function Page(): JSX.Element {
   return (
     <CleanPage
-      kicker="Auksjon"
-      title="Auksjon"
-      lead="Renset auksjonsflate. Auksjon og bud kobles senere mot API."
+      kicker="Meldinger"
+      title="Meldinger"
+      lead="Renset meldingsflate."
       cards={[
         {
           title: "Ren standardflate",

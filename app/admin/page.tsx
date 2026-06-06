@@ -1,16 +1,25 @@
-﻿export default function Page(): JSX.Element {
-  return (
-    <section className="ct-page">
-      <div className="ct-hero">
-        <p className="ct-kicker">Kontrollsenter</p>
-        <h1>Admin</h1>
-        <p className="ct-lead">Renset adminflate for system, sider, brytere, API og datakvalitet.</p>
-      </div>
+﻿import { CleanPage } from "@/components/pages/CleanPage";
 
-      <div className="ct-section">
-        <h2>Renset standardflate</h2>
-        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
-      </div>
-    </section>
+export default function Page(): JSX.Element {
+  return (
+    <CleanPage
+      kicker="Kontrollsenter"
+      title="Admin"
+      lead="Renset adminflate for system, sider, brytere, API og datakvalitet."
+      cards={[
+        {
+          title: "Ren standardflate",
+          text: "Denne siden er ryddet for gamle template-, V42-, V6- og designrester.",
+        },
+        {
+          title: "Klar for DB/API",
+          text: "Videre funksjoner kan kobles kontrollert mot API, DB-brytere og MariaDB.",
+        },
+        {
+          title: "Collectium-skall",
+          text: "Topbar, sidemeny, hovedflate og fire skinn styres fra rent globalt skall.",
+        },
+      ]}
+    />
   );
 }

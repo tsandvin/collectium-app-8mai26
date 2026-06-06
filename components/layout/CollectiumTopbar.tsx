@@ -4,16 +4,13 @@ import { CollectiumSkinController } from "./CollectiumSkinController";
 export function CollectiumTopbar(): JSX.Element {
   return (
     <header className="ct-topbar">
-      <div className="ct-brand">
-        <Link href="/" className="ct-logo" aria-label="Collectium">
-          C
-        </Link>
-
-        <div className="ct-brand-text">
+      <Link href="/" className="ct-brand" aria-label="Collectium">
+        <span className="ct-logo">C</span>
+        <span className="ct-brandText">
           <strong>Collectium</strong>
-          <span>Samlerplattform</span>
-        </div>
-      </div>
+          <small>Samlerplattform</small>
+        </span>
+      </Link>
 
       <nav className="ct-topnav" aria-label="Hovedmeny">
         <Link href="/startside">Startside</Link>
@@ -24,18 +21,16 @@ export function CollectiumTopbar(): JSX.Element {
       </nav>
 
       <form className="ct-search" role="search">
-        <label htmlFor="collectium-search">Søk</label>
-        <input id="collectium-search" type="search" placeholder="Søk i Collectium" />
+        <label htmlFor="ct-search">Søk</label>
+        <input id="ct-search" type="search" placeholder="Søk i Collectium" />
       </form>
 
       <CollectiumSkinController />
 
-      <div className="ct-auth">
+      <nav className="ct-auth" aria-label="Innlogging">
         <Link href="/login">Logg inn</Link>
         <Link href="/sign-up">Registrer</Link>
-      </div>
+      </nav>
     </header>
   );
 }
-
-export default CollectiumTopbar;

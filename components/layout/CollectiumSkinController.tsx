@@ -2,51 +2,50 @@
 
 import { useEffect, useState } from "react";
 
-type CollectiumSkin = "collectium" | "enkel" | "museum" | "finans";
+type Skin = "collectium" | "enkel" | "museum" | "finans";
 
-const skins: ReadonlyArray<{ key: CollectiumSkin; label: string }> = [
+const skins: ReadonlyArray<{ key: Skin; label: string }> = [
   { key: "collectium", label: "Collectium" },
   { key: "enkel", label: "Enkel" },
   { key: "museum", label: "Museum" },
   { key: "finans", label: "Finans" },
 ];
 
-const STORAGE_KEY = "collectium-standard-skin";
+const STORAGE_KEY = "ct-clean-skin-v1";
 
-function isCollectiumSkin(value: string | null): value is CollectiumSkin {
+function isSkin(value: string | null): value is Skin {
   return value === "collectium" || value === "enkel" || value === "museum" || value === "finans";
 }
 
-function applySkin(skin: CollectiumSkin): void {
+function setDocumentSkin(skin: Skin): void {
   document.documentElement.dataset.ctSkin = skin;
   window.localStorage.setItem(STORAGE_KEY, skin);
 }
 
 export function CollectiumSkinController(): JSX.Element {
-  const [activeSkin, setActiveSkin] = useState<CollectiumSkin>("collectium");
+  const [active, setActive] = useState<Skin>("collectium");
 
   useEffect(() => {
-    const savedSkin = window.localStorage.getItem(STORAGE_KEY);
+    window.localStorage.removeItem("collectium-standard-skin");
+    window.localStorage.removeItem("collectium-active-skin");
 
-    if (isCollectiumSkin(savedSkin)) {
-      setActiveSkin(savedSkin);
-      applySkin(savedSkin);
-      return;
-    }
+    const saved = window.localStorage.getItem(STORAGE_KEY);
+    const skin = isSkin(saved) ? saved : "collectium";
 
-    applySkin("collectium");
+    setActive(skin);
+    setDocumentSkin(skin);
   }, []);
 
   return (
-    <div className="ct-skin-switch" aria-label="Velg Collectium-skinn">
+    <div className="ct-skins" aria-label="Velg skinn">
       {skins.map((skin) => (
         <button
           key={skin.key}
           type="button"
-          className={activeSkin === skin.key ? "is-active" : ""}
+          className={active === skin.key ? "is-active" : ""}
           onClick={() => {
-            setActiveSkin(skin.key);
-            applySkin(skin.key);
+            setActive(skin.key);
+            setDocumentSkin(skin.key);
           }}
         >
           {skin.label}

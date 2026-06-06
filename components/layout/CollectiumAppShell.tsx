@@ -9,13 +9,10 @@ export function CollectiumAppShell({
   return (
     <div className="ct-shell">
       <CollectiumTopbar />
-
-      <div className="ct-shell-body">
+      <div className="ct-body">
         <CollectiumSidebar />
         <main className="ct-main">{children}</main>
       </div>
     </div>
   );
 }
-
-export default CollectiumAppShell;
