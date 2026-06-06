@@ -225,46 +225,15 @@ button { font: inherit; }
   box-shadow: 0 12px 28px rgba(31, 111, 178, .20);
 }
 
-.ct-design-panel {
-  position: fixed;
-  top: 92px;
-  right: 4vw;
-  z-index: 120;
-  width: min(92vw, 460px);
-  padding: 22px;
-  border: 1px solid var(--ct-v7-line);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, .96);
-  box-shadow: 0 28px 90px rgba(16, 43, 61, .20);
-}
 
-.ct-design-panel h2 {
-  margin: 0 0 8px;
-  font-family: Georgia, serif;
-}
 
-.ct-design-panel p {
-  color: var(--ct-v7-muted);
-  line-height: 1.6;
-}
 
-.ct-design-panel__eyebrow {
-  margin: 0 0 6px;
-  color: var(--ct-v7-blue);
-  text-transform: uppercase;
-  letter-spacing: .16em;
-  font-size: 11px;
-  font-weight: 900;
-}
 
-.ct-design-panel button {
-  border: 1px solid var(--ct-v7-line);
-  border-radius: 999px;
-  background: var(--ct-v7-soft);
-  padding: 10px 15px;
-  font-weight: 850;
-  cursor: pointer;
-}
+
+
+
+
+
 
 .ct-shell__body {
   width: min(86vw, 1680px);
@@ -1077,9 +1046,7 @@ button { font: inherit; }
   backdrop-filter: blur(18px);
 }
 
-.ct-topbar-v42__dropdown--design {
-  width: min(470px, calc(100vw - 30px));
-}
+
 
 .ct-topbar-v42__dropdownKicker {
   margin: 2px 8px 10px;
@@ -1126,50 +1093,17 @@ button { font: inherit; }
   font-weight: 440;
 }
 
-html[data-skin="enkel"] .ct-topbar-v42 {
-  background: linear-gradient(180deg, rgba(248, 251, 253, .97), rgba(231, 238, 244, .94));
-  color: #102f43;
-}
 
-html[data-skin="enkel"] .ct-topbar-v42__logoMark,
-html[data-skin="enkel"] .ct-topbar-v42__authSwitch a:last-child {
-  background: linear-gradient(135deg, #6f7d89, #173c5a);
-}
 
-html[data-skin="museum"] .ct-topbar-v42,
-html[data-skin="finans"] .ct-topbar-v42 {
-  border-bottom-color: rgba(232, 238, 242, .10);
-  background: linear-gradient(180deg, rgba(15, 18, 20, .96), rgba(20, 25, 29, .92));
-  color: #edf3f6;
-}
 
-html[data-skin="museum"] .ct-topbar-v42__brandText small,
-html[data-skin="finans"] .ct-topbar-v42__brandText small {
-  color: rgba(237,243,246,.62);
-}
 
-html[data-skin="museum"] .ct-topbar-v42__nav,
-html[data-skin="museum"] .ct-topbar-v42__button,
-html[data-skin="museum"] .ct-topbar-v42__iconButton,
-html[data-skin="museum"] .ct-topbar-v42__authSwitch,
-html[data-skin="finans"] .ct-topbar-v42__nav,
-html[data-skin="finans"] .ct-topbar-v42__button,
-html[data-skin="finans"] .ct-topbar-v42__iconButton,
-html[data-skin="finans"] .ct-topbar-v42__authSwitch {
-  background: rgba(233, 239, 243, .08);
-  border-color: rgba(233, 239, 243, .14);
-}
 
-html[data-skin="museum"] .ct-topbar-v42__nav a,
-html[data-skin="museum"] .ct-topbar-v42__button,
-html[data-skin="museum"] .ct-topbar-v42__iconButton,
-html[data-skin="museum"] .ct-topbar-v42__authSwitch a,
-html[data-skin="finans"] .ct-topbar-v42__nav a,
-html[data-skin="finans"] .ct-topbar-v42__button,
-html[data-skin="finans"] .ct-topbar-v42__iconButton,
-html[data-skin="finans"] .ct-topbar-v42__authSwitch a {
-  color: #edf3f6;
-}
+
+
+
+
+
+
 
 @media (max-width: 1120px) {
   .ct-topbar-v42__inner {
@@ -1206,3 +1140,8 @@ html[data-skin="finans"] .ct-topbar-v42__authSwitch a {
   }
 }
 /* === COLLECTIUM GLOBAL TOPBAR V42 END === */
+
+/* CT cleanup: runtime design menu disabled */
+.ct-design-panel,
+
+

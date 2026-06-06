@@ -40,10 +40,11 @@ export type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html lang="no" data-template="collectium" data-skin="signature-light" data-vp="pc">
+    <html lang="no">
       <body>
         <CollectiumAppShell>{children}</CollectiumAppShell>
       </body>
     </html>
   );
 }
+

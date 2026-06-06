@@ -69,11 +69,13 @@ export function CollectiumSidebar(): JSX.Element {
       </nav>
 
       <div className="ct-sidebar__note">
-        <strong>Signature Light · DB 8.4</strong>
-        <span>Global template styrer skall, meny, rammer og responsivitet.</span>
+        <strong>Collectium</strong>
+          <span>Katalog · samling · auksjon · marked</span>
       </div>
     </aside>
   );
 }
 
 export default CollectiumSidebar;
+
+
