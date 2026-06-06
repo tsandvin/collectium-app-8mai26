@@ -29,9 +29,9 @@
  * ingen
  *
  * Versjon:
- * CT-FILE-TEMPLATE-SKINS-0001 / CHANGE-2026-06-06-STRUCTURE-LOCK
+ * CT-FILE-TEMPLATE-SKINS-0002 / CHANGE-2026-06-06-DESIGN-SKINS-4
  */
 
 export const COLLECTIUM_TEMPLATE = "collectium" as const;
-export const COLLECTIUM_SKIN = "signature-light" as const;
+export const COLLECTIUM_SKIN = "collectium" as const;
 export const COLLECTIUM_VIEWPORT_DEFAULT = "pc" as const;

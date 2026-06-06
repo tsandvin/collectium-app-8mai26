@@ -17,6 +17,7 @@
  * Berørte DB-brytere / feature_keys:
  * - local.template.toppmeny
  * - navigation.view
+ * - local.template.design_skin
  *
  * Berørte API-ruter:
  * - senere /api/admin/menu
@@ -32,10 +33,11 @@
  * ingen i første versjon
  *
  * Versjon:
- * CT-FILE-TEMPLATE-TOPPMENY-0002 / CHANGE-2026-06-06-TEMPLATE-MENUS
+ * CT-FILE-TEMPLATE-TOPPMENY-0003 / CHANGE-2026-06-06-DESIGN-SKINS-4
  */
 
 import Link from "next/link";
+import { TemplateDesignControl } from "./template-design-control";
 
 export function TemplateToppmeny() {
   return (
@@ -60,6 +62,8 @@ export function TemplateToppmeny() {
         <label htmlFor="ct-search">Søk</label>
         <input id="ct-search" type="search" placeholder="Søk i Collectium" />
       </form>
+
+      <TemplateDesignControl />
 
       <nav className="ct-template-auth" aria-label="Bruker">
         <Link href="/login">Logg inn</Link>
