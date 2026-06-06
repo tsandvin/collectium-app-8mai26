@@ -1,43 +1,16 @@
-﻿/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * Admin Page
- *
- * Definering / formål:
- * Admin page rendered inside global Collectium template.
- *
- * Bruksområde:
- * Route /admin
- *
- * Berørte sider / routes:
- * - /admin
- *
- * Berørte DB-brytere / feature_keys:
- * - admin.dashboard.view
- *
- * Berørte API-ruter:
- * - Future: GET /api/admin/system/dashboard
- *
- * Dataretning:
- * MariaDB/API later. Current route only repairs structure.
- *
- * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
- */
-
-import { AdminDashboard } from "@/components/admin/AdminDashboard";
-import { CollectiumPageTemplate } from "@/components/templates/CollectiumPageTemplate";
-
-export default function AdminPage(): JSX.Element {
+﻿export default function Page(): JSX.Element {
   return (
-    <CollectiumPageTemplate
-      title="Admin"
-      eyebrow="Kontrollsenter"
-      description="Administrer brukere, sider, brytere, API-ruter, datakvalitet og systemstatus."
-      variant="admin"
-    >
-      <AdminDashboard />
-    </CollectiumPageTemplate>
+    <section className="ct-page">
+      <div className="ct-hero">
+        <p className="ct-kicker">Kontrollsenter</p>
+        <h1>Admin</h1>
+        <p className="ct-lead">Renset adminflate for system, sider, brytere, API og datakvalitet.</p>
+      </div>
+
+      <div className="ct-section">
+        <h2>Renset standardflate</h2>
+        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
+      </div>
+    </section>
   );
 }

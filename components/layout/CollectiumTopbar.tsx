@@ -1,39 +1,4 @@
-﻿/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * CollectiumTopbar
- *
- * Definering / formål:
- * Standard global toppmeny for Collectium.
- * Har kontrollert fire-skinn-bryter, men ingen gammel design-dropdown.
- *
- * Bruksområde:
- * Global template/topbar.
- *
- * Berørte sider / routes:
- * - Alle sider via CollectiumAppShell
- *
- * Berørte DB-brytere / feature_keys:
- * - local.template.topbar
- *
- * Berørte API-ruter:
- * - Ingen direkte
- *
- * Berørte tabeller / views:
- * - Ingen direkte
- *
- * Dataretning:
- * Template/layout → UI
- *
- * Logging:
- * Ingen direkte logging
- *
- * Versjon:
- * CT-TOPBAR-4-SKINS-0001 / CHANGE-REINSTALL-4-SKINS
- */
-
-import Link from "next/link";
+﻿import Link from "next/link";
 import { CollectiumSkinController } from "./CollectiumSkinController";
 
 export function CollectiumTopbar(): JSX.Element {
@@ -46,7 +11,7 @@ export function CollectiumTopbar(): JSX.Element {
 
         <div className="ct-brand-text">
           <strong>Collectium</strong>
-          <span>Samlerplattform for katalog, samling, auksjon og marked</span>
+          <span>Samlerplattform</span>
         </div>
       </div>
 

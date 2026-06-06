@@ -1,61 +1,16 @@
-﻿import { headers } from 'next/headers'
-import { auth } from '@/lib/auth'
-import { CatalogGrid } from '@/components/catalog/catalog-grid'
-import { CatalogFilters } from '@/components/catalog/catalog-filters'
-import { getCatalogItems } from '@/app/actions/collectium'
-import Link from 'next/link'
-
-export default async function KatalogPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string; country?: string; search?: string }>
-}) {
-  const session = await auth.api.getSession({ headers: await headers() })
-  const params = await searchParams
-  const items = await getCatalogItems({
-    type: params.type,
-    country: params.country,
-    search: params.search,
-  })
-
+﻿export default function Page(): JSX.Element {
   return (
-    <><header style={{ marginBottom: 32 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-          <div>
-            <h1
-              style={{
-                fontFamily: "var(--ct-font-display)",
-                fontSize: "2em",
-                letterSpacing: "-0.02em",
-                color: "var(--ct-text)",
-                lineHeight: 1.1,
-                marginBottom: 4,
-              }}
-            >
-              Samlekatalog
-            </h1>
-            <p style={{ color: "var(--ct-text-muted)", fontFamily: "var(--ct-font-ui)", fontSize: "0.93em" }}>
-              Utforsk {items.length} numismatiske objekter
-            </p>
-          </div>
-          
-          {session?.user && (
-            <Link href="/katalog/ny" className="ct-btn">
-              <i className="ti ti-plus" /> Legg til objekt
-            </Link>
-          )}
-        </div>
-      </header>
+    <section className="ct-page">
+      <div className="ct-hero">
+        <p className="ct-kicker">Katalog</p>
+        <h1>Katalog</h1>
+        <p className="ct-lead">Renset katalogflate. DB/API-kobling bygges videre kontrollert.</p>
+      </div>
 
-      <div style={{ display: 'flex', gap: 32 }}>
-        <aside style={{ width: 240, flexShrink: 0 }}>
-          <CatalogFilters />
-        </aside>
-        
-        <div style={{ flex: 1 }}>
-          <CatalogGrid items={items} />
-        </div>
-      </div></>
-  )
+      <div className="ct-section">
+        <h2>Renset standardflate</h2>
+        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
+      </div>
+    </section>
+  );
 }
-

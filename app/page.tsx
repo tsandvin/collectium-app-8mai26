@@ -1,39 +1,16 @@
-﻿/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * Root page
- *
- * Definering / formål:
- * Root route viser samme rene startside som /startside.
- *
- * Bruksområde:
- * /
- *
- * Berørte sider / routes:
- * - /
- *
- * Berørte DB-brytere / feature_keys:
- * - landing.view
- *
- * Berørte API-ruter:
- * - Ingen direkte
- *
- * Berørte tabeller / views:
- * - Ingen direkte
- *
- * Dataretning:
- * Global template → StartsideContent → UI
- *
- * Logging:
- * Ingen direkte logging
- *
- * Versjon:
- * CT-ROOT-PAGE-CLEAN-0001 / CHANGE-REINSTALL-4-SKINS
- */
+﻿export default function Page(): JSX.Element {
+  return (
+    <section className="ct-page">
+      <div className="ct-hero">
+        <p className="ct-kicker">Startside</p>
+        <h1>Collectium</h1>
+        <p className="ct-lead">Samlerplattform for katalog, samling, auksjon og marked.</p>
+      </div>
 
-import { CollectiumStartsideClean } from "@/components/startside/CollectiumStartsideClean";
-
-export default function HomePage(): JSX.Element {
-  return <CollectiumStartsideClean />;
+      <div className="ct-section">
+        <h2>Renset standardflate</h2>
+        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
+      </div>
+    </section>
+  );
 }

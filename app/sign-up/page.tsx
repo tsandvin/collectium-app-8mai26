@@ -1,41 +1,16 @@
-/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * Legacy sign-up alias
- *
- * Definering / formal:
- * Sender tidligere /sign-up til ny /login?mode=register.
- *
- * Bruksomrade:
- * Brukes for bakoverkompatibilitet.
- *
- * Berorte sider / routes:
- * - /sign-up
- * - /login
- *
- * Berorte DB-brytere / feature_keys:
- * - auth.register
- *
- * Berorte API-ruter:
- * - Ingen direkte
- *
- * Berorte tabeller / views:
- * - Ingen direkte
- *
- * Dataretning:
- * MariaDB -> API/backend -> Next.js -> React -> UI
- *
- * Logging:
- * log_category: auth
- * log_action: sign_up.alias
- *
- * Versjon:
- * CT-FILE-ROUTE-SIGNUP-ALIAS-0001 / CHANGE-2026-06-05-0001
- */
+﻿export default function Page(): JSX.Element {
+  return (
+    <section className="ct-page">
+      <div className="ct-hero">
+        <p className="ct-kicker">Medlemskap</p>
+        <h1>Registrer</h1>
+        <p className="ct-lead">Renset registreringsflate.</p>
+      </div>
 
-import { redirect } from "next/navigation";
-
-export default function SignUpAliasPage() {
-  redirect("/login?mode=register");
+      <div className="ct-section">
+        <h2>Renset standardflate</h2>
+        <p>Denne siden er ryddet for gamle template-, V42-, V6- og designrester. Ny funksjonalitet kan bygges kontrollert herfra.</p>
+      </div>
+    </section>
+  );
 }

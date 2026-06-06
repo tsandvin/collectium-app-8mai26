@@ -1,48 +1,10 @@
-﻿/**
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * CollectiumSkinController
- *
- * Definering / formål:
- * Kontrollert skin-bryter for Collectium sine fire standard-skinn.
- * Denne erstatter gammel runtime designmotor med en begrenset, stabil skin-kontroll.
- *
- * Bruksområde:
- * Brukes i global topbar.
- *
- * Berørte sider / routes:
- * - Alle sider via global layout
- *
- * Berørte DB-brytere / feature_keys:
- * - local.template.skin_control
- *
- * Berørte API-ruter:
- * - Ingen direkte
- *
- * Berørte tabeller / views:
- * - Ingen direkte
- *
- * Dataretning:
- * UI-kontroll → html data-ct-skin
- *
- * Logging:
- * Ingen direkte logging
- *
- * Versjon:
- * CT-SKIN-CONTROLLER-0001 / CHANGE-REINSTALL-4-SKINS
- */
-
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
 type CollectiumSkin = "collectium" | "enkel" | "museum" | "finans";
 
-const skins: ReadonlyArray<{
-  key: CollectiumSkin;
-  label: string;
-}> = [
+const skins: ReadonlyArray<{ key: CollectiumSkin; label: string }> = [
   { key: "collectium", label: "Collectium" },
   { key: "enkel", label: "Enkel" },
   { key: "museum", label: "Museum" },
@@ -64,8 +26,14 @@ export function CollectiumSkinController(): JSX.Element {
   const [activeSkin, setActiveSkin] = useState<CollectiumSkin>("collectium");
 
   useEffect(() => {
-    window.localStorage.removeItem(STORAGE_KEY);
-    setActiveSkin("collectium");
+    const savedSkin = window.localStorage.getItem(STORAGE_KEY);
+
+    if (isCollectiumSkin(savedSkin)) {
+      setActiveSkin(savedSkin);
+      applySkin(savedSkin);
+      return;
+    }
+
     applySkin("collectium");
   }, []);
 
@@ -87,4 +55,3 @@ export function CollectiumSkinController(): JSX.Element {
     </div>
   );
 }
-
