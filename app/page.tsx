@@ -2,19 +2,20 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Blank root page
+ * Root redirect
  *
  * Definering / formål:
- * Blank side mens prosjektstruktur, DB-tilkobling, Vercel og global template låses.
+ * Root-siden sender brukeren til kontrollert startside.
  *
  * Bruksområde:
  * /
  *
  * Berørte sider / routes:
  * - /
+ * - /startside
  *
  * Berørte DB-brytere / feature_keys:
- * - local.page.blank
+ * - landing.view
  *
  * Berørte API-ruter:
  * - ingen
@@ -23,15 +24,17 @@
  * - ingen
  *
  * Dataretning:
- * Ingen data i denne blanke fasen.
+ * Ingen data. Kun Next.js redirect.
  *
  * Logging:
  * ingen
  *
  * Versjon:
- * CT-FILE-HOME-BLANK-0002 / CHANGE-2026-06-06-STRUCTURE-LOCK
+ * CT-FILE-HOME-REDIRECT-0001 / CHANGE-2026-06-06-ROOT-TO-STARTSIDE
  */
 
+import { redirect } from "next/navigation";
+
 export default function HomePage() {
-  return null;
+  redirect("/startside");
 }
