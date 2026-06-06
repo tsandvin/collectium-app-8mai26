@@ -1,0 +1,48 @@
+{
+  "version": "CT-STRUCTURE-LOCK-0001",
+  "locked_template_names": [
+    "template-root.tsx",
+    "template-sidemeny.tsx",
+    "template-toppmeny.tsx",
+    "template-page-frame.tsx",
+    "template-signature-frame.tsx",
+    "template-skins.ts"
+  ],
+  "forbidden_name_patterns": [
+    "templatemega",
+    "template-mega",
+    "mega-sidemeny",
+    "mega-sidemenu",
+    "templateMega",
+    "CollectiumStartTemplate",
+    "CollectiumPublicTemplate",
+    "CollectiumMinsideV6",
+    "ct-topbar-v42",
+    "ct-standard",
+    "ct-public"
+  ],
+  "allowed_top_level": [
+    "app",
+    "components",
+    "lib",
+    "styles",
+    "public",
+    "collectium-docs",
+    "scripts",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "next-env.d.ts",
+    ".gitignore",
+    ".collectium-structure.json",
+    "vercel.json"
+  ],
+  "rules": {
+    "ordinary_pages_may_not_define_shell": true,
+    "ordinary_pages_may_not_define_sidebar": true,
+    "ordinary_pages_may_not_define_topbar": true,
+    "template_files_must_use_locked_names": true,
+    "db_connection_must_remain_server_only": true
+  }
+}

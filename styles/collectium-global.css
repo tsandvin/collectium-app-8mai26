@@ -1,0 +1,28 @@
+/**
+ * COLLECTIUM GLOBAL TEMPLATE CSS
+ *
+ * Formål:
+ * Global Collectium template/skinn-base.
+ * Foreløpig minimal for å holde siden blank.
+ */
+
+:root {
+  --ct-template: collectium;
+  --ct-skin: signature-light;
+  --ct-bg: #ffffff;
+  --ct-text: #102d42;
+}
+
+.ct-template-root {
+  min-height: 100vh;
+  background: var(--ct-bg);
+  color: var(--ct-text);
+}
+
+.ct-page-frame {
+  min-height: 100vh;
+}
+
+.ct-signature-frame {
+  position: relative;
+}
