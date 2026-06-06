@@ -1,9 +1,14 @@
-node_modules/
+﻿node_modules/
 .next/
-.vercel/cache/
+.vercel/
 out/
 build/
 dist/
+
+_collectium-quarantine/
+_collectium-*/
+_archive/
+docs/patches/
 
 .env
 .env.local
