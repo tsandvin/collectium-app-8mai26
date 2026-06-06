@@ -2,43 +2,51 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Root Layout
+ * Root layout
  *
  * Definering / formål:
- * One global Next.js layout for the Collectium application shell.
+ * Global Next.js root layout for Collectium.
+ * Reinstallerer standard Collectium-template uten runtime designvelger.
  *
  * Bruksområde:
- * Wraps every route in CollectiumAppShell.
+ * Alle sider i app-router.
  *
  * Berørte sider / routes:
- * - All app routes
+ * - Alle
  *
  * Berørte DB-brytere / feature_keys:
  * - local.template.root_layout
  *
+ * Berørte API-ruter:
+ * - Ingen direkte
+ *
+ * Berørte tabeller / views:
+ * - Ingen direkte
+ *
  * Dataretning:
- * Template/layout only. API/MariaDB remains source of truth.
+ * Global template/layout → UI
+ *
+ * Logging:
+ * Ingen direkte logging
  *
  * Versjon:
- * CT-PATCH-STRUCTURE-FIX-V1
+ * CT-ROOT-LAYOUT-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
  */
 
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import { CollectiumAppShell } from "@/components/layout/CollectiumAppShell";
 import "./globals.css";
-import "@/styles/collectium-structure-fix.css";
+import { CollectiumAppShell } from "@/components/layout/CollectiumAppShell";
 
 export const metadata: Metadata = {
   title: "Collectium",
-  description: "Samlerplattform for norske sedler, mynter, historie og markedsutvikling.",
+  description: "Samlerplattform for katalog, samling, auksjon og marked.",
 };
 
-export type RootLayoutProps = {
-  readonly children: ReactNode;
-};
-
-export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>): JSX.Element {
   return (
     <html lang="no">
       <body>
@@ -47,4 +55,3 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
     </html>
   );
 }
-

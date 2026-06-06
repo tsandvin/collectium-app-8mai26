@@ -5,24 +5,23 @@
  * CollectiumTopbar
  *
  * Definering / formål:
- * Ren global toppmeny for Collectium.
- * Denne filen inneholder ikke designvelger, skinvelger, template-switch,
- * runtime theme, localStorage skin-state eller Design-dropdown.
+ * Standard global toppmeny for Collectium.
+ * Ingen Design-knapp, ingen runtime skin-switch, ingen localStorage-template.
  *
  * Bruksområde:
- * Brukes av global Collectium layout/AppShell.
+ * Global template/topbar.
  *
  * Berørte sider / routes:
- * - Alle sider via global layout
+ * - Alle sider via CollectiumAppShell
  *
  * Berørte DB-brytere / feature_keys:
  * - local.template.topbar
  *
  * Berørte API-ruter:
- * - Ingen direkte API-ruter
+ * - Ingen direkte
  *
  * Berørte tabeller / views:
- * - Ingen direkte tabeller/views
+ * - Ingen direkte
  *
  * Dataretning:
  * Template/layout → UI
@@ -31,29 +30,26 @@
  * Ingen direkte logging
  *
  * Versjon:
- * CT-TOPBAR-CLEAN-0001 / CHANGE-REMOVE-DESIGN-SYSTEM
- *
- * Endringsregel:
- * Denne filen skal ikke inneholde runtime skin/design-system.
+ * CT-TOPBAR-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
  */
 
 import Link from "next/link";
 
 export function CollectiumTopbar(): JSX.Element {
   return (
-    <header className="ct-topbar-v42" data-component="collectium-topbar">
-      <div className="ct-topbar-v42__brand">
-        <Link href="/" className="ct-topbar-v42__logoMark" aria-label="Collectium startside">
+    <header className="ct-standard-topbar">
+      <div className="ct-standard-brand">
+        <Link href="/" className="ct-standard-logo" aria-label="Collectium">
           C
         </Link>
 
-        <div className="ct-topbar-v42__brandText">
+        <div className="ct-standard-brand-text">
           <strong>Collectium</strong>
-          <small>Samlerplattform for katalog, samling, auksjon og marked</small>
+          <span>Samlerplattform for katalog, samling, auksjon og marked</span>
         </div>
       </div>
 
-      <nav className="ct-topbar-v42__nav" aria-label="Hovedmeny">
+      <nav className="ct-standard-nav" aria-label="Hovedmeny">
         <Link href="/startside">Startside</Link>
         <Link href="/katalog">Katalog</Link>
         <Link href="/auksjoner">Auksjon</Link>
@@ -61,19 +57,12 @@ export function CollectiumTopbar(): JSX.Element {
         <Link href="/admin">Admin</Link>
       </nav>
 
-      <div className="ct-topbar-v42__search" role="search">
-        <label className="sr-only" htmlFor="collectium-global-search">
-          Søk i Collectium
-        </label>
-        <input
-          id="collectium-global-search"
-          type="search"
-          placeholder="Søk i Collectium"
-          aria-label="Søk i Collectium"
-        />
-      </div>
+      <form className="ct-standard-search" role="search">
+        <label htmlFor="collectium-search">Søk i Collectium</label>
+        <input id="collectium-search" type="search" placeholder="Søk i Collectium" />
+      </form>
 
-      <div className="ct-topbar-v42__authSwitch" aria-label="Brukerhandlinger">
+      <div className="ct-standard-auth">
         <Link href="/login">Logg inn</Link>
         <Link href="/sign-up">Registrer</Link>
       </div>

@@ -1,81 +1,72 @@
-﻿"use client";
-
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * CollectiumSidebar
  *
  * Definering / formål:
- * Global app-sidemeny for innloggede/app-routes.
+ * Standard global sidemeny for Collectium.
+ * Ingen skin-status, ingen Signature Light/DB 8.4-visning.
  *
  * Bruksområde:
- * Vises av CollectiumAppShell på app-routes. Skal ikke vises på /startside.
+ * Global template/sidebar.
  *
- * Regel:
- * Ingen rare symbolikoner. Bruk rene korte merker og tydelige tekstlenker.
+ * Berørte sider / routes:
+ * - Alle sider via CollectiumAppShell
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - local.template.sidebar
+ *
+ * Berørte API-ruter:
+ * - Ingen direkte
+ *
+ * Berørte tabeller / views:
+ * - Ingen direkte
+ *
+ * Dataretning:
+ * Template/layout → UI
+ *
+ * Logging:
+ * Ingen direkte logging
+ *
+ * Versjon:
+ * CT-SIDEBAR-STANDARD-0001 / CHANGE-REINSTALL-STANDARD-TEMPLATE
  */
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-type SidebarLink = {
-  href: string;
-  label: string;
-  mark: string;
-};
-
-const platformLinks: readonly SidebarLink[] = [
-  { href: "/startside", label: "Startside", mark: "ST" },
-  { href: "/katalog", label: "Katalog", mark: "KA" },
-  { href: "/bors", label: "Index / Finans", mark: "IF" },
-  { href: "/auksjoner", label: "Auksjon", mark: "AU" },
-  { href: "/min-side", label: "Min side", mark: "MS" },
-  { href: "/samling", label: "Min samling", mark: "SA" },
-  { href: "/meldinger", label: "Meldinger", mark: "ME" },
-  { href: "/forhandler", label: "Forhandlere", mark: "FO" },
-  { href: "/admin", label: "Admin kontroll", mark: "AD" },
-];
+const menuItems = [
+  { href: "/startside", code: "ST", label: "Startside" },
+  { href: "/katalog", code: "KA", label: "Katalog" },
+  { href: "/index", code: "IF", label: "Index / Finans" },
+  { href: "/auksjoner", code: "AU", label: "Auksjon" },
+  { href: "/min-side", code: "MS", label: "Min side" },
+  { href: "/samling", code: "SA", label: "Min samling" },
+  { href: "/meldinger", code: "ME", label: "Meldinger" },
+  { href: "/forhandler", code: "FO", label: "Forhandlere" },
+  { href: "/admin", code: "AD", label: "Admin kontroll" },
+] as const;
 
 export function CollectiumSidebar(): JSX.Element {
-  const pathname = usePathname() || "/";
-
   return (
-    <aside className="ct-sidebar" aria-label="Collectium sidemeny">
-      <div className="ct-sidebar__head">
-        <span className="ct-sidebar__logo">C</span>
-        <span>Collectium</span>
-      </div>
+    <aside className="ct-standard-sidebar" aria-label="Collectium sidemeny">
+      <div className="ct-standard-sidebar-title">Plattform</div>
 
-      <p className="ct-sidebar__eyebrow">Plattform</p>
-
-      <nav className="ct-sidebar__nav">
-        {platformLinks.map((link) => {
-          const active =
-            pathname === link.href ||
-            (link.href !== "/" && pathname.startsWith(`${link.href}/`));
-
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={active ? "ct-sidebar__item is-active" : "ct-sidebar__item"}
-            >
-              <span className="ct-sidebar__mark">{link.mark}</span>
-              <span>{link.label}</span>
-            </Link>
-          );
-        })}
+      <nav className="ct-standard-sidebar-nav">
+        {menuItems.map((item) => (
+          <Link key={item.href} href={item.href} className="ct-standard-sidebar-link">
+            <span>{item.code}</span>
+            <strong>{item.label}</strong>
+          </Link>
+        ))}
       </nav>
 
-      <div className="ct-sidebar__note">
+      <div className="ct-standard-sidebar-card">
         <strong>Collectium</strong>
-          <span>Katalog · samling · auksjon · marked</span>
+        <span>Katalog · samling · auksjon · marked</span>
       </div>
     </aside>
   );
 }
 
 export default CollectiumSidebar;
-
-
