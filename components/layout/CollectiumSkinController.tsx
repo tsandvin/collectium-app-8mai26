@@ -64,14 +64,8 @@ export function CollectiumSkinController(): JSX.Element {
   const [activeSkin, setActiveSkin] = useState<CollectiumSkin>("collectium");
 
   useEffect(() => {
-    const savedSkin = window.localStorage.getItem(STORAGE_KEY);
-
-    if (isCollectiumSkin(savedSkin)) {
-      setActiveSkin(savedSkin);
-      applySkin(savedSkin);
-      return;
-    }
-
+    window.localStorage.removeItem(STORAGE_KEY);
+    setActiveSkin("collectium");
     applySkin("collectium");
   }, []);
 
@@ -93,3 +87,4 @@ export function CollectiumSkinController(): JSX.Element {
     </div>
   );
 }
+
