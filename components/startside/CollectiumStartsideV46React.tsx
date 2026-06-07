@@ -6,30 +6,30 @@
  * Overskrift:
  * CollectiumStartsideV46React
  *
- * Definering / formÃ¥l:
+ * Definering / formål:
  * React-basert innholdskomponent for V46-startside. Dette er ikke HTML-preview.
  * Komponenten eier kun innhold, tekst, lokale segmentbrytere og presentasjonsstate.
  * Global topbar, sidemeny, skall, body/html og skin eies av global layout/template.
  *
- * BruksomrÃ¥de:
+ * Bruksområde:
  * Brukes av /startside som innhold inne i global Collectium layout.
  *
- * BerÃ¸rte sider / routes:
+ * Berørte sider / routes:
  * - /startside
  *
- * BerÃ¸rte DB-brytere / feature_keys:
+ * Berørte DB-brytere / feature_keys:
  * - landing.view
  * - catalog.view
  * - membership.view
  *
- * BerÃ¸rte API-ruter:
+ * Berørte API-ruter:
  * - none in this static first React version
  *
- * BerÃ¸rte tabeller / views:
+ * Berørte tabeller / views:
  * - none in this static first React version
  *
  * Dataretning:
- * MariaDB â†’ API/backend â†’ Next.js â†’ React â†’ UI
+ * MariaDB → API/backend → Next.js → React → UI
  *
  * Logging:
  * log_category: landing
@@ -56,36 +56,36 @@ type SegmentContent = {
 const segmentContent: Record<SegmentKey, SegmentContent> = {
   samler: {
     label: "Samler",
-    eyebrow: "Visningskort Â· Samler",
-    title: "Samlerstatus pÃ¥ objektet",
+    eyebrow: "Visningskort · Samler",
+    title: "Samlerstatus på objektet",
     text:
-      "Kortet prioriterer hjerte, stjerne, Min samling, kvalitet, sjeldenhet og brukerens egne kjÃ¸p, salg og dokumentasjon.",
-    fields: ["Overskrift", "ValÃ¸rutgave / serie", "Utgave", "Variant", "Sjeldenhet"],
+      "Kortet prioriterer hjerte, stjerne, Min samling, kvalitet, sjeldenhet og brukerens egne kjøp, salg og dokumentasjon.",
+    fields: ["Overskrift", "Valørutgave / serie", "Utgave", "Variant", "Sjeldenhet"],
   },
   historie: {
     label: "Historie",
-    eyebrow: "Visningskort Â· Historie",
+    eyebrow: "Visningskort · Historie",
     title: "Historien er en relasjon",
     text:
-      "Kortet viser produsent, utgave, Ã¥r, regent, signatur, materiale, funn, periode og relaterte objekter slik at objektet leses i historisk sammenheng.",
+      "Kortet viser produsent, utgave, år, regent, signatur, materiale, funn, periode og relaterte objekter slik at objektet leses i historisk sammenheng.",
     fields: ["Regent / konge", "Historisk periode", "Signatur / personer", "Materiale", "Relaterte objekter"],
   },
   finans: {
     label: "Finans",
-    eyebrow: "Visningskort Â· Finans",
+    eyebrow: "Visningskort · Finans",
     title: "Marked i kontekst",
     text:
-      "Kortet prioriterer verdi, trendprosent, likviditet, kjÃ¸pspris, fortjeneste, auksjon, nettbutikk og prisgraf. 0 kr betyr manglende vurdering, ikke reell verdi.",
+      "Kortet prioriterer verdi, trendprosent, likviditet, kjøpspris, fortjeneste, auksjon, nettbutikk og prisgraf. 0 kr betyr manglende vurdering, ikke reell verdi.",
     fields: ["Markedsverdi", "Trend", "Likviditet", "Auksjon", "Prisobservasjoner"],
   },
 };
 
 const memberPrices = [
   { name: "Free", monthly: "0 kr", yearly: "0 kr", text: "Kom i gang med offentlig katalogutdrag og enkel utforsking." },
-  { name: "Bronze", monthly: "149 kr/mnd", yearly: "1 490 kr/Ã¥r", text: "For samlere som vil bruke Ã¸nskeliste, favoritter og grunnleggende samlingsverktÃ¸y." },
-  { name: "Silver", monthly: "499 kr/mnd", yearly: "3 000 kr/Ã¥r", text: "For aktive samlere som vil ha flere filter, mer historikk og bedre oversikt." },
-  { name: "Gold", monthly: "2 999 kr/mnd", yearly: "20 000 kr/Ã¥r", text: "For avansert bruk, forhandlertilgang eller profesjonell samleraktivitet." },
-  { name: "Platinum", monthly: "Kun Ã¥r", yearly: "100 000 kr/Ã¥r", text: "Full tilgang, flere kilder og profesjonell analyse." },
+  { name: "Bronze", monthly: "149 kr/mnd", yearly: "1 490 kr/år", text: "For samlere som vil bruke ønskeliste, favoritter og grunnleggende samlingsverktøy." },
+  { name: "Silver", monthly: "499 kr/mnd", yearly: "3 000 kr/år", text: "For aktive samlere som vil ha flere filter, mer historikk og bedre oversikt." },
+  { name: "Gold", monthly: "2 999 kr/mnd", yearly: "20 000 kr/år", text: "For avansert bruk, forhandlertilgang eller profesjonell samleraktivitet." },
+  { name: "Platinum", monthly: "Kun år", yearly: "100 000 kr/år", text: "Full tilgang, flere kilder og profesjonell analyse." },
 ];
 
 const historyRows = [
@@ -97,16 +97,16 @@ const historyRows = [
   {
     year: "1349-1350",
     title: "Svartedauden",
-    text: "Befolkning, Ã¸konomisk nedgang og historisk kontekst for utvikling i Norge.",
+    text: "Befolkning, økonomisk nedgang og historisk kontekst for utvikling i Norge.",
   },
   {
     year: "1624",
     title: "Kongsberg bergverk",
-    text: "SÃ¸lv, metall, mynt, industri og Ã¸konomisk rÃ¥varehistorie kobles til katalogen.",
+    text: "Sølv, metall, mynt, industri og økonomisk råvarehistorie kobles til katalogen.",
   },
   {
     year: "1873",
-    title: "Kroner og Ã¸re",
+    title: "Kroner og øre",
     text: "Overgang til moderne myntenhet og viktig skille for mynt- og seddelkatalogen.",
   },
 ];
@@ -116,26 +116,26 @@ export default function CollectiumStartsideV46React() {
   const [billing, setBilling] = useState<BillingKey>("monthly");
   const active = segmentContent[segment];
 
-  const billingLabel = useMemo(() => (billing === "monthly" ? "MÃ¥nedlig" : "Ã…rlig"), [billing]);
+  const billingLabel = useMemo(() => (billing === "monthly" ? "Månedlig" : "Årlig"), [billing]);
 
   return (
     <main className={styles.page} data-collectium-page="startside-v46-react">
       <section className={styles.hero} aria-labelledby="startside-title">
         <div className={styles.heroCopy}>
           <p className={styles.year}>2022</p>
-          <p className={styles.kicker}>For samlere Â· For historien Â· For markedet</p>
+          <p className={styles.kicker}>For samlere · For historien · For markedet</p>
           <h1 id="startside-title" className={styles.heroTitle}>
             For samlere.
             <br />
             Av samlere.
             <br />
-            Alt pÃ¥ ett sted.
+            Alt på ett sted.
           </h1>
           <p className={styles.lead}>
             Samlerplattformen for norske sedler, mynter, historie og markedsutvikling.
           </p>
           <p className={styles.heroText}>
-            Utforsk katalogobjekter, historiske relasjoner, samlingsverdi, auksjoner og forhandlerobjekter â€” samlet i Ã©n plattform under ett tak.
+            Utforsk katalogobjekter, historiske relasjoner, samlingsverdi, auksjoner og forhandlerobjekter — samlet i én plattform under ett tak.
           </p>
           <div className={styles.actions}>
             <a className={styles.primaryAction} href="/sign-up">Start gratis</a>
@@ -163,9 +163,9 @@ export default function CollectiumStartsideV46React() {
               <span>Katalog</span>
             </div>
             <div className={styles.objectBody}>
-              <p className={styles.objectMeta}>NSNR 23a Â· Norske sedler</p>
-              <h2>1 krone Â· 1917-serien Â· Litra A</h2>
-              <p>Norges Bank Â· Haakon VII Â· Seddel / sikkerhetspapir</p>
+              <p className={styles.objectMeta}>NSNR 23a · Norske sedler</p>
+              <h2>1 krone · 1917-serien · Litra A</h2>
+              <p>Norges Bank · Haakon VII · Seddel / sikkerhetspapir</p>
               <div className={styles.fieldGrid}>
                 {active.fields.map((field) => (
                   <span key={field}>{field}</span>
@@ -185,24 +185,24 @@ export default function CollectiumStartsideV46React() {
       <section className={styles.manifestSection} aria-labelledby="manifest-title">
         <div className={styles.manifestIntro}>
           <p className={styles.sectionKicker}>Manifest</p>
-          <h2 id="manifest-title">En relasjonskatalog bygd pÃ¥ data.</h2>
+          <h2 id="manifest-title">En relasjonskatalog bygd på data.</h2>
           <p>
-            Collectium er bygget rundt objekter som alltid skal forstÃ¥s sammen med kilde, objektgruppe, Ã¥rstall, variant, regent, materiale, relasjoner og markedsstatus. Katalogen er ikke en flat produktliste â€” den er et system der hvert objekt kan leses som samlerdata, historiedata og finansdata.
+            Collectium er bygget rundt objekter som alltid skal forstås sammen med kilde, objektgruppe, årstall, variant, regent, materiale, relasjoner og markedsstatus. Katalogen er ikke en flat produktliste — den er et system der hvert objekt kan leses som samlerdata, historiedata og finansdata.
           </p>
         </div>
         <div className={styles.manifestGrid}>
           <article>
-            <p>I Â· For samlere</p>
-            <h3>Samlerstatus, pÃ¥ objektet.</h3>
-            <span>Hjerte, stjerne, Min samling, egne lister, kjÃ¸p, salg og dokumentasjon fÃ¸lger objektet uten Ã¥ blande private data med katalogens sannhet.</span>
+            <p>I · For samlere</p>
+            <h3>Samlerstatus, på objektet.</h3>
+            <span>Hjerte, stjerne, Min samling, egne lister, kjøp, salg og dokumentasjon følger objektet uten å blande private data med katalogens sannhet.</span>
           </article>
           <article>
-            <p>II Â· For historien</p>
+            <p>II · For historien</p>
             <h3>Historien er en relasjon.</h3>
-            <span>Tidslinjen gÃ¥r fra Ã¥r 800 og kan koble objektÃ¥r, publiseringsÃ¥r, regent, union, historisk hendelse, befolkning og Ã¸konomisk kontekst.</span>
+            <span>Tidslinjen går fra år 800 og kan koble objektår, publiseringsår, regent, union, historisk hendelse, befolkning og økonomisk kontekst.</span>
           </article>
           <article>
-            <p>III Â· For markedet</p>
+            <p>III · For markedet</p>
             <h3>Marked i kontekst.</h3>
             <span>0 kr betyr ikke reell verdi, men manglende vurdering. Finansvisning skal skille verdi, trend, likviditet, auksjon, nettbutikk og prisobservasjoner.</span>
           </article>
@@ -211,26 +211,26 @@ export default function CollectiumStartsideV46React() {
 
       <section className={styles.statsSection} aria-labelledby="stats-title">
         <div className={styles.sectionHead}>
-          <p className={styles.sectionKicker}>Index Â· Katalog Â· Relasjoner</p>
+          <p className={styles.sectionKicker}>Index · Katalog · Relasjoner</p>
           <h2 id="stats-title">Katalogoversikt, historisk kontekst og markedsinnsikt.</h2>
           <p>
-            Dette omrÃ¥det samler Collectium sin egen bearbeidede oversikt over objektgrunnlag, historiske relasjoner og markedsutvikling i tre tydelige visninger: Samler, Historie og Finans.
+            Dette området samler Collectium sin egen bearbeidede oversikt over objektgrunnlag, historiske relasjoner og markedsutvikling i tre tydelige visninger: Samler, Historie og Finans.
           </p>
         </div>
         <div className={styles.statsGrid}>
           <article>
             <strong>80 000</strong>
             <h3>Informasjon om relasjoner til mynter og sedler</h3>
-            <p>Katalogen kan koble kilde, objektgruppe, valÃ¸r, Ã¥r, regent, materiale, historisk periode og markedsstatus.</p>
+            <p>Katalogen kan koble kilde, objektgruppe, valør, år, regent, materiale, historisk periode og markedsstatus.</p>
           </article>
           <article>
             <strong>3</strong>
-            <h3>Samler Â· Historie Â· Finans</h3>
+            <h3>Samler · Historie · Finans</h3>
             <p>Samme objekt kan leses gjennom samlerstatus, historiske relasjoner og finansielle markedsdata.</p>
           </article>
           <article>
             <strong>800</strong>
-            <h3>Tidslinje fra Ã¥r 800</h3>
+            <h3>Tidslinje fra år 800</h3>
             <p>Historisk kontekst for perioder, regenter, unioner, hendelser, land og samfunnsutvikling.</p>
           </article>
         </div>
@@ -239,9 +239,9 @@ export default function CollectiumStartsideV46React() {
       <section className={styles.historySection} aria-labelledby="history-title">
         <div className={styles.sectionHeadDark}>
           <p className={styles.sectionKicker}>Historisk og finansiell innsikt</p>
-          <h2 id="history-title">Flere tidslag, Ã©n katalogisk sammenheng.</h2>
+          <h2 id="history-title">Flere tidslag, én katalogisk sammenheng.</h2>
           <p>
-            Collectium bygger oversikten pÃ¥ flere historiske datalag. De tidligste historiske opplysningene gÃ¥r tilbake til rundt 800-tallet, mens datagrunnlaget fra 1642 og utover blir mer anvendelig for systematisk kobling mellom Ã¥rstall, objekter, hendelser og befolkning.
+            Collectium bygger oversikten på flere historiske datalag. De tidligste historiske opplysningene går tilbake til rundt 800-tallet, mens datagrunnlaget fra 1642 og utover blir mer anvendelig for systematisk kobling mellom årstall, objekter, hendelser og befolkning.
           </p>
         </div>
         <div className={styles.historyGrid}>
@@ -260,10 +260,10 @@ export default function CollectiumStartsideV46React() {
           <p className={styles.sectionKicker}>Egen data fra kjente kilder</p>
           <h2 id="data-title">Historisk og finansiell innsikt gjennom flere tidslag.</h2>
           <p>
-            Fra 1700- og 1800-tallet bygges oversikten videre med KPI, inflasjon, pengeverdi, lÃ¸nnsvekst, realÃ¸nnsvekst, folketall, engrosprisindeks, lÃ¥nerente, gullpris, sÃ¸lvpris, gull/sÃ¸lv-forhold og valuta mot SEK, DKK, EUR, GBP, USD, DEM og FRF.
+            Fra 1700- og 1800-tallet bygges oversikten videre med KPI, inflasjon, pengeverdi, lønnsvekst, realønnsvekst, folketall, engrosprisindeks, lånerente, gullpris, sølvpris, gull/sølv-forhold og valuta mot SEK, DKK, EUR, GBP, USD, DEM og FRF.
           </p>
           <p>
-            Fra ca. 1920 finnes et sÃ¦rlig bredt spekter av finansielle opplysninger, der flere indikatorer kan brukes sammen for Ã¥ forstÃ¥ verdi, kjÃ¸pekraft, marked og utvikling over tid.
+            Fra ca. 1920 finnes et særlig bredt spekter av finansielle opplysninger, der flere indikatorer kan brukes sammen for å forstå verdi, kjøpekraft, marked og utvikling over tid.
           </p>
         </div>
       </section>
@@ -272,10 +272,10 @@ export default function CollectiumStartsideV46React() {
         <div className={styles.sectionHead}>
           <p className={styles.sectionKicker}>Medlemskap</p>
           <h2 id="membership-title">Velg tilgang etter hvordan du samler.</h2>
-          <p>Start gratis, bygg samling og utvid til mer historikk, flere filter og dypere markedsdata nÃ¥r du trenger det.</p>
+          <p>Start gratis, bygg samling og utvid til mer historikk, flere filter og dypere markedsdata når du trenger det.</p>
           <div className={styles.billingToggle} aria-label="Velg prisperiode">
-            <button type="button" className={billing === "monthly" ? styles.billingActive : ""} onClick={() => setBilling("monthly")}>MÃ¥nedlig</button>
-            <button type="button" className={billing === "yearly" ? styles.billingActive : ""} onClick={() => setBilling("yearly")}>Ã…rlig</button>
+            <button type="button" className={billing === "monthly" ? styles.billingActive : ""} onClick={() => setBilling("monthly")}>Månedlig</button>
+            <button type="button" className={billing === "yearly" ? styles.billingActive : ""} onClick={() => setBilling("yearly")}>Årlig</button>
           </div>
         </div>
         <div className={styles.memberGrid}>
@@ -293,7 +293,7 @@ export default function CollectiumStartsideV46React() {
       <section className={styles.ctaSection} aria-labelledby="cta-title">
         <div>
           <h2 id="cta-title">Bli en del av Collectium-arkivet.</h2>
-          <p>Gratis Ã¥ starte. Katalogen gir inngang til Samler, Historie og Finans â€” fra privat samling til historisk kontekst og markedsutvikling.</p>
+          <p>Gratis å starte. Katalogen gir inngang til Samler, Historie og Finans — fra privat samling til historisk kontekst og markedsutvikling.</p>
           <a href="/sign-up">Opprett konto</a>
         </div>
       </section>
