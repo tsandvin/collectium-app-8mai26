@@ -11,6 +11,9 @@
  * Bruksområde:
  * Route: /startside
  *
+ * Berørte sider / routes:
+ * - /startside
+ *
  * Berørte DB-brytere / feature_keys:
  * - public.startside.view
  * - public.theme.preview
@@ -28,7 +31,7 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0001
+ * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0002
  *
  * Endringsregel:
  * Denne filen skal kun rendre startsidens innholdskomponent.
