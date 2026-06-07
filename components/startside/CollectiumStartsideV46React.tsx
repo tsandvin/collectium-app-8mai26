@@ -40,6 +40,7 @@
 
 import { useState } from "react";
 import styles from "./CollectiumStartsideV46React.module.css";
+import CollectiumCompactCatalogDemo from "./CollectiumCompactCatalogDemo";
 
 type TemplateKey = "collectium" | "enkel" | "museum" | "finans";
 type CatalogSegment = "samler" | "historie" | "finans";
