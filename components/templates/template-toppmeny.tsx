@@ -1,4 +1,5 @@
-﻿/**
+﻿import { TemplateTemaControl } from "./template-tema-control";
+/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
@@ -37,10 +38,6 @@
  */
 
 import Link from "next/link";
-import { TemplateTemaControl } from "./template-tema-control";
-import { TemplateDesignControl } from "./template-design-control";
-
-import { TemplateTemaControl } from "./template-tema-control";
 export function TemplateToppmeny() {
   return (
     <header className="ct-template-toppmeny" aria-label="Collectium toppmeny">
@@ -65,8 +62,6 @@ export function TemplateToppmeny() {
         <input id="ct-search" type="search" placeholder="SÃ¸k i Collectium" />
       </form>
 
-      <TemplateDesignControl />
-
       <nav className="ct-template-auth" aria-label="Bruker">
         <Link href="/login">Logg inn</Link>
         <Link href="/registrering">Registrer</Link>
@@ -75,3 +70,4 @@ export function TemplateToppmeny() {
 </header>
   );
 }
+
