@@ -41,6 +41,7 @@
 import { useState } from "react";
 import styles from "./CollectiumStartsideV46React.module.css";
 import CollectiumCompactCatalogDemo from "./CollectiumCompactCatalogDemo";
+import CollectiumRegenterAnno2022 from "./CollectiumRegenterAnno2022";
 
 type TemplateKey = "collectium" | "enkel" | "museum" | "finans";
 type CatalogSegment = "samler" | "historie" | "finans";
@@ -613,29 +614,9 @@ export default function CollectiumStartsideV46React() {
         </div>
       </section>
 
-      <section className={`${styles.regents} ${styles.darkSection}`}>
-        <div className={styles.wrapWide}>
-          <Roman nr="VI" label="Regenter" />
-          <div className={styles.regentGrid}>
-            <div>
-              <h2 className={styles.sectionH}>Fra Oscar II <em>til Harald V.</em></h2>
-              <p className={styles.sectionLead}>
-                Objektene kan bindes mot regenter, dynastier, unioner og lokale historiske perioder.
-              </p>
-              <div className={styles.smallStats}>
-                <Stat number="1872" label="Oscar II" />
-                <Stat number="1905" label="Unionsskifte" />
-                <Stat number="1991" label="Harald V" />
-              </div>
-            </div>
-            <div className={styles.regentPanel}>
-              <span>ANNO</span>
-              <strong>Relasjonspresentasjon</strong>
-              <p>Regent · Periode · Objekt · Kilde · Historisk hendelse</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
+      <CollectiumRegenterAnno2022 />
+
 
       <section className={styles.collection}>
         <div className={styles.wrapWide}>
