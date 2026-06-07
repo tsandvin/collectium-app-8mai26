@@ -33,7 +33,7 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V46-REACT-0001
+ * CT-STARTSIDE-ROUTE-V46-REACT-0002
  */
 
 import CollectiumStartsideV46React from "@/components/startside/CollectiumStartsideV46React";
