@@ -594,3 +594,195 @@
     flex-wrap: wrap;
   }
 }
+
+/* COLLECTIUM STARTSIDE LINK BUTTON RESET 0001
+   Formål:
+   - Fjerner tung knappestil fra lenker.
+   - Logo og venstre toppmeny skal ikke ha skygge.
+   - Primærhandlinger kan fortsatt være diskrete CTA-er.
+   - Skin-farger justeres etter Collectium / Enkel / Museum / Finans.
+*/
+
+/* ---------- Skin tokens på startsiden ---------- */
+
+.page[data-theme="collectium"],
+.page[data-skin="collectium"],
+:global([data-skin="collectium"]) .page {
+  --ct-ui-bg: #f7efe2;
+  --ct-ui-bg-2: #efe1c9;
+  --ct-ui-panel: #fff9ed;
+  --ct-ui-panel-soft: #f8eddc;
+  --ct-ui-border: #dec89b;
+  --ct-ui-border-strong: #c6a35a;
+  --ct-ui-text: #06372f;
+  --ct-ui-soft: #50695f;
+  --ct-ui-muted: #8d7a58;
+  --ct-ui-accent: #087246;
+  --ct-ui-accent-2: #064d38;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(65, 47, 19, .12);
+}
+
+.page[data-theme="enkel"],
+.page[data-skin="enkel"],
+:global([data-skin="enkel"]) .page {
+  --ct-ui-bg: #f5f8fb;
+  --ct-ui-bg-2: #e7eef5;
+  --ct-ui-panel: #ffffff;
+  --ct-ui-panel-soft: #f4f8fb;
+  --ct-ui-border: #cdd9e3;
+  --ct-ui-border-strong: #9fb3c4;
+  --ct-ui-text: #0b324e;
+  --ct-ui-soft: #526b80;
+  --ct-ui-muted: #7d8d9c;
+  --ct-ui-accent: #1f628f;
+  --ct-ui-accent-2: #0b314d;
+  --ct-ui-gold: #9a8544;
+  --ct-ui-shadow: rgba(16, 42, 62, .12);
+}
+
+.page[data-theme="museum"],
+.page[data-skin="museum"],
+:global([data-skin="museum"]) .page {
+  --ct-ui-bg: #11100e;
+  --ct-ui-bg-2: #1d1a15;
+  --ct-ui-panel: #211f1b;
+  --ct-ui-panel-soft: #181612;
+  --ct-ui-border: rgba(198, 163, 72, .35);
+  --ct-ui-border-strong: rgba(214, 180, 89, .68);
+  --ct-ui-text: #f4ead8;
+  --ct-ui-soft: rgba(244, 234, 216, .72);
+  --ct-ui-muted: rgba(244, 234, 216, .48);
+  --ct-ui-accent: #c6a348;
+  --ct-ui-accent-2: #8c6a27;
+  --ct-ui-gold: #d6b459;
+  --ct-ui-shadow: rgba(0, 0, 0, .28);
+}
+
+.page[data-theme="finans"],
+.page[data-skin="finans"],
+:global([data-skin="finans"]) .page {
+  --ct-ui-bg: #071d1e;
+  --ct-ui-bg-2: #0e2b2c;
+  --ct-ui-panel: #122d2e;
+  --ct-ui-panel-soft: #0c2425;
+  --ct-ui-border: rgba(55, 142, 127, .42);
+  --ct-ui-border-strong: rgba(65, 185, 152, .58);
+  --ct-ui-text: #e8fbf4;
+  --ct-ui-soft: rgba(232, 251, 244, .70);
+  --ct-ui-muted: rgba(232, 251, 244, .48);
+  --ct-ui-accent: #24aa7a;
+  --ct-ui-accent-2: #08705a;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(0, 30, 28, .32);
+}
+
+/* ---------- Generell panelnyanse ---------- */
+
+.page :where(section, article, aside, div)[class*="Card"],
+.page :where(section, article, aside, div)[class*="card"],
+.page :where(section, article, aside, div)[class*="Panel"],
+.page :where(section, article, aside, div)[class*="panel"] {
+  border-color: var(--ct-ui-border);
+}
+
+/* ---------- Logo og topp/venstre meny uten skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(nav, header, aside) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Menylenker skal være lenker/chips, ikke tunge knapper */
+.page :where(nav, header) a,
+.page :where(nav, header) button {
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-ui-text);
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.page :where(nav, header) a:hover,
+.page :where(nav, header) button:hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-ui-border);
+  background: rgba(255, 255, 255, .12);
+  color: var(--ct-ui-accent);
+}
+
+/* ---------- Lenker i innhold ---------- */
+
+.page main a:not([class]),
+.page section a:not([class]) {
+  color: var(--ct-ui-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* CTA-er skal være rolige, ikke overdrevne 3D-knapper */
+.page :where(a, button)[class*="primary"],
+.page :where(a, button)[class*="Primary"],
+.page :where(a, button)[class*="cta"],
+.page :where(a, button)[class*="Cta"] {
+  border: 1px solid var(--ct-ui-border-strong);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--ct-ui-accent), var(--ct-ui-accent-2));
+  color: #fff8df;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 18px var(--ct-ui-shadow);
+  text-shadow: none;
+}
+
+.page :where(a, button)[class*="primary"]:hover,
+.page :where(a, button)[class*="Primary"]:hover,
+.page :where(a, button)[class*="cta"]:hover,
+.page :where(a, button)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 12px 26px var(--ct-ui-shadow);
+}
+
+/* Sekundære handlinger bør se mer ut som lenker */
+.page :where(a, button)[class*="secondary"],
+.page :where(a, button)[class*="Secondary"] {
+  border: 0;
+  background: transparent;
+  color: var(--ct-ui-text);
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page :where(a, button)[class*="secondary"]:hover,
+.page :where(a, button)[class*="Secondary"]:hover {
+  color: var(--ct-ui-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Toggle/chip-brytere: mindre glød, tydelig aktiv farge */
+.page :where(button[aria-pressed="true"], button[class*="active"], button[class*="Active"], button[class*="isActive"]) {
+  background: var(--ct-ui-accent);
+  color: #fff8df;
+  border-color: var(--ct-ui-border-strong);
+  box-shadow: none;
+}
+
+/* END COLLECTIUM STARTSIDE LINK BUTTON RESET 0001 */
