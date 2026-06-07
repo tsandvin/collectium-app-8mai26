@@ -524,3 +524,692 @@
     justify-content: flex-start;
   }
 }
+
+/* COLLECTIUM UI85 COMPACT TUNING 0002
+   Formål:
+   Gjør periodefilter og horisontalt visningskort mer kompakt og nærmere UI 8.5-referansebildene.
+*/
+
+.section {
+  padding: 34px 18px !important;
+}
+
+.inner {
+  width: min(1180px, 100%) !important;
+}
+
+.titleBlock {
+  max-width: 680px !important;
+  margin-bottom: 10px !important;
+}
+
+.titleBlock span {
+  font-size: 10px !important;
+}
+
+.titleBlock h2 {
+  font-size: clamp(24px, 2.7vw, 38px) !important;
+  line-height: .95 !important;
+}
+
+.titleBlock p {
+  max-width: 640px !important;
+  font-size: 13px !important;
+  line-height: 1.38 !important;
+}
+
+.kindSwitch {
+  margin: 2px 0 10px !important;
+  padding: 3px !important;
+  border-radius: 8px !important;
+}
+
+.kindSwitch button {
+  min-height: 26px !important;
+  padding: 4px 11px !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+.periodFilter {
+  margin-bottom: 14px !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 34px rgba(18, 55, 92, .07) !important;
+}
+
+.periodTop {
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 14px !important;
+}
+
+.periodTop span {
+  font-size: 10px !important;
+}
+
+.periodTop strong {
+  font-size: 20px !important;
+}
+
+.periodTop p {
+  font-size: 12px !important;
+  line-height: 1.32 !important;
+}
+
+.modeButtons {
+  gap: 6px !important;
+}
+
+.modeButtons button {
+  min-height: 28px !important;
+  padding: 4px 11px !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+.timeline {
+  margin-top: 10px !important;
+  padding: 9px 26px 23px !important;
+  border-radius: 8px !important;
+}
+
+.timelineLine {
+  left: 28px !important;
+  right: 28px !important;
+  bottom: 20px !important;
+  height: 3px !important;
+}
+
+.timeline button {
+  min-height: 36px !important;
+  padding: 4px 6px !important;
+  font-size: 10px !important;
+  line-height: 1.05 !important;
+  border-radius: 8px !important;
+}
+
+.timeline button::after {
+  bottom: -18px !important;
+  width: 11px !important;
+  height: 11px !important;
+  border-width: 2px !important;
+}
+
+.timeline button span {
+  font-size: 10px !important;
+}
+
+.timelineFoot {
+  margin-top: 5px !important;
+  font-size: 11px !important;
+}
+
+.cardShell {
+  margin-top: 18px !important;
+}
+
+.cardTabs {
+  padding-left: 10px !important;
+}
+
+.cardTabs button {
+  min-width: 108px !important;
+  min-height: 38px !important;
+  padding: 6px 13px !important;
+  font-size: 14px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.objectCard {
+  padding: 12px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 16px 52px rgba(18, 55, 92, .10) !important;
+}
+
+.objectTop {
+  grid-template-columns: 350px minmax(0, 1fr) 205px !important;
+  gap: 12px !important;
+}
+
+.fakeImage,
+.objectMain,
+.sidePanel,
+.dynamicField {
+  border-radius: 8px !important;
+}
+
+.fakeImage {
+  min-height: 178px !important;
+  padding: 18px !important;
+}
+
+.fakeImage strong {
+  font-size: 56px !important;
+}
+
+.fakeImage span {
+  font-size: 13px !important;
+}
+
+.fakeImage em {
+  font-size: 12px !important;
+}
+
+.objectMain {
+  padding: 18px !important;
+}
+
+.objectMain h3 {
+  margin-bottom: 17px !important;
+  font-size: clamp(31px, 3.2vw, 44px) !important;
+}
+
+.factGrid {
+  gap: 0 24px !important;
+}
+
+.factGrid div {
+  padding: 9px 0 !important;
+}
+
+.factGrid span,
+.dataPair span,
+.metric span,
+.priceBox span {
+  font-size: 12px !important;
+}
+
+.factGrid strong,
+.dataPair strong {
+  font-size: 15px !important;
+}
+
+.metaLine {
+  margin-top: 13px !important;
+  padding-top: 10px !important;
+  font-size: 13px !important;
+}
+
+.sidePanel {
+  gap: 8px !important;
+  padding: 10px !important;
+}
+
+.metric {
+  min-height: 44px !important;
+  padding: 8px 11px !important;
+  border-radius: 8px !important;
+}
+
+.metric strong {
+  font-size: 19px !important;
+}
+
+.priceBox {
+  min-height: 116px !important;
+  border-radius: 8px !important;
+}
+
+.priceBox strong {
+  font-size: 32px !important;
+}
+
+.priceBox em {
+  font-size: 13px !important;
+}
+
+.dynamicField {
+  grid-template-columns: 56px 1fr !important;
+  gap: 12px !important;
+  margin-top: 10px !important;
+  padding: 13px 15px !important;
+}
+
+.iconBox {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 22px !important;
+}
+
+.dynamicContent h4 {
+  margin-bottom: 8px !important;
+  font-size: 18px !important;
+}
+
+.dataGrid {
+  gap: 0 24px !important;
+}
+
+.dataPair {
+  grid-template-columns: 128px 1fr !important;
+  gap: 10px !important;
+  padding: 6px 0 !important;
+}
+
+.actions {
+  gap: 8px !important;
+  margin-top: 12px !important;
+}
+
+.actions a,
+.actions button {
+  min-height: 34px !important;
+  padding: 6px 13px !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+/* Enda mer likt UI 8.5: hvit/blå referanse skal ha tydelig ramme, ikke tung dekor */
+.section:not(:global([data-template="museum"]) .section) .objectCard,
+.section:not(:global([data-template="museum"]) .section) .periodFilter {
+  background: rgba(255, 255, 255, .94) !important;
+}
+
+/* Museum må fortsatt ikke få lyse felt */
+:global([data-template="museum"]) .section {
+  background: linear-gradient(180deg, #12100f, #191714 55%, #11100f) !important;
+}
+
+:global([data-template="museum"]) .periodFilter,
+:global([data-template="museum"]) .objectCard {
+  box-shadow: 0 16px 54px rgba(0, 0, 0, .34) !important;
+}
+
+@media (max-width: 1120px) {
+  .objectTop {
+    grid-template-columns: 1fr !important;
+  }
+
+  .fakeImage {
+    min-height: 150px !important;
+  }
+
+  .periodTop {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 26px 10px !important;
+  }
+
+  .timeline {
+    padding: 8px !important;
+  }
+
+  .cardTabs button {
+    min-width: 96px !important;
+    min-height: 34px !important;
+    font-size: 13px !important;
+  }
+
+  .objectMain h3 {
+    font-size: 30px !important;
+  }
+
+  .dataPair {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* =========================================================
+   COLLECTIUM COMPACT TIMELINE TUNING 0003
+   Formål:
+   - mindre skrift
+   - mindre luft
+   - mer kompakt kort og periodefilter
+   - tidslinje presentert mer som referansebildet
+   ========================================================= */
+
+.section {
+  padding: 20px 14px !important;
+}
+
+.inner {
+  width: min(1120px, 100%) !important;
+}
+
+/* ---------- Periodefilter ---------- */
+
+.periodFilter {
+  margin-bottom: 10px !important;
+  padding: 10px 12px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 22px rgba(18, 55, 92, .05) !important;
+}
+
+.periodTop {
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+  align-items: start !important;
+}
+
+.periodTop span {
+  font-size: 9px !important;
+  letter-spacing: .12em !important;
+}
+
+.periodTop strong {
+  font-size: 14px !important;
+  line-height: 1.05 !important;
+}
+
+.periodTop p {
+  margin-top: 3px !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+  max-width: 520px !important;
+}
+
+.modeButtons {
+  gap: 5px !important;
+  align-items: flex-start !important;
+}
+
+.modeButtons button {
+  min-height: 24px !important;
+  padding: 3px 10px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  border-radius: 999px !important;
+}
+
+/* ---------- Tidslinje ny presentasjon ---------- */
+
+.timeline {
+  position: relative !important;
+  margin-top: 8px !important;
+  padding: 6px 12px 18px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, rgba(245,248,251,.72), rgba(239,244,248,.88)) !important;
+  min-height: auto !important;
+}
+
+.timelineLine {
+  position: absolute !important;
+  left: 20px !important;
+  right: 20px !important;
+  bottom: 24px !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: #a9bbcc !important;
+  box-shadow: none !important;
+}
+
+/* hvis komponenten allerede bruker grid/flex for knappene */
+.timeline > div:first-of-type,
+.timelineButtons,
+.timelineItems {
+  position: relative !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+/* selve periode-pillene */
+.timeline button {
+  position: relative !important;
+  min-height: 28px !important;
+  padding: 4px 8px !important;
+  border-radius: 8px !important;
+  font-size: 9px !important;
+  line-height: 1.05 !important;
+  font-weight: 700 !important;
+  width: 23% !important;
+  max-width: 160px !important;
+  background: #f8fbfd !important;
+  border: 1px solid #bcd0e3 !important;
+  box-shadow: none !important;
+  z-index: 2 !important;
+}
+
+.timeline button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 14px rgba(45, 88, 132, .10) !important;
+}
+
+.timeline button[aria-pressed="true"] {
+  background: #2f6fb2 !important;
+  color: #fff !important;
+  border-color: #2f6fb2 !important;
+}
+
+/* liten markør ned til linjen */
+.timeline button::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  bottom: -15px !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  border: 2px solid #2f6fb2 !important;
+  z-index: 3 !important;
+}
+
+.timeline button[aria-pressed="true"]::after {
+  background: #ffffff !important;
+  border-color: #2f6fb2 !important;
+}
+
+.timeline button span {
+  display: block !important;
+  font-size: 9px !important;
+  line-height: 1.05 !important;
+}
+
+.timelineFoot {
+  margin-top: 6px !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  color: #6d8296 !important;
+}
+
+/* ---------- Katalogkort / visningskort ---------- */
+
+.cardShell {
+  margin-top: 12px !important;
+}
+
+.cardTabs {
+  padding-left: 6px !important;
+  gap: 4px !important;
+}
+
+.cardTabs button {
+  min-width: 84px !important;
+  min-height: 30px !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.objectCard {
+  padding: 10px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 30px rgba(18, 55, 92, .07) !important;
+}
+
+.objectTop {
+  grid-template-columns: 300px minmax(0, 1fr) 180px !important;
+  gap: 10px !important;
+}
+
+.fakeImage,
+.objectMain,
+.sidePanel,
+.dynamicField {
+  border-radius: 8px !important;
+}
+
+.fakeImage {
+  min-height: 150px !important;
+  padding: 14px !important;
+}
+
+.fakeImage strong {
+  font-size: 44px !important;
+}
+
+.fakeImage span {
+  font-size: 11px !important;
+}
+
+.fakeImage em {
+  font-size: 10px !important;
+}
+
+.objectMain {
+  padding: 14px !important;
+}
+
+.objectMain h3 {
+  margin-bottom: 12px !important;
+  font-size: clamp(24px, 2.3vw, 34px) !important;
+  line-height: 1.02 !important;
+}
+
+.factGrid {
+  gap: 0 18px !important;
+}
+
+.factGrid div {
+  padding: 6px 0 !important;
+}
+
+.factGrid span,
+.dataPair span,
+.metric span,
+.priceBox span {
+  font-size: 11px !important;
+}
+
+.factGrid strong,
+.dataPair strong {
+  font-size: 13px !important;
+}
+
+.metaLine {
+  margin-top: 10px !important;
+  padding-top: 8px !important;
+  font-size: 11px !important;
+}
+
+.sidePanel {
+  gap: 6px !important;
+  padding: 8px !important;
+}
+
+.metric {
+  min-height: 38px !important;
+  padding: 6px 9px !important;
+  border-radius: 8px !important;
+}
+
+.metric strong {
+  font-size: 16px !important;
+}
+
+.priceBox {
+  min-height: 96px !important;
+  border-radius: 8px !important;
+}
+
+.priceBox strong {
+  font-size: 24px !important;
+}
+
+.priceBox em {
+  font-size: 11px !important;
+}
+
+.dynamicField {
+  grid-template-columns: 44px 1fr !important;
+  gap: 10px !important;
+  margin-top: 8px !important;
+  padding: 10px 12px !important;
+}
+
+.iconBox {
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 18px !important;
+}
+
+.dynamicContent h4 {
+  margin-bottom: 6px !important;
+  font-size: 15px !important;
+}
+
+.dataGrid {
+  gap: 0 18px !important;
+}
+
+.dataPair {
+  grid-template-columns: 112px 1fr !important;
+  gap: 8px !important;
+  padding: 4px 0 !important;
+}
+
+.actions {
+  gap: 6px !important;
+  margin-top: 10px !important;
+}
+
+.actions a,
+.actions button {
+  min-height: 30px !important;
+  padding: 5px 10px !important;
+  font-size: 11px !important;
+  border-radius: 8px !important;
+}
+
+/* ---------- Responsiv ---------- */
+
+@media (max-width: 1100px) {
+  .objectTop {
+    grid-template-columns: 1fr !important;
+  }
+
+  .periodTop {
+    grid-template-columns: 1fr !important;
+  }
+
+  .timeline button {
+    width: 24% !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 16px 8px !important;
+  }
+
+  .timeline {
+    padding: 8px 8px 20px !important;
+  }
+
+  .timeline button {
+    width: 48% !important;
+    max-width: none !important;
+  }
+
+  .timeline > div:first-of-type,
+  .timelineButtons,
+  .timelineItems {
+    flex-wrap: wrap !important;
+  }
+
+  .objectMain h3 {
+    font-size: 24px !important;
+  }
+
+  .dataPair {
+    grid-template-columns: 1fr !important;
+  }
+}
