@@ -823,3 +823,71 @@
     margin-top: 20px;
   }
 }
+
+/* STARTSIDE FULLSCREEN SHELL OVERRIDE
+   Formål:
+   Skjuler global Collectium AppShell/sidebar/topbar kun når V42-startsiden er aktiv.
+   V42 sin egen topbar beholdes fordi den ligger inne i .page.
+*/
+
+:global(html[data-collectium-startside-fullscreen="1"]),
+:global(body[data-collectium-startside-fullscreen="1"]) {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  background: var(--ct-app-bg, #071112) !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] body > header),
+:global(html[data-collectium-startside-fullscreen="1"] body > aside),
+:global(html[data-collectium-startside-fullscreen="1"] body > nav) {
+  display: none !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] aside),
+:global(html[data-collectium-startside-fullscreen="1"] nav[aria-label="Sidebar"]),
+:global(html[data-collectium-startside-fullscreen="1"] nav[aria-label="Sidemeny"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="sidebar"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="Sidebar"]) {
+  display: none !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] [class*="topbar"]:not([class*="CollectiumStartsideV42TemaPreview"] *)),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="Topbar"]:not([class*="CollectiumStartsideV42TemaPreview"] *)) {
+  display: none !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] main),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="page"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="content"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="shell"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="Shell"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="frame"]),
+:global(html[data-collectium-startside-fullscreen="1"] [class*="Frame"]) {
+  max-width: none !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] body > div),
+:global(html[data-collectium-startside-fullscreen="1"] #__next),
+:global(html[data-collectium-startside-fullscreen="1"] [data-nextjs-scroll-focus-boundary]) {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+:global(html[data-collectium-startside-fullscreen="1"] .collectium-shell),
+:global(html[data-collectium-startside-fullscreen="1"] .collectium-page),
+:global(html[data-collectium-startside-fullscreen="1"] .collectium-page-frame),
+:global(html[data-collectium-startside-fullscreen="1"] .CollectiumAppShell),
+:global(html[data-collectium-startside-fullscreen="1"] .PageFrame) {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+  display: block !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+

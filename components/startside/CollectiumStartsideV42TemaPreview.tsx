@@ -37,7 +37,7 @@
  * CT-STARTSIDE-V42-TEMA-PREVIEW-0003
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./CollectiumStartsideV42TemaPreview.module.css";
 
 type ThemeKey = "collectium" | "museum" | "enkel" | "finans";
@@ -93,6 +93,19 @@ const membership = [
 
 export default function CollectiumStartsideV42TemaPreview() {
   const [theme, setTheme] = useState<ThemeKey>("collectium");
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.setAttribute("data-collectium-startside-fullscreen", "1");
+    body.setAttribute("data-collectium-startside-fullscreen", "1");
+
+    return () => {
+      html.removeAttribute("data-collectium-startside-fullscreen");
+      body.removeAttribute("data-collectium-startside-fullscreen");
+    };
+  }, []);
 
   return (
     <main className={styles.page} data-theme={theme}>
@@ -405,3 +418,4 @@ function Progress({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
