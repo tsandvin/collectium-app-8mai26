@@ -1,256 +1,380 @@
-﻿.section {
-  --ui-bg: #eef6fc;
-  --ui-panel: rgba(255, 255, 255, .92);
-  --ui-panel-soft: #f8fcff;
-  --ui-border: #c6d9eb;
-  --ui-border-strong: #8fb2d2;
-  --ui-text: #0d2b4d;
-  --ui-soft: #4e6f91;
-  --ui-muted: #6e88a4;
-  --ui-blue: #2c6faa;
-  --ui-gold: #b59243;
+﻿/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * CollectiumCompactCatalogDemo.module
+ *
+ * Definering / formål:
+ * Kompakt UI 8.5-stil for katalogdemo, periodefilter og visningskort.
+ * Bruker Collectium-tokenfarger og unngår blå aktivfarge i Collectium-skin.
+ *
+ * Bruksområde:
+ * components/startside/CollectiumCompactCatalogDemo.tsx
+ *
+ * Berørte sider / routes:
+ * - /startside
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - public.startside.view
+ * - catalog.view
+ * - catalog.filters
+ *
+ * Berørte API-ruter:
+ * - ingen direkte i preview
+ *
+ * Berørte tabeller / views:
+ * - ingen direkte i preview
+ *
+ * Dataretning:
+ * Preview-data -> React -> UI
+ *
+ * Logging:
+ * ingen
+ *
+ * Versjon:
+ * CT-STARTSIDE-CATALOG-DEMO-CSS-UI85-0004
+ */
 
-  padding: 48px 20px;
-  background: linear-gradient(180deg, #f6fbff, #e9f3fb);
-  color: var(--ui-text);
+.section {
+  --ct-app-bg-local: var(--ct-app-bg, #f5efe4);
+  --ct-panel-bg-local: var(--ct-panel-bg, #fffaf1);
+  --ct-panel-solid-local: var(--ct-panel-solid, #fbf4e8);
+  --ct-panel-border-local: var(--ct-panel-border, #ddcba9);
+  --ct-border-strong-local: var(--ct-border-strong, #c9b287);
+  --ct-line-local: var(--ct-line, #d8d0c2);
+
+  --ct-text-local: var(--ct-text, #0b3328);
+  --ct-text-soft-local: var(--ct-text-soft, #465f52);
+  --ct-text-muted-local: var(--ct-text-muted, #8b7a5d);
+
+  --ct-accent-local: var(--ct-accent, #14643d);
+  --ct-accent-dark-local: var(--ct-accent-dark, #0c382b);
+  --ct-accent-soft-local: var(--ct-accent-soft, #d9ad3f);
+  --ct-signature-local: var(--ct-signature, #a67d35);
+
+  padding: 22px 14px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(20, 100, 61, .08), transparent 34%),
+    linear-gradient(180deg, var(--ct-app-bg-local), #f8f1e6);
+  color: var(--ct-text-local);
 }
 
 .inner {
-  width: min(1280px, 100%);
+  width: min(1120px, 100%);
   margin: 0 auto;
 }
 
-.titleBlock {
-  max-width: 760px;
-  margin-bottom: 14px;
+.titleRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 10px;
 }
 
-.titleBlock span {
-  display: block;
-  color: var(--ui-gold);
-  font-size: 11px;
+.eyebrow,
+.periodEyebrow {
+  display: inline-block;
+  color: var(--ct-signature-local);
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: .16em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.titleBlock h2 {
-  margin: 4px 0 6px;
+.titleRow h2 {
+  margin: 3px 0 4px;
+  color: var(--ct-text-local);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 3.2vw, 48px);
-  line-height: .96;
+  font-size: clamp(22px, 2.5vw, 34px);
+  line-height: .98;
   letter-spacing: -.04em;
 }
 
-.titleBlock p {
+.titleRow p {
+  max-width: 680px;
   margin: 0;
-  max-width: 720px;
-  color: var(--ui-soft);
-  font-size: 14px;
-  line-height: 1.45;
+  color: var(--ct-text-soft-local);
+  font-size: 11.5px;
+  line-height: 1.32;
 }
 
 .kindSwitch {
   display: inline-flex;
-  gap: 6px;
-  margin: 4px 0 14px;
-  padding: 4px;
-  border: 1px solid var(--ui-border);
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  background: var(--ui-panel);
+  background: var(--ct-panel-bg-local);
 }
 
 .kindSwitch button,
-.modeButtons button,
-.timeline button,
+.periodModeButtons button,
 .cardTabs button,
 .actions a,
 .actions button {
-  border: 1px solid var(--ui-border);
+  min-height: 26px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  background: var(--ui-panel-soft);
-  color: var(--ui-text);
+  background: var(--ct-panel-solid-local);
+  color: var(--ct-text-local);
   cursor: pointer;
+  font-size: 11px;
   font-weight: 800;
-  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, color .16s ease;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background 150ms ease,
+    color 150ms ease;
 }
 
 .kindSwitch button {
-  min-height: 30px;
-  padding: 5px 14px;
-  font-size: 13px;
+  padding: 4px 10px;
 }
 
 .kindSwitch button:hover,
-.modeButtons button:hover,
-.timeline button:hover,
+.periodModeButtons button:hover,
 .cardTabs button:hover,
 .actions a:hover,
 .actions button:hover,
-.activeSmall,
-.activeMode,
-.activePeriod,
-.activeTab {
+.timelineSegment:hover {
   transform: translateY(-1px);
-  border-color: var(--ui-blue) !important;
-  background: var(--ui-blue) !important;
-  color: #fff !important;
-  box-shadow: 0 10px 22px rgba(44, 111, 170, .18);
+  border-color: var(--ct-signature-local);
+  box-shadow: 0 7px 16px rgba(29, 43, 35, .08);
+}
+
+.isActive {
+  border-color: var(--ct-accent-local) !important;
+  background: var(--ct-accent-local) !important;
+  color: #fffdf4 !important;
 }
 
 .periodFilter {
-  margin-bottom: 18px;
-  padding: 16px;
-  border: 1px solid var(--ui-border);
+  padding: 10px 12px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
   background:
-    linear-gradient(90deg, rgba(181, 146, 67, .08), rgba(44, 111, 170, .07)),
-    var(--ui-panel);
-  box-shadow: 0 18px 48px rgba(18, 55, 92, .08);
+    linear-gradient(90deg, rgba(217, 173, 63, .10), rgba(20, 100, 61, .055)),
+    var(--ct-panel-bg-local);
+  box-shadow: 0 8px 24px rgba(27, 42, 35, .045);
 }
 
-.periodTop {
+.periodHeader {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
+  gap: 12px;
   align-items: start;
+  margin-bottom: 8px;
 }
 
-.periodTop span {
-  display: block;
-  color: var(--ui-gold);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
-.periodTop strong {
-  display: block;
-  margin-top: 3px;
+.periodIntro h3 {
+  margin: 2px 0 3px;
+  color: var(--ct-text-local);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
-  line-height: 1;
+  font-size: 15px;
+  line-height: 1.04;
+  letter-spacing: -.01em;
 }
 
-.periodTop p {
-  margin: 5px 0 0;
-  color: var(--ui-soft);
-  font-size: 13px;
+.periodIntro p {
+  max-width: 590px;
+  margin: 0;
+  color: var(--ct-text-soft-local);
+  font-size: 11px;
+  line-height: 1.28;
 }
 
-.modeButtons {
+.periodModeButtons {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 5px;
+  max-width: 520px;
 }
 
-.modeButtons button {
-  min-height: 34px;
-  padding: 6px 14px;
-  font-size: 13px;
+.periodModeButtons button {
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
 }
 
-.timeline {
+.timelineFrame {
   position: relative;
-  display: flex;
-  gap: 0;
-  align-items: center;
-  margin-top: 14px;
-  padding: 12px 34px 28px;
-  border: 1px solid var(--ui-border);
+  min-height: 92px;
+  padding: 10px 18px 28px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  background: rgba(247, 252, 255, .78);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .05)),
+    var(--ct-panel-solid-local);
   overflow: hidden;
 }
 
-.timelineLine {
+.timelineRail {
   position: absolute;
-  left: 34px;
-  right: 34px;
-  bottom: 25px;
-  height: 4px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #c7b06a, #5985a6, #4e8c75);
+  left: 22px;
+  right: 22px;
+  bottom: 31px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--ct-line-local);
 }
 
-.timeline button {
-  position: relative;
+.timelineSegment {
+  position: absolute;
+  top: 9px;
   z-index: 2;
-  flex: 1 1 0;
-  min-height: 44px;
-  padding: 5px 8px;
+  height: 34px;
+  padding: 4px 7px;
+  border: 1px solid rgba(0, 0, 0, .07);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
   text-align: center;
-  font-size: 11px;
+  box-shadow: 0 3px 9px rgba(28, 44, 35, .05);
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    outline-color 150ms ease,
+    filter 150ms ease;
 }
 
-.timeline button::after {
+.timelineSegment strong {
+  display: block;
+  font-size: 9.5px;
+  line-height: 1.02;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timelineSegment span {
+  display: block;
+  font-size: 9px;
+  line-height: 1.02;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.timelineSegment::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -23px;
-  width: 14px;
-  height: 14px;
+  bottom: -18px;
+  width: 9px;
+  height: 9px;
   transform: translateX(-50%);
   border-radius: 999px;
-  border: 3px solid #fff;
-  background: var(--ui-border-strong);
+  border: 2px solid var(--ct-accent-local);
+  background: var(--ct-panel-bg-local);
 }
 
-.activePeriod::after {
-  background: var(--ui-blue) !important;
-  box-shadow: 0 0 0 4px rgba(44, 111, 170, .18);
+.timelineActive {
+  outline: 2px solid rgba(20, 100, 61, .24);
+  outline-offset: 2px;
+  filter: saturate(1.08);
 }
 
-.timeline button span {
-  display: block;
-  margin-top: 1px;
-  font-size: 11px;
-  font-weight: 700;
+.timelineActive::after {
+  background: var(--ct-accent-local);
+  box-shadow: 0 0 0 3px rgba(20, 100, 61, .12);
 }
 
-.timelineFoot {
+.accent {
+  background: var(--ct-accent-local);
+  color: #fffdf4;
+}
+
+.accentSoft {
+  background: var(--ct-accent-soft-local);
+  color: var(--ct-text-local);
+}
+
+.signature {
+  background: var(--ct-signature-local);
+  color: #fffdf4;
+}
+
+.muted {
+  background: var(--ct-text-soft-local);
+  color: #fffdf4;
+}
+
+.accentDark {
+  background: var(--ct-accent-dark-local);
+  color: #fffdf4;
+}
+
+.yearRow {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 8px;
+  height: 14px;
+}
+
+.yearRow span {
+  position: absolute;
+  transform: translateX(-50%);
+  color: var(--ct-text-muted-local);
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.yearRow span:last-child {
+  transform: translateX(-100%);
+}
+
+.periodFooter {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  margin-top: 8px;
-  color: var(--ui-soft);
-  font-size: 12px;
+  gap: 12px;
+  margin-top: 6px;
+  color: var(--ct-text-soft-local);
+  font-size: 10px;
+  line-height: 1.22;
 }
 
 .cardShell {
-  position: relative;
-  margin-top: 28px;
+  margin-top: 12px;
 }
 
 .cardTabs {
   display: flex;
-  gap: 0;
-  padding-left: 14px;
+  gap: 4px;
+  padding-left: 8px;
 }
 
 .cardTabs button {
-  min-width: 126px;
-  min-height: 46px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  font-size: 16px;
-  font-weight: 700;
+  min-width: 82px;
+  min-height: 30px;
+  padding: 4px 10px;
+  border-radius: 8px 8px 0 0;
+  font-size: 12px;
 }
 
 .objectCard {
-  padding: 16px;
-  border: 1px solid var(--ui-border);
+  padding: 9px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  background: var(--ui-panel);
-  box-shadow: 0 22px 70px rgba(18, 55, 92, .12);
+  background: var(--ct-panel-bg-local);
+  box-shadow: 0 12px 34px rgba(27, 42, 35, .06);
 }
 
 .objectTop {
   display: grid;
-  grid-template-columns: 430px minmax(0, 1fr) 250px;
-  gap: 16px;
+  grid-template-columns: 285px minmax(0, 1fr) 170px;
+  gap: 9px;
   align-items: stretch;
 }
 
@@ -258,62 +382,70 @@
 .objectMain,
 .sidePanel,
 .dynamicField {
-  border: 1px solid var(--ui-border);
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  background: rgba(255, 255, 255, .82);
+  background: rgba(255, 255, 255, .34);
 }
 
 .fakeImage {
-  min-height: 220px;
+  min-height: 136px;
   display: grid;
   align-content: center;
-  gap: 10px;
-  padding: 22px;
+  gap: 6px;
+  padding: 13px;
+  color: var(--ct-text-local);
   background:
-    radial-gradient(circle at 18% 44%, rgba(13, 43, 77, .13), transparent 62px),
-    linear-gradient(135deg, #d6e0e8, #f7f4eb);
-  color: #234160;
+    radial-gradient(circle at 18% 42%, rgba(20, 100, 61, .13), transparent 52px),
+    linear-gradient(135deg, rgba(217, 173, 63, .18), rgba(255, 255, 255, .30));
+  text-decoration: none;
 }
 
 .fakeImage strong {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 70px;
+  font-size: 40px;
   line-height: .9;
 }
 
 .fakeImage span {
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 900;
-  letter-spacing: .14em;
+  letter-spacing: .13em;
 }
 
 .fakeImage em {
-  color: var(--ui-soft);
+  color: var(--ct-text-soft-local);
+  font-size: 10px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .objectMain {
-  padding: 24px;
+  padding: 11px;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
 }
 
 .objectMain h3 {
-  margin: 0 0 24px;
+  margin: 0 0 9px;
+  color: var(--ct-text-local);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(38px, 4vw, 56px);
-  line-height: .94;
-  letter-spacing: -.04em;
+  font-size: clamp(22px, 2.3vw, 31px);
+  line-height: .98;
+  letter-spacing: -.035em;
 }
 
 .factGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 34px;
+  gap: 0 14px;
 }
 
 .factGrid div {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--ui-border);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--ct-line-local);
 }
 
 .factGrid span,
@@ -321,192 +453,222 @@
 .metric span,
 .priceBox span {
   display: block;
-  color: var(--ui-soft);
-  font-size: 14px;
+  color: var(--ct-text-soft-local);
+  font-size: 10px;
+  line-height: 1.1;
 }
 
 .factGrid strong,
 .dataPair strong {
   display: block;
-  margin-top: 4px;
-  color: var(--ui-text);
-  font-size: 18px;
+  margin-top: 2px;
+  color: var(--ct-text-local);
+  font-size: 12px;
+  line-height: 1.16;
 }
 
 .metaLine {
-  margin: 18px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--ui-border);
-  color: var(--ui-soft);
-  font-size: 15px;
+  margin: 8px 0 0;
+  padding-top: 7px;
+  border-top: 1px solid var(--ct-line-local);
+  color: var(--ct-text-soft-local);
+  font-size: 10.5px;
+  line-height: 1.24;
 }
 
 .sidePanel {
   display: grid;
-  gap: 12px;
-  padding: 14px;
+  gap: 5px;
+  padding: 7px;
 }
 
 .metric {
-  min-height: 58px;
+  min-height: 34px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border: 1px solid var(--ui-border);
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid var(--ct-panel-border-local);
   border-radius: 8px;
-  padding: 10px 14px;
-  background: #fff;
+  background: rgba(255, 255, 255, .26);
 }
 
 .metric strong {
-  font-size: 24px;
+  color: var(--ct-text-local);
+  font-size: 14px;
+  line-height: 1;
 }
 
 .priceBox {
+  min-height: 82px;
   display: grid;
   place-items: center;
-  min-height: 150px;
-  border: 1px solid var(--ui-border-strong);
+  padding: 7px;
+  border: 1px solid var(--ct-border-strong-local);
   border-radius: 8px;
-  background: linear-gradient(180deg, #f9fdff, #eaf5ff);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(217, 173, 63, .12));
   text-align: center;
 }
 
 .priceBox strong {
+  color: var(--ct-text-local);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 42px;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .priceBox em {
-  color: var(--ui-blue);
+  color: var(--ct-accent-local);
+  font-size: 10px;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .dynamicField {
   display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 16px;
-  margin-top: 14px;
-  padding: 18px;
+  grid-template-columns: 38px 1fr;
+  gap: 9px;
+  margin-top: 7px;
+  padding: 9px 10px;
 }
 
 .iconBox {
-  width: 54px;
-  height: 54px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: #eaf4ff;
-  color: var(--ui-blue);
-  font-size: 28px;
+  background: rgba(20, 100, 61, .10);
+  color: var(--ct-accent-local);
+  font-size: 17px;
   font-weight: 900;
 }
 
-.dynamicContent h4 {
-  margin: 0 0 12px;
-  font-size: 22px;
+.dynamicHeader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.dynamicHeader h4 {
+  margin: 0;
+  color: var(--ct-text-local);
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+.dynamicHeader p {
+  margin: 0;
+  color: var(--ct-text-soft-local);
+  font-size: 10.5px;
+  line-height: 1.2;
 }
 
 .dataGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 36px;
+  gap: 0 16px;
 }
 
 .dataPair {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 14px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--ui-border);
+  grid-template-columns: 108px 1fr;
+  gap: 7px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--ct-line-local);
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 5px;
+  margin-top: 8px;
 }
 
 .actions a,
 .actions button {
-  min-height: 42px;
-  padding: 8px 18px;
-  text-decoration: none;
-  font-size: 14px;
+  min-height: 28px;
+  padding: 5px 9px;
+  font-size: 10.5px;
 }
 
-/* Museum skin */
+/* Museum/Collectium mørk kontroll: fortsatt ingen blå tone */
+:global([data-skin="museum"]) .section,
 :global([data-template="museum"]) .section {
-  --ui-bg: #12100f;
-  --ui-panel: rgba(32, 30, 26, .94);
-  --ui-panel-soft: #181715;
-  --ui-border: rgba(185, 154, 85, .30);
-  --ui-border-strong: rgba(216, 185, 108, .70);
-  --ui-text: #f4ead8;
-  --ui-soft: rgba(244, 234, 216, .68);
-  --ui-muted: rgba(244, 234, 216, .48);
-  --ui-blue: #b99a55;
-  --ui-gold: #d8b96c;
+  --ct-app-bg-local: #11100f;
+  --ct-panel-bg-local: #1f1d19;
+  --ct-panel-solid-local: #191714;
+  --ct-panel-border-local: rgba(185, 154, 85, .34);
+  --ct-border-strong-local: rgba(216, 185, 108, .70);
+  --ct-line-local: rgba(216, 185, 108, .22);
 
-  background: linear-gradient(180deg, #12100f, #1d1a16 55%, #11100f);
+  --ct-text-local: #f5ead5;
+  --ct-text-soft-local: rgba(245, 234, 213, .68);
+  --ct-text-muted-local: rgba(245, 234, 213, .48);
+
+  --ct-accent-local: #b7934d;
+  --ct-accent-dark-local: #6d5224;
+  --ct-accent-soft-local: #d8bd72;
+  --ct-signature-local: #caa55b;
+
+  background: linear-gradient(180deg, #11100f, #191714 55%, #11100f);
 }
 
-:global([data-template="museum"]) .periodFilter,
-:global([data-template="museum"]) .objectCard,
+:global([data-skin="museum"]) .fakeImage,
 :global([data-template="museum"]) .fakeImage,
+:global([data-skin="museum"]) .objectMain,
 :global([data-template="museum"]) .objectMain,
+:global([data-skin="museum"]) .sidePanel,
 :global([data-template="museum"]) .sidePanel,
-:global([data-template="museum"]) .dynamicField,
-:global([data-template="museum"]) .metric,
-:global([data-template="museum"]) .priceBox {
-  background: rgba(31, 29, 25, .94);
-  color: var(--ui-text);
-}
-
-:global([data-template="museum"]) .timeline {
+:global([data-skin="museum"]) .dynamicField,
+:global([data-template="museum"]) .dynamicField {
   background: rgba(24, 23, 21, .92);
 }
 
-:global([data-template="museum"]) .activeMode,
-:global([data-template="museum"]) .activePeriod,
-:global([data-template="museum"]) .activeTab,
-:global([data-template="museum"]) .activeSmall {
-  color: #11100f !important;
-}
+@media (max-width: 1080px) {
+  .titleRow,
+  .periodHeader {
+    grid-template-columns: 1fr;
+  }
 
-@media (max-width: 1120px) {
+  .periodModeButtons {
+    justify-content: flex-start;
+  }
+
   .objectTop {
     grid-template-columns: 1fr;
   }
 
   .fakeImage {
-    min-height: 180px;
-  }
-
-  .periodTop {
-    grid-template-columns: 1fr;
-  }
-
-  .modeButtons {
-    justify-content: flex-start;
+    min-height: 118px;
   }
 }
 
 @media (max-width: 720px) {
   .section {
-    padding: 32px 12px;
+    padding: 16px 8px;
   }
 
-  .timeline {
-    display: grid;
-    padding: 10px;
+  .timelineFrame {
+    min-height: auto;
+    padding: 8px;
   }
 
-  .timelineLine,
-  .timeline button::after {
+  .timelineRail,
+  .yearRow,
+  .timelineSegment::after {
     display: none;
+  }
+
+  .timelineSegment {
+    position: relative;
+    left: auto !important;
+    top: auto;
+    width: 100% !important;
+    margin-bottom: 5px;
   }
 
   .cardTabs {
@@ -515,6 +677,7 @@
 
   .factGrid,
   .dataGrid,
+  .dynamicHeader,
   .dataPair,
   .dynamicField {
     grid-template-columns: 1fr;
@@ -522,694 +685,6 @@
 
   .actions {
     justify-content: flex-start;
-  }
-}
-
-/* COLLECTIUM UI85 COMPACT TUNING 0002
-   Formål:
-   Gjør periodefilter og horisontalt visningskort mer kompakt og nærmere UI 8.5-referansebildene.
-*/
-
-.section {
-  padding: 34px 18px !important;
-}
-
-.inner {
-  width: min(1180px, 100%) !important;
-}
-
-.titleBlock {
-  max-width: 680px !important;
-  margin-bottom: 10px !important;
-}
-
-.titleBlock span {
-  font-size: 10px !important;
-}
-
-.titleBlock h2 {
-  font-size: clamp(24px, 2.7vw, 38px) !important;
-  line-height: .95 !important;
-}
-
-.titleBlock p {
-  max-width: 640px !important;
-  font-size: 13px !important;
-  line-height: 1.38 !important;
-}
-
-.kindSwitch {
-  margin: 2px 0 10px !important;
-  padding: 3px !important;
-  border-radius: 8px !important;
-}
-
-.kindSwitch button {
-  min-height: 26px !important;
-  padding: 4px 11px !important;
-  font-size: 12px !important;
-  border-radius: 8px !important;
-}
-
-.periodFilter {
-  margin-bottom: 14px !important;
-  padding: 12px 14px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 12px 34px rgba(18, 55, 92, .07) !important;
-}
-
-.periodTop {
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  gap: 14px !important;
-}
-
-.periodTop span {
-  font-size: 10px !important;
-}
-
-.periodTop strong {
-  font-size: 20px !important;
-}
-
-.periodTop p {
-  font-size: 12px !important;
-  line-height: 1.32 !important;
-}
-
-.modeButtons {
-  gap: 6px !important;
-}
-
-.modeButtons button {
-  min-height: 28px !important;
-  padding: 4px 11px !important;
-  font-size: 12px !important;
-  border-radius: 8px !important;
-}
-
-.timeline {
-  margin-top: 10px !important;
-  padding: 9px 26px 23px !important;
-  border-radius: 8px !important;
-}
-
-.timelineLine {
-  left: 28px !important;
-  right: 28px !important;
-  bottom: 20px !important;
-  height: 3px !important;
-}
-
-.timeline button {
-  min-height: 36px !important;
-  padding: 4px 6px !important;
-  font-size: 10px !important;
-  line-height: 1.05 !important;
-  border-radius: 8px !important;
-}
-
-.timeline button::after {
-  bottom: -18px !important;
-  width: 11px !important;
-  height: 11px !important;
-  border-width: 2px !important;
-}
-
-.timeline button span {
-  font-size: 10px !important;
-}
-
-.timelineFoot {
-  margin-top: 5px !important;
-  font-size: 11px !important;
-}
-
-.cardShell {
-  margin-top: 18px !important;
-}
-
-.cardTabs {
-  padding-left: 10px !important;
-}
-
-.cardTabs button {
-  min-width: 108px !important;
-  min-height: 38px !important;
-  padding: 6px 13px !important;
-  font-size: 14px !important;
-  border-radius: 8px 8px 0 0 !important;
-}
-
-.objectCard {
-  padding: 12px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 16px 52px rgba(18, 55, 92, .10) !important;
-}
-
-.objectTop {
-  grid-template-columns: 350px minmax(0, 1fr) 205px !important;
-  gap: 12px !important;
-}
-
-.fakeImage,
-.objectMain,
-.sidePanel,
-.dynamicField {
-  border-radius: 8px !important;
-}
-
-.fakeImage {
-  min-height: 178px !important;
-  padding: 18px !important;
-}
-
-.fakeImage strong {
-  font-size: 56px !important;
-}
-
-.fakeImage span {
-  font-size: 13px !important;
-}
-
-.fakeImage em {
-  font-size: 12px !important;
-}
-
-.objectMain {
-  padding: 18px !important;
-}
-
-.objectMain h3 {
-  margin-bottom: 17px !important;
-  font-size: clamp(31px, 3.2vw, 44px) !important;
-}
-
-.factGrid {
-  gap: 0 24px !important;
-}
-
-.factGrid div {
-  padding: 9px 0 !important;
-}
-
-.factGrid span,
-.dataPair span,
-.metric span,
-.priceBox span {
-  font-size: 12px !important;
-}
-
-.factGrid strong,
-.dataPair strong {
-  font-size: 15px !important;
-}
-
-.metaLine {
-  margin-top: 13px !important;
-  padding-top: 10px !important;
-  font-size: 13px !important;
-}
-
-.sidePanel {
-  gap: 8px !important;
-  padding: 10px !important;
-}
-
-.metric {
-  min-height: 44px !important;
-  padding: 8px 11px !important;
-  border-radius: 8px !important;
-}
-
-.metric strong {
-  font-size: 19px !important;
-}
-
-.priceBox {
-  min-height: 116px !important;
-  border-radius: 8px !important;
-}
-
-.priceBox strong {
-  font-size: 32px !important;
-}
-
-.priceBox em {
-  font-size: 13px !important;
-}
-
-.dynamicField {
-  grid-template-columns: 56px 1fr !important;
-  gap: 12px !important;
-  margin-top: 10px !important;
-  padding: 13px 15px !important;
-}
-
-.iconBox {
-  width: 44px !important;
-  height: 44px !important;
-  font-size: 22px !important;
-}
-
-.dynamicContent h4 {
-  margin-bottom: 8px !important;
-  font-size: 18px !important;
-}
-
-.dataGrid {
-  gap: 0 24px !important;
-}
-
-.dataPair {
-  grid-template-columns: 128px 1fr !important;
-  gap: 10px !important;
-  padding: 6px 0 !important;
-}
-
-.actions {
-  gap: 8px !important;
-  margin-top: 12px !important;
-}
-
-.actions a,
-.actions button {
-  min-height: 34px !important;
-  padding: 6px 13px !important;
-  font-size: 12px !important;
-  border-radius: 8px !important;
-}
-
-/* Enda mer likt UI 8.5: hvit/blå referanse skal ha tydelig ramme, ikke tung dekor */
-.section:not(:global([data-template="museum"]) .section) .objectCard,
-.section:not(:global([data-template="museum"]) .section) .periodFilter {
-  background: rgba(255, 255, 255, .94) !important;
-}
-
-/* Museum må fortsatt ikke få lyse felt */
-:global([data-template="museum"]) .section {
-  background: linear-gradient(180deg, #12100f, #191714 55%, #11100f) !important;
-}
-
-:global([data-template="museum"]) .periodFilter,
-:global([data-template="museum"]) .objectCard {
-  box-shadow: 0 16px 54px rgba(0, 0, 0, .34) !important;
-}
-
-@media (max-width: 1120px) {
-  .objectTop {
-    grid-template-columns: 1fr !important;
-  }
-
-  .fakeImage {
-    min-height: 150px !important;
-  }
-
-  .periodTop {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-@media (max-width: 720px) {
-  .section {
-    padding: 26px 10px !important;
-  }
-
-  .timeline {
-    padding: 8px !important;
-  }
-
-  .cardTabs button {
-    min-width: 96px !important;
-    min-height: 34px !important;
-    font-size: 13px !important;
-  }
-
-  .objectMain h3 {
-    font-size: 30px !important;
-  }
-
-  .dataPair {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-
-/* =========================================================
-   COLLECTIUM COMPACT TIMELINE TUNING 0003
-   Formål:
-   - mindre skrift
-   - mindre luft
-   - mer kompakt kort og periodefilter
-   - tidslinje presentert mer som referansebildet
-   ========================================================= */
-
-.section {
-  padding: 20px 14px !important;
-}
-
-.inner {
-  width: min(1120px, 100%) !important;
-}
-
-/* ---------- Periodefilter ---------- */
-
-.periodFilter {
-  margin-bottom: 10px !important;
-  padding: 10px 12px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 8px 22px rgba(18, 55, 92, .05) !important;
-}
-
-.periodTop {
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  gap: 10px !important;
-  align-items: start !important;
-}
-
-.periodTop span {
-  font-size: 9px !important;
-  letter-spacing: .12em !important;
-}
-
-.periodTop strong {
-  font-size: 14px !important;
-  line-height: 1.05 !important;
-}
-
-.periodTop p {
-  margin-top: 3px !important;
-  font-size: 11px !important;
-  line-height: 1.25 !important;
-  max-width: 520px !important;
-}
-
-.modeButtons {
-  gap: 5px !important;
-  align-items: flex-start !important;
-}
-
-.modeButtons button {
-  min-height: 24px !important;
-  padding: 3px 10px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  border-radius: 999px !important;
-}
-
-/* ---------- Tidslinje ny presentasjon ---------- */
-
-.timeline {
-  position: relative !important;
-  margin-top: 8px !important;
-  padding: 6px 12px 18px !important;
-  border-radius: 8px !important;
-  background: linear-gradient(180deg, rgba(245,248,251,.72), rgba(239,244,248,.88)) !important;
-  min-height: auto !important;
-}
-
-.timelineLine {
-  position: absolute !important;
-  left: 20px !important;
-  right: 20px !important;
-  bottom: 24px !important;
-  height: 3px !important;
-  border-radius: 999px !important;
-  background: #a9bbcc !important;
-  box-shadow: none !important;
-}
-
-/* hvis komponenten allerede bruker grid/flex for knappene */
-.timeline > div:first-of-type,
-.timelineButtons,
-.timelineItems {
-  position: relative !important;
-  display: flex !important;
-  align-items: flex-start !important;
-  justify-content: space-between !important;
-  gap: 8px !important;
-}
-
-/* selve periode-pillene */
-.timeline button {
-  position: relative !important;
-  min-height: 28px !important;
-  padding: 4px 8px !important;
-  border-radius: 8px !important;
-  font-size: 9px !important;
-  line-height: 1.05 !important;
-  font-weight: 700 !important;
-  width: 23% !important;
-  max-width: 160px !important;
-  background: #f8fbfd !important;
-  border: 1px solid #bcd0e3 !important;
-  box-shadow: none !important;
-  z-index: 2 !important;
-}
-
-.timeline button:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 6px 14px rgba(45, 88, 132, .10) !important;
-}
-
-.timeline button[aria-pressed="true"] {
-  background: #2f6fb2 !important;
-  color: #fff !important;
-  border-color: #2f6fb2 !important;
-}
-
-/* liten markør ned til linjen */
-.timeline button::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  bottom: -15px !important;
-  width: 10px !important;
-  height: 10px !important;
-  border-radius: 999px !important;
-  background: #ffffff !important;
-  border: 2px solid #2f6fb2 !important;
-  z-index: 3 !important;
-}
-
-.timeline button[aria-pressed="true"]::after {
-  background: #ffffff !important;
-  border-color: #2f6fb2 !important;
-}
-
-.timeline button span {
-  display: block !important;
-  font-size: 9px !important;
-  line-height: 1.05 !important;
-}
-
-.timelineFoot {
-  margin-top: 6px !important;
-  font-size: 10px !important;
-  line-height: 1.2 !important;
-  color: #6d8296 !important;
-}
-
-/* ---------- Katalogkort / visningskort ---------- */
-
-.cardShell {
-  margin-top: 12px !important;
-}
-
-.cardTabs {
-  padding-left: 6px !important;
-  gap: 4px !important;
-}
-
-.cardTabs button {
-  min-width: 84px !important;
-  min-height: 30px !important;
-  padding: 4px 10px !important;
-  font-size: 12px !important;
-  border-radius: 8px 8px 0 0 !important;
-}
-
-.objectCard {
-  padding: 10px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 10px 30px rgba(18, 55, 92, .07) !important;
-}
-
-.objectTop {
-  grid-template-columns: 300px minmax(0, 1fr) 180px !important;
-  gap: 10px !important;
-}
-
-.fakeImage,
-.objectMain,
-.sidePanel,
-.dynamicField {
-  border-radius: 8px !important;
-}
-
-.fakeImage {
-  min-height: 150px !important;
-  padding: 14px !important;
-}
-
-.fakeImage strong {
-  font-size: 44px !important;
-}
-
-.fakeImage span {
-  font-size: 11px !important;
-}
-
-.fakeImage em {
-  font-size: 10px !important;
-}
-
-.objectMain {
-  padding: 14px !important;
-}
-
-.objectMain h3 {
-  margin-bottom: 12px !important;
-  font-size: clamp(24px, 2.3vw, 34px) !important;
-  line-height: 1.02 !important;
-}
-
-.factGrid {
-  gap: 0 18px !important;
-}
-
-.factGrid div {
-  padding: 6px 0 !important;
-}
-
-.factGrid span,
-.dataPair span,
-.metric span,
-.priceBox span {
-  font-size: 11px !important;
-}
-
-.factGrid strong,
-.dataPair strong {
-  font-size: 13px !important;
-}
-
-.metaLine {
-  margin-top: 10px !important;
-  padding-top: 8px !important;
-  font-size: 11px !important;
-}
-
-.sidePanel {
-  gap: 6px !important;
-  padding: 8px !important;
-}
-
-.metric {
-  min-height: 38px !important;
-  padding: 6px 9px !important;
-  border-radius: 8px !important;
-}
-
-.metric strong {
-  font-size: 16px !important;
-}
-
-.priceBox {
-  min-height: 96px !important;
-  border-radius: 8px !important;
-}
-
-.priceBox strong {
-  font-size: 24px !important;
-}
-
-.priceBox em {
-  font-size: 11px !important;
-}
-
-.dynamicField {
-  grid-template-columns: 44px 1fr !important;
-  gap: 10px !important;
-  margin-top: 8px !important;
-  padding: 10px 12px !important;
-}
-
-.iconBox {
-  width: 36px !important;
-  height: 36px !important;
-  font-size: 18px !important;
-}
-
-.dynamicContent h4 {
-  margin-bottom: 6px !important;
-  font-size: 15px !important;
-}
-
-.dataGrid {
-  gap: 0 18px !important;
-}
-
-.dataPair {
-  grid-template-columns: 112px 1fr !important;
-  gap: 8px !important;
-  padding: 4px 0 !important;
-}
-
-.actions {
-  gap: 6px !important;
-  margin-top: 10px !important;
-}
-
-.actions a,
-.actions button {
-  min-height: 30px !important;
-  padding: 5px 10px !important;
-  font-size: 11px !important;
-  border-radius: 8px !important;
-}
-
-/* ---------- Responsiv ---------- */
-
-@media (max-width: 1100px) {
-  .objectTop {
-    grid-template-columns: 1fr !important;
-  }
-
-  .periodTop {
-    grid-template-columns: 1fr !important;
-  }
-
-  .timeline button {
-    width: 24% !important;
-  }
-}
-
-@media (max-width: 720px) {
-  .section {
-    padding: 16px 8px !important;
-  }
-
-  .timeline {
-    padding: 8px 8px 20px !important;
-  }
-
-  .timeline button {
-    width: 48% !important;
-    max-width: none !important;
-  }
-
-  .timeline > div:first-of-type,
-  .timelineButtons,
-  .timelineItems {
-    flex-wrap: wrap !important;
-  }
-
-  .objectMain h3 {
-    font-size: 24px !important;
-  }
-
-  .dataPair {
-    grid-template-columns: 1fr !important;
+    flex-wrap: wrap;
   }
 }

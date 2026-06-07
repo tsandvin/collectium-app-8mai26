@@ -7,41 +7,48 @@
  * CollectiumCompactCatalogDemo
  *
  * Definering / formål:
- * Kompakt katalogdemo under startsidens katalogfelt.
- * Skal visuelt følge UI 8.5-referansene:
- * - Periodefilter UI 8.5
- * - Horisontalt visningskort UI 8.5
+ * Kompakt katalogdemo for startsiden. Viser katalogobjekt i sammenheng
+ * med Samler / Historie / Finans, Seddel / Mynt og periodefilter
+ * som ekte overlappende tidslinje.
  *
  * Bruksområde:
- * Brukes i /startside.
+ * Brukes under katalogfeltet på /startside.
  *
  * Berørte sider / routes:
  * - /startside
+ * - /katalog
+ * - /objekt/[sourceKey]/[objectGroup]/[objectId]
  *
  * Berørte DB-brytere / feature_keys:
  * - public.startside.view
- * - public.catalog.preview
  * - catalog.view
- * - catalog.segment.collector
- * - catalog.segment.history
- * - catalog.segment.finance
+ * - catalog.filters
+ * - catalog.object.open
+ * - catalog.history.view
+ * - catalog.market.view
+ * - collection.favorite.toggle
+ * - collection.wishlist.toggle
  *
  * Berørte API-ruter:
- * - Ingen direkte i preview.
+ * - Fremtidig: GET /api/catalog/object
+ * - Fremtidig: GET /api/catalog/relations
+ * - Fremtidig: GET /api/catalog/market
  *
  * Berørte tabeller / views:
  * - Fremtidig: ct_v_catalog_objects_resolved
  * - Fremtidig: ct_v_catalog_relations
  * - Fremtidig: ct_v_catalog_market_summary
+ * - Fremtidig: ct_v_catalog_user_state
  *
  * Dataretning:
- * Lokal preview-data -> React state -> UI
+ * Preview-data -> React state -> UI.
+ * Fremtidig: MariaDB -> API/backend -> Next.js -> React -> UI.
  *
  * Logging:
  * Ingen DB-logging i preview.
  *
  * Versjon:
- * CT-STARTSIDE-CATALOG-DEMO-UI85-0001
+ * CT-STARTSIDE-CATALOG-DEMO-UI85-0004 / CHANGE-2026-06-07-COMPACT-TIMELINE
  */
 
 import { useMemo, useState } from "react";
@@ -49,222 +56,305 @@ import styles from "./CollectiumCompactCatalogDemo.module.css";
 
 type SegmentKey = "samler" | "historie" | "finans";
 type ObjectKind = "banknote" | "coin";
-type PeriodMode = "national" | "king" | "signature" | "motif" | "finance";
+type FilterMode = "national" | "king" | "signature" | "motif" | "finance";
+type TimelineTone = "accent" | "accentSoft" | "signature" | "muted" | "accentDark";
 
-type PeriodItem = {
-  key: string;
+type TimelineItem = {
+  id: string;
   label: string;
   years: string;
-  text: string;
+  left: string;
+  width: string;
+  tone: TimelineTone;
 };
 
-const modeLabels: Record<PeriodMode, string> = {
-  national: "Nasjonal periode",
-  king: "Konge",
-  signature: "Signatur",
-  motif: "Motiv/person",
-  finance: "Finans",
+type TimelineMode = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  activeText: string;
+  defaultActiveId: string;
+  items: TimelineItem[];
 };
 
-const periods: Record<PeriodMode, PeriodItem[]> = {
-  national: [
-    { key: "oscar1", label: "Oscar I", years: "1844–1859", text: "Oscar I-perioden viser tidlige objekt-, mynt- og maktrelasjoner." },
-    { key: "karl15", label: "Karl XV", years: "1859–1872", text: "Karl XV-perioden viser overgang før kroner og øre." },
-    { key: "oscar2", label: "Oscar II", years: "1872–1905", text: "Kongeperioden filtrerer objekt, signaturer og historiske relasjoner." },
-    { key: "haakon7", label: "Haakon VII", years: "1905–1957", text: "Haakon VII viser selvstendighet, krigstid og moderne objektdata." },
-    { key: "olav5", label: "Olav V", years: "1957–1985", text: "Olav V viser moderne norsk pengehistorie frem til 1985." },
-  ],
-  king: [
-    { key: "oscar1", label: "Oscar I", years: "1844–1859", text: "Kongefilteret kobler objektet mot regent og tilhørende utgaver." },
-    { key: "karl15", label: "Karl XV", years: "1859–1872", text: "Karl XV viser eldre unionsrelasjoner." },
-    { key: "oscar2", label: "Oscar II", years: "1872–1905", text: "Oscar II kobler objekt, signatur, motiv og unionstid." },
-    { key: "haakon7", label: "Haakon VII", years: "1905–1957", text: "Haakon VII kobler objekt mot selvstendighet og krigstid." },
-    { key: "olav5", label: "Olav V", years: "1957–1985", text: "Olav V kobler moderne objekter mot marked og samling." },
-  ],
-  signature: [
-    { key: "winge_getz", label: "Winge / Getz", years: "1877–1886", text: "Signaturperioden viser hvilke signaturer/personer som kobles til objektene." },
-    { key: "bohn_kielland", label: "Bøhn / Kielland", years: "1886–1893", text: "Signaturfilteret avgrenser samme objektfamilie etter personer." },
-    { key: "rygg_omsted", label: "Rygg / Omsted", years: "1907–1913", text: "Signaturperioden kobler objektet til Norges Bank og personrelasjoner." },
-    { key: "jahn_broch", label: "Jahn / Broch", years: "1920–1939", text: "Senere signaturperiode med finans- og utgavekontekst." },
-  ],
-  motif: [
-    { key: "riksvapen", label: "Riksvåpen", years: "1877–1901", text: "Person-/motivperioden kobler motiv, portrett, symbol og relasjonssider." },
-    { key: "oscar2_portrait", label: "Oscar II portrett", years: "1872–1905", text: "Motivfilteret binder objektet mot portrett, regent og periode." },
-    { key: "norges_bank", label: "Norges Bank motiv", years: "1890–1920", text: "Motiv kobles mot utsteder, trykk og institusjon." },
-    { key: "haakon7_motif", label: "Haakon VII motiv", years: "1905–1957", text: "Motivfilteret viser moderne nasjons- og kongerelasjoner." },
-  ],
-  finance: [
-    { key: "early_finance", label: "Tidlig økonomi", years: "1642+", text: "Finansiell periode styrer markeds-/index- og verdikontekst." },
-    { key: "krone_ore", label: "Kroner og øre", years: "1873+", text: "Pengeenhet, valør og markedslogikk kobles mot moderne katalogdata." },
-    { key: "broad_finance", label: "Bred finansbase", years: "ca. 1920+", text: "Bredere finansgrunnlag med indeks, prisdata og markedsobservasjoner." },
-    { key: "modern_market", label: "Moderne marked", years: "1971–2024", text: "Moderne markedsperiode med pris, trend, valuta og metall." },
-  ],
+const timelineModes: Record<FilterMode, TimelineMode> = {
+  national: {
+    eyebrow: "Periodefilter",
+    title: "Nasjonale perioder · 1814–2024",
+    description:
+      "Periodene viser objektene i større historiske hovedfaser og lar katalogen filtrere på epoke.",
+    activeText: "Aktiv overstyring: Nasjonale perioder",
+    defaultActiveId: "n3",
+    items: [
+      { id: "n1", label: "1814", years: "1814–1844", left: "0%", width: "16%", tone: "accentSoft" },
+      { id: "n2", label: "Oscar I", years: "1844–1859", left: "14%", width: "11%", tone: "signature" },
+      { id: "n3", label: "Oscar II", years: "1872–1905", left: "28%", width: "18%", tone: "accent" },
+      { id: "n4", label: "Haakon VII", years: "1905–1957", left: "45%", width: "24%", tone: "muted" },
+      { id: "n5", label: "Olav V", years: "1957–1985", left: "67%", width: "16%", tone: "accentDark" }
+    ]
+  },
+  king: {
+    eyebrow: "Periodefilter",
+    title: "Oscar II · 1872–1905",
+    description:
+      "Kongeperioden filtrerer objekt, signaturer og historiske relasjoner.",
+    activeText: "Aktiv overstyring: Oscar II · 1872–1905",
+    defaultActiveId: "k3",
+    items: [
+      { id: "k1", label: "Oscar I", years: "1844–1859", left: "14%", width: "10%", tone: "accentSoft" },
+      { id: "k2", label: "Karl XV", years: "1859–1872", left: "22%", width: "9%", tone: "signature" },
+      { id: "k3", label: "Oscar II", years: "1872–1905", left: "29%", width: "18%", tone: "accent" },
+      { id: "k4", label: "Haakon VII", years: "1905–1957", left: "45%", width: "24%", tone: "muted" },
+      { id: "k5", label: "Olav V", years: "1957–1985", left: "67%", width: "16%", tone: "accentDark" }
+    ]
+  },
+  signature: {
+    eyebrow: "Periodefilter",
+    title: "Winge / Getz · 1877–1886",
+    description:
+      "Signaturperioden viser hvilke signaturer og personer som kobles til objektene.",
+    activeText: "Aktiv overstyring: Winge / Getz · 1877–1886",
+    defaultActiveId: "s1",
+    items: [
+      { id: "s1", label: "Winge / Getz", years: "1877–1886", left: "30%", width: "13%", tone: "accent" },
+      { id: "s2", label: "Bøhn / Kielland", years: "1886–1893", left: "39%", width: "12%", tone: "signature" },
+      { id: "s3", label: "Rygg / Omsted", years: "1907–1913", left: "48%", width: "10%", tone: "muted" },
+      { id: "s4", label: "Jahn / Broch", years: "1920–1939", left: "58%", width: "17%", tone: "accentDark" }
+    ]
+  },
+  motif: {
+    eyebrow: "Periodefilter",
+    title: "Riksvåpen · 1877–1901",
+    description:
+      "Motivperioden kobler motiv, portrett, symbol og relasjonssider.",
+    activeText: "Aktiv overstyring: Riksvåpen · 1877–1901",
+    defaultActiveId: "m1",
+    items: [
+      { id: "m1", label: "Riksvåpen", years: "1877–1901", left: "29%", width: "16%", tone: "accent" },
+      { id: "m2", label: "Oscar II portrett", years: "1872–1905", left: "27%", width: "19%", tone: "signature" },
+      { id: "m3", label: "Norges Bank", years: "1890–1920", left: "40%", width: "18%", tone: "muted" },
+      { id: "m4", label: "Haakon VII", years: "1905–1957", left: "45%", width: "24%", tone: "accentDark" }
+    ]
+  },
+  finance: {
+    eyebrow: "Periodefilter",
+    title: "Tidlig økonomi · 1642+",
+    description:
+      "Finansiell periode styrer markeds-, indeks- og verdikontekst.",
+    activeText: "Aktiv overstyring: Tidlig økonomi · 1642+",
+    defaultActiveId: "f1",
+    items: [
+      { id: "f1", label: "Tidlig økonomi", years: "1642+", left: "0%", width: "28%", tone: "accentSoft" },
+      { id: "f2", label: "Kroner og øre", years: "1873+", left: "29%", width: "18%", tone: "accent" },
+      { id: "f3", label: "Bred finansbase", years: "ca. 1920+", left: "50%", width: "20%", tone: "muted" },
+      { id: "f4", label: "Moderne marked", years: "1971–2024", left: "70%", width: "30%", tone: "accentDark" }
+    ]
+  }
 };
 
-function getPreview(kind: ObjectKind, period: PeriodItem) {
-  const coin = kind === "coin";
-  const oscar2 = period.key.includes("oscar2") || period.key === "riksvapen" || period.key === "winge_getz";
+const modeButtons: Array<{ key: FilterMode; label: string }> = [
+  { key: "national", label: "Nasjonal periode" },
+  { key: "king", label: "Konge" },
+  { key: "signature", label: "Signatur" },
+  { key: "motif", label: "Motiv/person" },
+  { key: "finance", label: "Finans" }
+];
 
-  if (coin) {
+function getPreview(kind: ObjectKind, item: TimelineItem, segment: SegmentKey) {
+  const isCoin = kind === "coin";
+  const oscar = item.label.includes("Oscar") || item.id.includes("3") || item.id === "m1" || item.id === "s1";
+
+  if (isCoin) {
     return {
-      title: oscar2 ? "2 kroner 1878" : period.key === "oscar1" ? "1 speciedaler 1847" : "1 krone 1914",
-      imageTop: oscar2 ? "2 KR" : period.key === "oscar1" ? "1 SPD" : "1 KR",
-      value: oscar2 ? "2 kroner" : period.key === "oscar1" ? "1 speciedaler" : "1 krone",
-      issue: period.label,
-      variant: oscar2 ? "Sølvmynt" : "Standard",
-      rarity: oscar2 ? "Sjelden" : "Varierer",
-      relation: `Mynt · Norge · ${period.label} · ${period.years}`,
-      price: oscar2 ? "6 500 kr" : period.key === "oscar1" ? "32 000 kr" : "1 250 kr",
-      specs: {
-        left1Label: "Regent / konge",
-        left1Value: period.label,
-        left2Label: "Periode",
-        left2Value: period.years,
-        left3Label: "Metall",
-        left3Value: oscar2 || period.key === "oscar1" ? "Sølv" : "Kobbernikkel",
-        right1Label: "Innhold / finhet",
-        right1Value: oscar2 || period.key === "oscar1" ? "800/1000 sølv" : "CuNi / legering",
-        right2Label: "Vekt",
-        right2Value: oscar2 ? "15,0 g" : period.key === "oscar1" ? "28,9 g" : "7,5 g",
-        right3Label: "Kort forklaring",
-        right3Value: "Mynten kobles til regent, metall, periode og marked.",
-      },
+      objectHref: "/objekt/norske_mynter/coin/1878",
+      title: oscar ? "2 kroner · 1878" : "1 krone · 1914",
+      imageLabel: oscar ? "2 KR" : "1 KR",
+      sourceLine: `Mynt · Norge · ${item.label} · ${item.years}`,
+      value: oscar ? "2 kroner" : "1 krone",
+      issue: item.label,
+      variant: oscar ? "Sølvmynt" : "Standard",
+      rarity: oscar ? "Sjelden" : "Vanlig",
+      price: oscar ? "6 500 kr" : "1 250 kr",
+      fields: [
+        ["Regent / konge", item.label],
+        ["Periode", item.years],
+        ["Metall", oscar ? "Sølv" : "Kobbernikkel"],
+        ["Innhold / finhet", oscar ? "800/1000 sølv" : "CuNi / legering"],
+        ["Vekt", oscar ? "15,0 g" : "7,5 g"],
+        ["Forklaring", "Mynten kobles til regent, metall, periode og marked."]
+      ],
+      segmentText:
+        segment === "finans"
+          ? "Marked, metall, trend og observasjoner."
+          : segment === "samler"
+            ? "Hjerte, stjerne, samling og egne notater."
+            : "Regent, metall, periode og relasjoner."
     };
   }
 
   return {
-    title: oscar2 ? "100 kroner 1877" : period.key === "haakon7" ? "500 kroner 1948" : "50 kroner 1962",
-    imageTop: oscar2 ? "100" : period.key === "haakon7" ? "500" : "50",
-    value: oscar2 ? "100 kroner" : period.key === "haakon7" ? "500 kroner" : "50 kroner",
-    issue: oscar2 ? "1. utgave" : "Standardutgave",
+    objectHref: "/objekt/norske_sedler/banknote/1459",
+    title: oscar ? "100 kroner · 1877" : "50 kroner · 1962",
+    imageLabel: oscar ? "100" : "50",
+    sourceLine: `Seddel · Norske sedler · ${item.label} · NS 1459`,
+    value: oscar ? "100 kroner" : "50 kroner",
+    issue: oscar ? "1. utgave" : "Standardutgave",
     variant: "Standardutgave",
-    rarity: oscar2 ? "Sjelden" : "Varierer",
-    relation: `Seddel · Norske sedler · ${period.label} · NS 1459`,
-    price: oscar2 ? "15 000 kr" : period.key === "haakon7" ? "28 000 kr" : "850 kr",
-    specs: {
-      left1Label: "Regent / konge",
-      left1Value: period.label,
-      left2Label: "Periode",
-      left2Value: period.years,
-      left3Label: "Signatur",
-      left3Value: "Winge / Getz",
-      right1Label: "Motiv / person",
-      right1Value: "Riksvåpen",
-      right2Label: "Historisk kontekst",
-      right2Value: "Unionstid, norsk seddelhistorie",
-      right3Label: "Kort forklaring",
-      right3Value: "Objektet kobles til regent, signatur og motiv/person som egne relasjoner.",
-    },
+    rarity: oscar ? "Sjelden" : "Varierer",
+    price: oscar ? "15 000 kr" : "850 kr",
+    fields: [
+      ["Regent / konge", item.label],
+      ["Periode", item.years],
+      ["Signatur", "Winge / Getz"],
+      ["Motiv / person", "Riksvåpen"],
+      ["Historisk kontekst", "Unionstid, norsk seddelhistorie"],
+      ["Forklaring", "Objektet kobles til regent, signatur og motiv/person."]
+    ],
+    segmentText:
+      segment === "finans"
+        ? "Markedsverdi, trend, observasjoner og prisgrunnlag."
+        : segment === "samler"
+          ? "Hjerte, stjerne, Min samling og brukerstatus."
+          : "Regent, signatur, motiv og historiske relasjoner."
   };
 }
 
 export default function CollectiumCompactCatalogDemo() {
   const [segment, setSegment] = useState<SegmentKey>("historie");
   const [objectKind, setObjectKind] = useState<ObjectKind>("banknote");
-  const [periodMode, setPeriodMode] = useState<PeriodMode>("king");
-  const [periodKey, setPeriodKey] = useState("oscar2");
+  const [filterMode, setFilterMode] = useState<FilterMode>("king");
+  const [activeTimelineId, setActiveTimelineId] = useState(timelineModes.king.defaultActiveId);
 
-  const activeList = periods[periodMode];
+  const currentTimeline = timelineModes[filterMode];
 
-  const activePeriod = useMemo(() => {
-    return activeList.find((item) => item.key === periodKey) ?? activeList[0];
-  }, [activeList, periodKey]);
+  const activeItem = useMemo(() => {
+    return currentTimeline.items.find((item) => item.id === activeTimelineId) ?? currentTimeline.items[0];
+  }, [activeTimelineId, currentTimeline.items]);
 
-  const preview = useMemo(() => getPreview(objectKind, activePeriod), [objectKind, activePeriod]);
+  const preview = useMemo(() => {
+    return getPreview(objectKind, activeItem, segment);
+  }, [objectKind, activeItem, segment]);
 
-  function changeMode(mode: PeriodMode) {
-    setPeriodMode(mode);
-    setPeriodKey(periods[mode][0].key);
+  function changeMode(nextMode: FilterMode) {
+    setFilterMode(nextMode);
+    setActiveTimelineId(timelineModes[nextMode].defaultActiveId);
   }
 
   return (
     <section id="katalog" className={styles.section}>
       <div className={styles.inner}>
-        <div className={styles.titleBlock}>
-          <span>Katalog</span>
-          <h2>Katalogen viser objektet i sammenheng.</h2>
-          <p>
-            Under vises periodefilter og horisontalt visningskort slik feltet skal fungere:
-            objektgruppe, periode og Samler/Historie/Finans styrer informasjonen i kortet.
-          </p>
+        <div className={styles.titleRow}>
+          <div>
+            <span className={styles.eyebrow}>Katalog</span>
+            <h2>Katalogen viser objektet i sammenheng.</h2>
+            <p>
+              Periodefilteret viser overlapp mellom konger, signaturer, motiv og finansperioder.
+              Visningskortet bytter innhold etter Samler, Historie, Finans og objektgruppe.
+            </p>
+          </div>
+
+          <div className={styles.kindSwitch} aria-label="Velg objektgruppe">
+            <button
+              type="button"
+              className={objectKind === "banknote" ? styles.isActive : ""}
+              onClick={() => setObjectKind("banknote")}
+              aria-pressed={objectKind === "banknote"}
+            >
+              Seddel
+            </button>
+            <button
+              type="button"
+              className={objectKind === "coin" ? styles.isActive : ""}
+              onClick={() => setObjectKind("coin")}
+              aria-pressed={objectKind === "coin"}
+            >
+              Mynt
+            </button>
+          </div>
         </div>
 
-        <div className={styles.kindSwitch}>
-          <button type="button" className={objectKind === "banknote" ? styles.activeSmall : ""} onClick={() => setObjectKind("banknote")}>
-            Seddel
-          </button>
-          <button type="button" className={objectKind === "coin" ? styles.activeSmall : ""} onClick={() => setObjectKind("coin")}>
-            Mynt
-          </button>
-        </div>
-
-        <div className={styles.periodFilter}>
-          <div className={styles.periodTop}>
-            <div>
-              <span>Periodefilter</span>
-              <strong>{activePeriod.label} · {activePeriod.years}</strong>
-              <p>{activePeriod.text}</p>
+        <section className={styles.periodFilter} aria-label="Periodefilter">
+          <div className={styles.periodHeader}>
+            <div className={styles.periodIntro}>
+              <span className={styles.periodEyebrow}>{currentTimeline.eyebrow}</span>
+              <h3>{currentTimeline.title}</h3>
+              <p>{currentTimeline.description}</p>
             </div>
 
-            <div className={styles.modeButtons}>
-              {(Object.keys(modeLabels) as PeriodMode[]).map((mode) => (
+            <div className={styles.periodModeButtons}>
+              {modeButtons.map((button) => (
                 <button
-                  key={mode}
+                  key={button.key}
                   type="button"
-                  className={periodMode === mode ? styles.activeMode : ""}
-                  onClick={() => changeMode(mode)}
+                  className={filterMode === button.key ? styles.isActive : ""}
+                  onClick={() => changeMode(button.key)}
+                  aria-pressed={filterMode === button.key}
                 >
-                  {modeLabels[mode]}
+                  {button.label}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className={styles.timeline}>
-            <div className={styles.timelineLine} />
-            {activeList.map((period) => (
+          <div className={styles.timelineFrame}>
+            <div className={styles.timelineRail} aria-hidden="true" />
+
+            {currentTimeline.items.map((item) => (
               <button
+                key={item.id}
                 type="button"
-                key={period.key}
-                className={activePeriod.key === period.key ? styles.activePeriod : ""}
-                onClick={() => setPeriodKey(period.key)}
+                className={`${styles.timelineSegment} ${styles[item.tone]} ${activeTimelineId === item.id ? styles.timelineActive : ""}`}
+                style={{ left: item.left, width: item.width }}
+                onClick={() => setActiveTimelineId(item.id)}
+                aria-pressed={activeTimelineId === item.id}
               >
-                <strong>{period.label}</strong>
-                <span>{period.years}</span>
+                <strong>{item.label}</strong>
+                <span>{item.years}</span>
               </button>
             ))}
+
+            <div className={styles.yearRow} aria-hidden="true">
+              <span style={{ left: "0%" }}>1814</span>
+              <span style={{ left: "29%" }}>1872</span>
+              <span style={{ left: "45%" }}>1905</span>
+              <span style={{ left: "67%" }}>1957</span>
+              <span style={{ left: "100%" }}>2024</span>
+            </div>
           </div>
 
-          <div className={styles.timelineFoot}>
-            <span>Aktiv overstyring: <strong>{activePeriod.label}</strong> · {activePeriod.years}</span>
+          <div className={styles.periodFooter}>
+            <span>{currentTimeline.activeText}</span>
             <span>Periodevalg = aktiv overstyring av utvidet filter</span>
           </div>
-        </div>
+        </section>
 
-        <div className={styles.cardShell}>
-          <div className={styles.cardTabs}>
-            {(["samler", "historie", "finans"] as SegmentKey[]).map((item) => (
+        <section className={styles.cardShell} aria-label="Kompakt visningskort">
+          <nav className={styles.cardTabs} aria-label="Segment">
+            {(["samler", "historie", "finans"] as SegmentKey[]).map((tab) => (
               <button
-                key={item}
+                key={tab}
                 type="button"
-                className={segment === item ? styles.activeTab : ""}
-                onClick={() => setSegment(item)}
+                className={segment === tab ? styles.isActive : ""}
+                onClick={() => setSegment(tab)}
+                aria-pressed={segment === tab}
               >
-                {item[0].toUpperCase() + item.slice(1)}
+                {tab === "samler" ? "Samler" : tab === "historie" ? "Historie" : "Finans"}
               </button>
             ))}
-          </div>
+          </nav>
 
           <div className={styles.objectCard}>
             <div className={styles.objectTop}>
-              <div className={styles.fakeImage}>
-                <strong>{preview.imageTop}</strong>
+              <a className={styles.fakeImage} href={preview.objectHref} aria-label="Åpne objekt">
+                <strong>{preview.imageLabel}</strong>
                 <span>{objectKind === "banknote" ? "NORGES BANK" : "NORGES MYNT"}</span>
-                <em>{activePeriod.years}</em>
-              </div>
+                <em>{activeItem.years}</em>
+              </a>
 
               <div className={styles.objectMain}>
-                <h3>{preview.title}</h3>
+                <a className={styles.titleLink} href={preview.objectHref}>
+                  <h3>{preview.title}</h3>
+                </a>
 
                 <div className={styles.factGrid}>
                   <div>
@@ -276,7 +366,7 @@ export default function CollectiumCompactCatalogDemo() {
                     <strong>{preview.issue}</strong>
                   </div>
                   <div>
-                    <span>Variant</span>
+                    <span>Variant / type</span>
                     <strong>{preview.variant}</strong>
                   </div>
                   <div>
@@ -285,7 +375,7 @@ export default function CollectiumCompactCatalogDemo() {
                   </div>
                 </div>
 
-                <p className={styles.metaLine}>{preview.relation}</p>
+                <p className={styles.metaLine}>{preview.sourceLine}</p>
               </div>
 
               <aside className={styles.sidePanel}>
@@ -306,47 +396,27 @@ export default function CollectiumCompactCatalogDemo() {
               <div className={styles.iconBox}>{segment === "samler" ? "♡" : segment === "historie" ? "▥" : "↗"}</div>
 
               <div className={styles.dynamicContent}>
-                <h4>{segment[0].toUpperCase() + segment.slice(1)} · dynamisk felt</h4>
+                <div className={styles.dynamicHeader}>
+                  <h4>{segment === "samler" ? "Samler" : segment === "historie" ? "Historie" : "Finans"} · dynamisk felt</h4>
+                  <p>{preview.segmentText}</p>
+                </div>
 
-                {segment === "samler" ? (
-                  <div className={styles.dataGrid}>
-                    <Data label="Brukerstatus" value="Hjerte, stjerne og Min samling" />
-                    <Data label="Samling" value="Privat som standard" />
-                    <Data label="Handling" value="Åpne objekt · legg i samling" />
-                    <Data label="Dokumentasjon" value="Bilder, kvalitet og transaksjoner" />
-                  </div>
-                ) : null}
-
-                {segment === "historie" ? (
-                  <div className={styles.dataGrid}>
-                    <Data label={preview.specs.left1Label} value={preview.specs.left1Value} />
-                    <Data label={preview.specs.right1Label} value={preview.specs.right1Value} />
-                    <Data label={preview.specs.left2Label} value={preview.specs.left2Value} />
-                    <Data label={preview.specs.right2Label} value={preview.specs.right2Value} />
-                    <Data label={preview.specs.left3Label} value={preview.specs.left3Value} />
-                    <Data label={preview.specs.right3Label} value={preview.specs.right3Value} />
-                  </div>
-                ) : null}
-
-                {segment === "finans" ? (
-                  <div className={styles.dataGrid}>
-                    <Data label="Estimert pris" value={preview.price} />
-                    <Data label="Trend 12 mnd" value="+4,2 %" />
-                    <Data label="Marked" value="Auksjon og nettbutikk" />
-                    <Data label="Prisregel" value="0 kr betyr manglende vurdering" />
-                  </div>
-                ) : null}
+                <div className={styles.dataGrid}>
+                  {preview.fields.map(([label, value]) => (
+                    <Data key={label} label={label} value={value} />
+                  ))}
+                </div>
 
                 <div className={styles.actions}>
-                  <a href="/katalog">Åpne objekt</a>
-                  <a href="/katalog?relasjon=1">Se relasjon</a>
+                  <a href={preview.objectHref}>Åpne objekt</a>
+                  <a href={`${preview.objectHref}?segment=historie&relasjon=1`}>Se relasjon</a>
                   <a href="/min-side">Legg i samling</a>
-                  <button type="button">···</button>
+                  <button type="button" aria-label="Flere valg">···</button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </section>
   );
