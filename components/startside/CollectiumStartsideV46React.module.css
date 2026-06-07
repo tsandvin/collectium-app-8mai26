@@ -933,3 +933,508 @@
     transform: none !important;
   }
 }
+
+/* COLLECTIUM V46 HORIZONTAL OBJECT CARD PATCH */
+
+.catalogIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: end;
+}
+
+.objectKindSwitch,
+.segmentMiniSwitch {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel2) 80%, transparent);
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
+}
+
+.objectKindSwitch button,
+.segmentMiniSwitch button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 18px;
+  background: transparent;
+  color: var(--soft);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.objectKindSwitch button:hover,
+.segmentMiniSwitch button:hover,
+.objectKindSwitch .on,
+.segmentMiniSwitch .on {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.periodFilter {
+  margin: 34px 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent2) 8%, transparent), transparent),
+    var(--panel);
+  box-shadow: 0 12px 34px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.periodFilter:hover {
+  transform: translateY(-4px);
+  border-color: var(--strong-line);
+  box-shadow: 0 24px 70px rgba(0,0,0,.14);
+}
+
+.periodHead {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.periodHead span {
+  color: var(--accent2);
+  font-size: .78em;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.periodHead strong {
+  display: block;
+  margin-top: 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+}
+
+.periodHead p {
+  margin: 7px 0 0;
+  color: var(--soft);
+}
+
+.periodRail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 24px;
+  padding: 16px 24px 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent2) 10%, transparent), color-mix(in srgb, var(--accent) 10%, transparent));
+}
+
+.periodRail::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 21px;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 38%, var(--line));
+}
+
+.periodRail button {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: var(--panel2);
+  color: var(--text);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.periodRail button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  border: 3px solid var(--panel2);
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.periodRail button:hover,
+.periodRail .activePeriod {
+  transform: translateY(-3px);
+  border-color: var(--strong-line);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+.periodRail .activePeriod::after {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.periodRail span {
+  font-size: .8em;
+  opacity: .78;
+}
+
+.horizontalObjectCard {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.8), transparent 22rem),
+    var(--panel2);
+  box-shadow: 0 30px 90px rgba(40, 40, 40, .10);
+  padding: 28px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.horizontalObjectCard:hover {
+  transform: translateY(-6px);
+  border-color: var(--strong-line);
+  box-shadow:
+    0 34px 100px rgba(0,0,0,.16),
+    0 0 0 1px color-mix(in srgb, var(--strong-line) 42%, transparent);
+}
+
+.cardTabs {
+  display: flex;
+  gap: 0;
+  position: absolute;
+  left: 28px;
+  top: -57px;
+}
+
+.cardTabs button {
+  min-width: 150px;
+  padding: 18px 24px;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+  background: color-mix(in srgb, var(--panel2) 82%, transparent);
+  color: var(--soft);
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cardTabs .activeTab {
+  color: var(--accent);
+  background: var(--panel2);
+  box-shadow: 0 -12px 28px rgba(0,0,0,.05);
+}
+
+.objectMain {
+  display: grid;
+  grid-template-columns: minmax(260px, 430px) minmax(0, 1fr) 260px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.objectImage {
+  min-height: 250px;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent),
+    linear-gradient(180deg, #e8edf1, #f7efe1);
+  color: #18324a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.objectImage:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--strong-line);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.78),
+    0 22px 50px rgba(0,0,0,.12);
+}
+
+.objectImage span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 900;
+  opacity: .84;
+}
+
+.objectImage strong {
+  font-size: 1.2rem;
+  letter-spacing: .18em;
+}
+
+.objectImage em {
+  font-style: normal;
+  color: rgba(24,50,74,.68);
+}
+
+.objectInfo h3 {
+  margin: 10px 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4.8vw, 5rem);
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+
+.objectInfo p {
+  color: var(--soft);
+  font-size: 1.12rem;
+}
+
+.objectFacts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.objectFacts div {
+  padding: 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: background .18s ease, transform .18s ease;
+}
+
+.objectFacts div:hover {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  transform: translateY(-2px);
+}
+
+.objectFacts span,
+.objectSide span,
+.dataPair span {
+  display: block;
+  color: var(--soft);
+  font-weight: 700;
+}
+
+.objectFacts strong,
+.objectSide strong,
+.dataPair strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.objectRelation {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--soft);
+}
+
+.objectSide {
+  display: grid;
+  gap: 14px;
+}
+
+.objectSide > div {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 16px 18px;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.objectSide > div:hover {
+  transform: translateY(-3px);
+  border-color: var(--strong-line);
+  box-shadow: 0 16px 38px rgba(0,0,0,.10);
+}
+
+.objectSide > div:not(.estimatedPrice) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.objectSide > div:not(.estimatedPrice) strong {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.estimatedPrice {
+  text-align: center;
+  padding: 26px 18px !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.8), transparent 9rem),
+    color-mix(in srgb, var(--accent) 7%, var(--panel2)) !important;
+}
+
+.estimatedPrice strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  color: var(--text);
+}
+
+.estimatedPrice em {
+  display: block;
+  margin-top: 10px;
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.dynamicField {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 22px;
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.dynamicField:hover {
+  transform: translateY(-4px);
+  border-color: var(--strong-line);
+  box-shadow: 0 22px 60px rgba(0,0,0,.12);
+}
+
+.dynamicIcon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.dynamicText h3 {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+}
+
+.dynamicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 30px;
+}
+
+.dataPair {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.catalogDefinition {
+  margin-top: 26px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel2) 78%, transparent);
+  color: var(--soft);
+}
+
+.catalogDefinition strong {
+  display: block;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .8em;
+  margin-bottom: 8px;
+}
+
+.catalogDefinition p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 1180px) {
+  .catalogIntro,
+  .periodHead,
+  .objectMain {
+    grid-template-columns: 1fr;
+  }
+
+  .periodRail {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cardTabs {
+    position: static;
+    margin-bottom: 18px;
+    overflow-x: auto;
+  }
+
+  .cardTabs button {
+    border-bottom: 1px solid var(--line);
+    border-radius: 999px;
+  }
+}
+
+@media (max-width: 760px) {
+  .objectKindSwitch,
+  .segmentMiniSwitch,
+  .periodRail,
+  .objectFacts,
+  .dynamicGrid,
+  .dataPair {
+    grid-template-columns: 1fr;
+  }
+
+  .objectKindSwitch,
+  .segmentMiniSwitch {
+    display: grid;
+    border-radius: 18px;
+  }
+
+  .periodRail {
+    padding-bottom: 18px;
+  }
+
+  .periodRail::after,
+  .periodRail button::after {
+    display: none;
+  }
+
+  .dynamicField {
+    grid-template-columns: 1fr;
+  }
+
+  .objectInfo h3 {
+    font-size: 3rem;
+  }
+}
+
