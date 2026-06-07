@@ -1,5 +1,5 @@
-﻿import CollectiumStartsideV42TemaPreview from "@/components/startside/CollectiumStartsideV42TemaPreview";
+﻿import CollectiumStartsideUI85Git3 from "@/components/startside/CollectiumStartsideUI85Git3";
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV42TemaPreview />;
+  return <CollectiumStartsideUI85Git3 />;
 }
