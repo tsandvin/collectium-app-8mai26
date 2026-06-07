@@ -688,3 +688,400 @@
     flex-wrap: wrap;
   }
 }
+
+/* COLLECTIUM COMPACT WHITESPACE FIX 0005
+   Formål:
+   - Fjerner for mye luft i visningskortet.
+   - Gjør bilde, hovedfelt, høyre statusfelt og dynamisk felt lavere.
+   - Gjør periodefilter/tidslinje mer kompakt.
+   - Beholder 8px hjørner.
+   - Bruker Collectium-tokenfarger, ingen blå aktivtone.
+*/
+
+.section {
+  padding-top: 16px !important;
+  padding-bottom: 18px !important;
+}
+
+.inner {
+  width: min(1060px, 100%) !important;
+}
+
+/* ---------- Periodefilter / tidslinje ---------- */
+
+.periodFilter {
+  padding: 8px 10px !important;
+  margin-bottom: 8px !important;
+  border-radius: 8px !important;
+}
+
+.periodHeader {
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+.periodIntro h3 {
+  font-size: 14px !important;
+  line-height: 1 !important;
+  margin: 1px 0 2px !important;
+}
+
+.periodIntro p {
+  font-size: 10px !important;
+  line-height: 1.18 !important;
+}
+
+.periodEyebrow {
+  font-size: 8px !important;
+  letter-spacing: .15em !important;
+}
+
+.periodModeButtons {
+  gap: 4px !important;
+}
+
+.periodModeButtons button {
+  min-height: 22px !important;
+  padding: 3px 9px !important;
+  font-size: 10px !important;
+  border-radius: 999px !important;
+}
+
+.timelineFrame {
+  min-height: 70px !important;
+  padding: 7px 14px 21px !important;
+  border-radius: 8px !important;
+}
+
+.timelineRail {
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 23px !important;
+  height: 2px !important;
+}
+
+.timelineSegment {
+  top: 6px !important;
+  height: 27px !important;
+  padding: 3px 6px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 6px rgba(28, 44, 35, .045) !important;
+}
+
+.timelineSegment strong {
+  font-size: 8px !important;
+  line-height: .98 !important;
+}
+
+.timelineSegment span {
+  font-size: 8px !important;
+  line-height: .98 !important;
+}
+
+.timelineSegment::after {
+  bottom: -14px !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-width: 2px !important;
+}
+
+.yearRow {
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 5px !important;
+  height: 10px !important;
+}
+
+.yearRow span {
+  font-size: 8px !important;
+}
+
+.periodFooter {
+  margin-top: 4px !important;
+  font-size: 9px !important;
+  line-height: 1.1 !important;
+}
+
+/* ---------- Faner ---------- */
+
+.cardShell {
+  margin-top: 8px !important;
+}
+
+.cardTabs {
+  padding-left: 8px !important;
+  gap: 4px !important;
+}
+
+.cardTabs button {
+  min-width: 78px !important;
+  min-height: 26px !important;
+  padding: 3px 9px !important;
+  font-size: 11px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+/* ---------- Hovedkort ---------- */
+
+.objectCard {
+  padding: 7px !important;
+  border-radius: 8px !important;
+}
+
+.objectTop {
+  grid-template-columns: 250px minmax(0, 1fr) 150px !important;
+  gap: 7px !important;
+  align-items: stretch !important;
+}
+
+/* Bildeområdet var altfor høyt */
+.fakeImage {
+  min-height: 112px !important;
+  height: 112px !important;
+  padding: 10px 12px !important;
+  gap: 3px !important;
+  border-radius: 8px !important;
+  align-content: center !important;
+}
+
+.fakeImage strong {
+  font-size: 34px !important;
+  line-height: .86 !important;
+}
+
+.fakeImage span {
+  font-size: 9px !important;
+  line-height: 1 !important;
+  letter-spacing: .11em !important;
+}
+
+.fakeImage em {
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+/* Hovedfeltet hadde stort tomrom under metadata */
+.objectMain {
+  min-height: 112px !important;
+  height: 112px !important;
+  padding: 9px 10px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.objectMain h3 {
+  margin-bottom: 7px !important;
+  font-size: clamp(20px, 2vw, 27px) !important;
+  line-height: .96 !important;
+}
+
+.factGrid {
+  gap: 0 12px !important;
+}
+
+.factGrid div {
+  padding: 3px 0 !important;
+}
+
+.factGrid span {
+  font-size: 9px !important;
+  line-height: 1.05 !important;
+}
+
+.factGrid strong {
+  margin-top: 1px !important;
+  font-size: 10.5px !important;
+  line-height: 1.08 !important;
+}
+
+.metaLine {
+  margin-top: 5px !important;
+  padding-top: 5px !important;
+  font-size: 9.5px !important;
+  line-height: 1.12 !important;
+}
+
+/* Høyre statusfelt: mindre kort og mindre luft */
+.sidePanel {
+  gap: 4px !important;
+  padding: 6px !important;
+  border-radius: 8px !important;
+}
+
+.metric {
+  min-height: 28px !important;
+  padding: 4px 7px !important;
+  border-radius: 8px !important;
+}
+
+.metric span {
+  font-size: 9px !important;
+}
+
+.metric strong {
+  font-size: 12px !important;
+}
+
+.priceBox {
+  min-height: 66px !important;
+  padding: 5px !important;
+  border-radius: 8px !important;
+}
+
+.priceBox span {
+  font-size: 9px !important;
+}
+
+.priceBox strong {
+  font-size: 18px !important;
+}
+
+.priceBox em {
+  font-size: 9px !important;
+}
+
+/* ---------- Dynamisk felt nederst ---------- */
+
+.dynamicField {
+  grid-template-columns: 32px 1fr !important;
+  gap: 7px !important;
+  margin-top: 6px !important;
+  padding: 7px 9px !important;
+  border-radius: 8px !important;
+}
+
+.iconBox {
+  width: 26px !important;
+  height: 26px !important;
+  font-size: 14px !important;
+}
+
+.dynamicHeader {
+  gap: 7px !important;
+  margin-bottom: 3px !important;
+}
+
+.dynamicHeader h4 {
+  font-size: 12px !important;
+  line-height: 1.05 !important;
+}
+
+.dynamicHeader p {
+  font-size: 9.5px !important;
+  line-height: 1.08 !important;
+}
+
+.dataGrid {
+  gap: 0 12px !important;
+}
+
+.dataPair {
+  grid-template-columns: 96px 1fr !important;
+  gap: 6px !important;
+  padding: 2px 0 !important;
+}
+
+.dataPair span {
+  font-size: 9px !important;
+}
+
+.dataPair strong {
+  font-size: 10.5px !important;
+  line-height: 1.08 !important;
+}
+
+.actions {
+  gap: 4px !important;
+  margin-top: 6px !important;
+}
+
+.actions a,
+.actions button {
+  min-height: 24px !important;
+  padding: 4px 8px !important;
+  font-size: 9.5px !important;
+  border-radius: 8px !important;
+}
+
+/* ---------- Hover/aktiv uten blå tone ---------- */
+
+.kindSwitch button:hover,
+.periodModeButtons button:hover,
+.cardTabs button:hover,
+.actions a:hover,
+.actions button:hover,
+.metric:hover,
+.fakeImage:hover,
+.objectMain:hover,
+.dynamicField:hover,
+.timelineSegment:hover {
+  border-color: var(--ct-signature-local) !important;
+  box-shadow: 0 6px 14px rgba(45, 38, 24, .10) !important;
+}
+
+.isActive,
+.timelineActive {
+  border-color: var(--ct-accent-local) !important;
+}
+
+.timelineActive {
+  outline-color: rgba(20, 100, 61, .22) !important;
+}
+
+/* ---------- Responsiv ---------- */
+
+@media (max-width: 1080px) {
+  .objectTop {
+    grid-template-columns: 1fr !important;
+  }
+
+  .fakeImage,
+  .objectMain {
+    height: auto !important;
+    min-height: 100px !important;
+  }
+
+  .sidePanel {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .priceBox {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 14px 8px !important;
+  }
+
+  .periodHeader,
+  .titleRow {
+    grid-template-columns: 1fr !important;
+  }
+
+  .periodModeButtons {
+    justify-content: flex-start !important;
+  }
+
+  .timelineFrame {
+    min-height: auto !important;
+    padding: 7px !important;
+  }
+
+  .timelineSegment {
+    height: auto !important;
+    min-height: 25px !important;
+  }
+
+  .factGrid,
+  .dataGrid,
+  .dynamicField,
+  .dynamicHeader,
+  .dataPair {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* END COLLECTIUM COMPACT WHITESPACE FIX 0005 */
+
