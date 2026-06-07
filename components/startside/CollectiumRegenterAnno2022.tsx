@@ -1,105 +1,104 @@
-﻿'use client';
-
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * CollectiumRegenterAnno2022
  *
  * Definering / formål:
- * Regentfelt for startsiden med mørk Collectium/ANNO 2022-visning.
- * Viser hvordan regenter brukes som historisk relasjonsinngang til sedler,
- * mynter, medaljer, merker, signaturer og perioder.
+ * Startside-seksjon for regent-/historiepresentasjon med Anno 2022-bilde
+ * som full høyreside-bakgrunn uten egen bilderamme.
  *
  * Bruksområde:
- * Brukes i /startside.
+ * Brukes på /startside som visuell seksjon for regenter, tidslinje og historisk kontekst.
  *
  * Berørte sider / routes:
  * - /startside
- * - /katalog
- * - fremtidig /regenter
- * - fremtidig /objekt/[sourceKey]/[objectGroup]/[objectId]
  *
  * Berørte DB-brytere / feature_keys:
- * - public.startside.view
+ * - landing.regents.preview
  * - catalog.history.view
  * - catalog.relations.view
- * - catalog.regent.filter
  *
  * Berørte API-ruter:
- * - Fremtidig: GET /api/catalog/relations/regents
- * - Fremtidig: GET /api/catalog/objects?relation=regent
+ * - Ingen i denne statiske preview-versjonen.
  *
  * Berørte tabeller / views:
- * - Fremtidig: ct_v_catalog_objects_resolved
- * - Fremtidig: ct_v_catalog_relations
- * - Fremtidig: ct_v_catalog_regents
+ * - Senere: ct_catalog_objects
+ * - Senere: ct_catalog_object_relations
+ * - Senere: ct_historical_periods
  *
  * Dataretning:
- * Preview-data -> React -> UI.
- * Fremtidig: MariaDB -> API/backend -> Next.js -> React -> UI.
+ * Lokal preview-data -> React -> UI.
  *
  * Logging:
- * Ingen DB-logging i preview.
+ * Ingen i denne preview-komponenten.
  *
  * Versjon:
- * CT-STARTSIDE-REGENTER-ANNO2022-0001
+ * CT-STARTSIDE-REGENTER-ANNO2022-0003 / CHANGE-2026-06-07-FULL-RIGHT-BACKGROUND
  */
 
-import styles from './CollectiumRegenterAnno2022.module.css';
+import styles from "./CollectiumRegenterAnno2022.module.css";
 
 const regentYears = [
-  { year: '1872', label: 'Oscar II' },
-  { year: '1905', label: 'Haakon VII' },
-  { year: '1957', label: 'Olav V' },
-  { year: '1991', label: 'Harald V' },
+  {
+    year: "1872",
+    label: "Oscar II",
+    href: "/katalog?regent=oscar-ii"
+  },
+  {
+    year: "1905",
+    label: "Haakon VII",
+    href: "/katalog?regent=haakon-vii"
+  },
+  {
+    year: "1957",
+    label: "Olav V",
+    href: "/katalog?regent=olav-v"
+  },
+  {
+    year: "1991",
+    label: "Harald V",
+    href: "/katalog?regent=harald-v"
+  }
 ];
 
 export default function CollectiumRegenterAnno2022() {
   return (
     <section className={styles.regentSection} aria-labelledby="collectium-regenter-title">
-      <div className={styles.inner}>
-        <div className={styles.textCol}>
-          <div className={styles.kicker}>
-            <span>IV</span>
-            <strong>Regenter</strong>
-          </div>
+      <div className={styles.imageLayer} aria-hidden="true" />
 
-          <h2 id="collectium-regenter-title">
-            Fra Oscar II <br />
-            til <em>Harald V.</em>
-          </h2>
+      <div className={styles.content}>
+        <p className={styles.kicker}>
+          <span>IV</span>
+          <strong>Regenter</strong>
+        </p>
 
-          <p>
-            Hver konge har sitt signaturpreg. Klikk på en regent og se alle objekter
-            fra hans tid — sedler, mynter, medaljer og merker — sortert etter utgave,
-            periode, motiv og signatursett.
-          </p>
+        <h2 id="collectium-regenter-title">
+          Fra Oscar II
+          <br />
+          til <em>Harald V.</em>
+        </h2>
 
-          <div className={styles.yearGrid} aria-label="Regentperioder">
-            {regentYears.map((item) => (
-              <a key={item.year} href={`/katalog?regent=${encodeURIComponent(item.label)}`}>
-                <strong>{item.year}</strong>
-                <span>{item.label}</span>
-              </a>
-            ))}
-          </div>
+        <p className={styles.lead}>
+          Hver konge har sitt signaturpreg. Klikk på en regent og se alle objekter
+          fra hans tid — sedler, mynter, medaljer og merker — sortert etter utgave
+          og signatursett.
+        </p>
 
-          <div className={styles.actions}>
-            <a className={styles.primary} href="/katalog?filter=regenter">
-              Utforsk regenter
+        <div className={styles.yearGrid} aria-label="Regentperioder">
+          {regentYears.map((item) => (
+            <a key={item.year} href={item.href}>
+              <strong>{item.year}</strong>
+              <span>{item.label}</span>
             </a>
-            <a className={styles.secondary} href="/katalog?visning=tidslinje">
-              Tidslinje
-            </a>
-          </div>
+          ))}
         </div>
 
-        <a className={styles.imageCard} href="/katalog?filter=regenter" aria-label="Åpne regentrelasjoner i katalogen">
-          <img src="/collectium-tema/collectium-tema-anno-2022-portrett.png" alt="Collectium ANNO 2022 regentmotiv" />
-        </a>
+        <div className={styles.actions}>
+          <a href="/katalog?segment=historie">Utforsk regenter</a>
+          <a href="/katalog?view=tidslinje">Tidslinje</a>
+        </div>
       </div>
     </section>
   );
 }
-
