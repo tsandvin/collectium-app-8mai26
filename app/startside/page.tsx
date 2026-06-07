@@ -31,11 +31,11 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0003
+ * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0004
  *
  * Endringsregel:
  * Denne filen skal kun rendre startsidens innholdskomponent.
- * Global template-root endres ikke i denne patchen.
+ * Global template-root har kontrollert /startside-fullbleed-unntak.
  */
 
 import CollectiumStartsideV42TemaPreview from "@/components/startside/CollectiumStartsideV42TemaPreview";
