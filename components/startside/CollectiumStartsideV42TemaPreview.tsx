@@ -41,6 +41,7 @@ import { useState } from "react";
 import styles from "./CollectiumStartsideV42TemaPreview.module.css";
 
 type ThemeKey = "collectium" | "museum" | "enkel" | "finans";
+type BillingMode = "monthly" | "annual";
 
 const themes: Array<{ key: ThemeKey; label: string }> = [
   { key: "collectium", label: "Collectium" },
@@ -455,6 +456,7 @@ function Progress({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
 
 
 
