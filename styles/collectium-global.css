@@ -586,3 +586,104 @@ html[data-skin="finans"] .ct-template-design-button {
     margin-top: 8px;
   }
 }
+
+/* ============================================================
+   CT-TEMA-8-5
+   Frontendnavn: Tema
+   Fire låste tema:
+   - Collectium lys
+   - Enkel lys
+   - Collectium mørk
+   - Enkel mørk
+   ============================================================ */
+
+html[data-skin="collectium-light"],
+.ct-template-root[data-skin="collectium-light"] {
+  --ct-bg: #eaf3f6;
+  --ct-surface: #ffffff;
+  --ct-surface-soft: #f5f8f9;
+  --ct-text: #14242e;
+  --ct-muted: #607482;
+  --ct-line: rgba(87, 116, 133, 0.24);
+  --ct-accent: #9a7432;
+  --ct-accent-blue: #174c78;
+  --ct-topbar-bg: #202932;
+  --ct-topbar-text: #f5efe4;
+  --ct-sidebar-bg: linear-gradient(180deg, #f7f3eb 0%, #ece6dc 100%);
+}
+
+html[data-skin="simple-light"],
+.ct-template-root[data-skin="simple-light"] {
+  --ct-bg: #f3f6f8;
+  --ct-surface: #ffffff;
+  --ct-surface-soft: #f7f9fa;
+  --ct-text: #17242d;
+  --ct-muted: #63727c;
+  --ct-line: rgba(32, 61, 78, 0.14);
+  --ct-accent: #1b5d87;
+  --ct-accent-blue: #1b5d87;
+  --ct-topbar-bg: #183348;
+  --ct-topbar-text: #ffffff;
+  --ct-sidebar-bg: #f6f8f9;
+}
+
+html[data-skin="collectium-dark"],
+.ct-template-root[data-skin="collectium-dark"] {
+  --ct-bg: #111a20;
+  --ct-surface: #192730;
+  --ct-surface-soft: #22333d;
+  --ct-text: #f2eee4;
+  --ct-muted: #b9c0c4;
+  --ct-line: rgba(201, 178, 126, 0.22);
+  --ct-accent: #c7a25a;
+  --ct-accent-blue: #8fb5d0;
+  --ct-topbar-bg: #10171e;
+  --ct-topbar-text: #f5efe4;
+  --ct-sidebar-bg: linear-gradient(180deg, #16232c 0%, #0f171d 100%);
+}
+
+html[data-skin="simple-dark"],
+.ct-template-root[data-skin="simple-dark"] {
+  --ct-bg: #0f1418;
+  --ct-surface: #161f27;
+  --ct-surface-soft: #1e2a33;
+  --ct-text: #edf2f4;
+  --ct-muted: #aeb8bf;
+  --ct-line: rgba(178, 198, 210, 0.13);
+  --ct-accent: #6aa6c9;
+  --ct-accent-blue: #6aa6c9;
+  --ct-topbar-bg: #0c1116;
+  --ct-topbar-text: #ffffff;
+  --ct-sidebar-bg: #121a21;
+}
+
+.ct-tema-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 4px 7px 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ct-topbar-text, #fff) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ct-topbar-text, #fff) 18%, transparent);
+  color: var(--ct-topbar-text, #fff);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ct-tema-control span {
+  opacity: 0.75;
+}
+
+.ct-tema-control select {
+  height: 25px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 24px 0 10px;
+  background: #f6f8f9;
+  color: #162630;
+  font-size: 11px;
+  font-weight: 900;
+  outline: none;
+}

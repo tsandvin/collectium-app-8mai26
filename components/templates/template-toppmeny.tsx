@@ -1,44 +1,46 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * template-toppmeny
  *
- * Definering / formål:
+ * Definering / formÃ¥l:
  * Eneste godkjente templatefil for global toppmeny.
  * Toppmenyen eies av template-laget, ikke av vanlige sider.
  *
- * Bruksområde:
+ * BruksomrÃ¥de:
  * Global Collectium template.
  *
- * Berørte sider / routes:
+ * BerÃ¸rte sider / routes:
  * - alle sider via app/layout.tsx
  *
- * Berørte DB-brytere / feature_keys:
+ * BerÃ¸rte DB-brytere / feature_keys:
  * - local.template.toppmeny
  * - navigation.view
  * - local.template.design_skin
  *
- * Berørte API-ruter:
+ * BerÃ¸rte API-ruter:
  * - senere /api/admin/menu
  *
- * Berørte tabeller / views:
+ * BerÃ¸rte tabeller / views:
  * - senere ct_v_app_menu
  *
  * Dataretning:
- * Foreløpig statisk template → React → UI
- * Senere MariaDB/API → Template → React → UI
+ * ForelÃ¸pig statisk template â†’ React â†’ UI
+ * Senere MariaDB/API â†’ Template â†’ React â†’ UI
  *
  * Logging:
- * ingen i første versjon
+ * ingen i fÃ¸rste versjon
  *
  * Versjon:
  * CT-FILE-TEMPLATE-TOPPMENY-0003 / CHANGE-2026-06-06-DESIGN-SKINS-4
  */
 
 import Link from "next/link";
+import { TemplateTemaControl } from "./template-tema-control";
 import { TemplateDesignControl } from "./template-design-control";
 
+import { TemplateTemaControl } from "./template-tema-control";
 export function TemplateToppmeny() {
   return (
     <header className="ct-template-toppmeny" aria-label="Collectium toppmeny">
@@ -59,8 +61,8 @@ export function TemplateToppmeny() {
       </nav>
 
       <form className="ct-template-search" role="search">
-        <label htmlFor="ct-search">Søk</label>
-        <input id="ct-search" type="search" placeholder="Søk i Collectium" />
+        <label htmlFor="ct-search">SÃ¸k</label>
+        <input id="ct-search" type="search" placeholder="SÃ¸k i Collectium" />
       </form>
 
       <TemplateDesignControl />
@@ -69,6 +71,7 @@ export function TemplateToppmeny() {
         <Link href="/login">Logg inn</Link>
         <Link href="/registrering">Registrer</Link>
       </nav>
-    </header>
+      <TemplateTemaControl />
+</header>
   );
 }
