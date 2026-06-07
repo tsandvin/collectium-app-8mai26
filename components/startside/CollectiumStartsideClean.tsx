@@ -428,7 +428,7 @@ export default function CollectiumStartsideClean() {
         </div>
       </section>
 
-      <section className={styles.market}>
+      <section className={styles.market} style={marketImageStyle}>
         <div className={styles.wrap}>
           <p className={styles.kicker}>Index</p>
           <h2>Markedsdata fra <em>200 år.</em></h2>
@@ -570,3 +570,4 @@ function Access({ tier, title }: { tier: string; title: string }) {
     </div>
   );
 }
+

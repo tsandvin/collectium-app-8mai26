@@ -1,0 +1,972 @@
+﻿.catalogPage {
+  --ct-app-bg: #eef6fb;
+  --ct-sidebar-bg: #f8fbfd;
+  --ct-topbar-bg: rgba(255,255,255,.82);
+  --ct-panel-bg: rgba(255,255,255,.88);
+  --ct-panel-solid: #ffffff;
+  --ct-card-bg: #f9fcfe;
+  --ct-panel-border: #c7deee;
+  --ct-border-strong: #8eb9d7;
+  --ct-line: #d5e4ee;
+  --ct-text: #082b45;
+  --ct-text-soft: #355c78;
+  --ct-text-muted: #6f879a;
+  --ct-accent: #236aa3;
+  --ct-accent-dark: #0d3858;
+  --ct-accent-soft: #d8edf9;
+  --ct-signature: #2b6ea3;
+  --ct-watermark: #dceaf2;
+  --ct-status-ok: #276f51;
+  --ct-status-pending: #b38a31;
+  --ct-status-rejected: #b4463d;
+
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 25% 0%, rgba(255,255,255,.9), transparent 34rem),
+    var(--ct-app-bg);
+  color: var(--ct-text);
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.skin_finans {
+  --ct-app-bg: #102027;
+  --ct-sidebar-bg: #13242d;
+  --ct-topbar-bg: rgba(19,36,45,.9);
+  --ct-panel-bg: rgba(24,42,52,.88);
+  --ct-panel-solid: #1a2f3a;
+  --ct-card-bg: #1b303b;
+  --ct-panel-border: #2e4654;
+  --ct-border-strong: #1f6b5a;
+  --ct-line: #304755;
+  --ct-text: #dfe9ef;
+  --ct-text-soft: #a9bdc9;
+  --ct-text-muted: #7f97a7;
+  --ct-accent: #2dab7d;
+  --ct-accent-dark: #1d8a64;
+  --ct-accent-soft: #b88e3a;
+  --ct-signature: #2dab7d;
+  --ct-watermark: #2aa778;
+  --ct-status-ok: #2cae7e;
+  --ct-status-pending: #b9903c;
+  --ct-status-rejected: #cf4a4a;
+}
+
+.skin_museum {
+  --ct-app-bg: #151514;
+  --ct-sidebar-bg: #1a1713;
+  --ct-topbar-bg: rgba(22,21,20,.92);
+  --ct-panel-bg: rgba(32,29,25,.88);
+  --ct-panel-solid: #1c1b1a;
+  --ct-card-bg: #201e1c;
+  --ct-panel-border: #4b3d27;
+  --ct-border-strong: #b08a40;
+  --ct-line: #403526;
+  --ct-text: #f3ead4;
+  --ct-text-soft: #c9b98f;
+  --ct-text-muted: #9a8c70;
+  --ct-accent: #c5a052;
+  --ct-accent-dark: #a77a33;
+  --ct-accent-soft: #dcc67f;
+  --ct-signature: #aa7c35;
+  --ct-watermark: #a83b24;
+  --ct-status-ok: #8db47c;
+  --ct-status-pending: #d4bd79;
+  --ct-status-rejected: #cc735a;
+}
+
+.skin_minimal {
+  --ct-app-bg: #f7fafc;
+  --ct-sidebar-bg: #ffffff;
+  --ct-topbar-bg: rgba(255,255,255,.94);
+  --ct-panel-bg: rgba(255,255,255,.92);
+  --ct-panel-solid: #ffffff;
+  --ct-card-bg: #ffffff;
+  --ct-panel-border: #d8e4ee;
+  --ct-border-strong: #bccddc;
+  --ct-line: #dce8f1;
+  --ct-text: #0c2d47;
+  --ct-text-soft: #4d6780;
+  --ct-text-muted: #788a9a;
+  --ct-accent: #2864a3;
+  --ct-accent-dark: #0d335a;
+  --ct-accent-soft: #a7d3bb;
+  --ct-signature: #2b65a0;
+  --ct-watermark: #245f9d;
+  --ct-status-ok: #3e735d;
+  --ct-status-pending: #876a2d;
+  --ct-status-rejected: #a43b25;
+}
+
+.sidebar {
+  min-width: 0;
+  padding: 34px 16px;
+  background: var(--ct-sidebar-bg);
+  border-right: 1px solid var(--ct-panel-border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar h1 {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1;
+}
+
+.sidebar p {
+  margin: 6px 0 0;
+  color: var(--ct-text-muted);
+  letter-spacing: .16em;
+  font-size: 11px;
+}
+
+.nav {
+  display: grid;
+  gap: 8px;
+}
+
+.nav button,
+.skinGrid button,
+.membership button,
+.viewSwitch button,
+.segmentSwitch button,
+.periodButtons button,
+.extendedBar button,
+.topbar button,
+.actions button,
+.actions a {
+  min-width: 0;
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-solid);
+  color: var(--ct-text);
+  border-radius: 18px;
+  padding: 11px 16px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  overflow-wrap: anywhere;
+  line-height: 1.12;
+}
+
+.nav .navActive,
+button.active,
+.active {
+  background: var(--ct-accent);
+  color: white;
+  border-color: var(--ct-accent);
+}
+
+.sideBox {
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-bg);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.sideBox h3 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: .22em;
+  color: var(--ct-status-pending);
+  text-transform: uppercase;
+}
+
+.skinGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.main {
+  min-width: 0;
+  padding: 22px;
+  display: grid;
+  gap: 16px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.topbar input,
+.selectWrap select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 20px;
+  background: var(--ct-panel-solid);
+  color: var(--ct-text);
+  padding: 12px 18px;
+}
+
+.filterPanel,
+.periodPanel,
+.controlRow,
+.cmsBox {
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-bg);
+  border-radius: 22px;
+  padding: 16px;
+  position: relative;
+}
+
+.filterPanel::after,
+.periodPanel::after,
+.controlRow::after,
+.cardInner::after,
+.cmsBox::after {
+  content: "________ Collectium";
+  position: absolute;
+  right: 18px;
+  bottom: 6px;
+  font-size: 8px;
+  color: var(--ct-signature);
+  opacity: .78;
+}
+
+.filterHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: start;
+}
+
+.filterHead h2,
+.periodText h2 {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ct-status-pending);
+}
+
+.filterHead p,
+.periodText p {
+  margin: 4px 0 0;
+  color: var(--ct-text-soft);
+}
+
+.membership,
+.periodButtons,
+.viewSwitch,
+.segmentSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.masterGrid,
+.extendedGrid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.masterGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.extendedGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.extendedLocked {
+  opacity: .55;
+}
+
+.selectWrap {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.selectWrap span {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--ct-status-pending);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.extendedBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.periodPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.timeline {
+  grid-column: 1 / -1;
+  position: relative;
+  min-height: 112px;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(0,0,0,.04));
+  padding: 14px 28px 18px;
+}
+
+.timelineSegments {
+  position: relative;
+  height: 38px;
+}
+
+.timelineSegments button {
+  position: absolute;
+  top: 0;
+  min-width: 54px;
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-solid);
+  color: var(--ct-text);
+  border-radius: 14px;
+  padding: 4px 5px;
+  font-size: 10px;
+  line-height: 1.05;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timelineSegments span,
+.timelineSegments b {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timelineSegments .activeSegment {
+  background: var(--ct-accent);
+  color: white;
+}
+
+.timelineLine {
+  position: relative;
+  height: 8px;
+  background: var(--ct-line);
+  border-radius: 999px;
+  margin-top: 14px;
+}
+
+.timelineLine span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--ct-accent);
+  border-radius: 999px;
+}
+
+.timeline input {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ct-text-muted);
+  font-size: 10px;
+}
+
+.periodNote {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ct-text-soft);
+}
+
+.controlRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.controlRow b {
+  text-align: center;
+  color: var(--ct-text-soft);
+}
+
+.viewSwitch {
+  justify-content: flex-end;
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.cards.standing {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cards.horizontal,
+.cards.list,
+.cards.museum {
+  grid-template-columns: 1fr;
+}
+
+.card {
+  min-width: 0;
+}
+
+.cardInner {
+  min-width: 0;
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-card-bg);
+  border-radius: 22px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banknote {
+  min-width: 0;
+  min-height: 162px;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(45deg, rgba(35,106,163,.06), rgba(35,106,163,.06) 7px, transparent 7px, transparent 14px),
+    linear-gradient(135deg, rgba(255,255,255,.3), var(--ct-watermark));
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 26px;
+  overflow: hidden;
+}
+
+.banknote span {
+  font-size: clamp(52px, 8vw, 76px);
+  font-weight: 900;
+  color: rgba(18,70,105,.28);
+}
+
+.banknote small {
+  position: absolute;
+  left: 26px;
+  bottom: 22px;
+  letter-spacing: .24em;
+  color: var(--ct-text-soft);
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.identity h2,
+.museumTitle,
+.listIdentity h2 {
+  margin: 12px 0 8px;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: .98;
+}
+
+.identityGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+}
+
+.infoCell {
+  min-width: 0;
+  border-bottom: 1px solid var(--ct-line);
+  padding-bottom: 7px;
+}
+
+.infoCell small {
+  display: block;
+  color: var(--ct-accent);
+  font-weight: 900;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.infoCell b {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.identity p {
+  color: var(--ct-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.lower {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(145px, 185px);
+  gap: 10px;
+  align-items: stretch;
+}
+
+.dynamicPanel {
+  min-width: 0;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 16px;
+  background: rgba(255,255,255,.26);
+  padding: 12px;
+}
+
+.dynamicPanel h3 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  overflow-wrap: anywhere;
+}
+
+.dynamicRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(54px, .46fr) minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  border-bottom: 1px solid var(--ct-line);
+  padding: 6px 0;
+}
+
+.fieldLabel {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ct-text-soft);
+  font-weight: 900;
+  overflow: hidden;
+}
+
+.fieldLabel i {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 11px;
+  background: var(--ct-accent-soft);
+}
+
+.shortLabel,
+.letterLabel {
+  display: none;
+}
+
+.fullLabel,
+.shortLabel,
+.letterLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dynamicRow strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+  text-align: right;
+}
+
+.rail {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.statusList {
+  display: grid;
+  gap: 8px;
+}
+
+.statusItem {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 15px;
+  padding: 8px;
+  background: var(--ct-panel-solid);
+}
+
+.statusItem i {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ct-accent-soft);
+  font-style: normal;
+}
+
+.statusItem span,
+.statusItem b,
+.statusItem small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.statusItem small {
+  display: block;
+  color: var(--ct-text-muted);
+  font-size: 9px;
+}
+
+.priceBox {
+  min-width: 0;
+  border: 1px solid var(--ct-border-strong);
+  border-radius: 16px;
+  padding: 13px 8px;
+  text-align: center;
+  background: var(--ct-panel-solid);
+}
+
+.priceBox span,
+.priceBox small {
+  color: var(--ct-text-soft);
+}
+
+.priceBox b {
+  display: block;
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(44px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+  align-items: stretch;
+}
+
+.actions a,
+.actions button {
+  min-height: 42px;
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: auto minmax(0, auto);
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.actions i {
+  font-style: normal;
+}
+
+.actionShort {
+  display: none;
+}
+
+.museumGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.museumGrid .banknote,
+.museumGrid .dynamicPanel {
+  min-height: 280px;
+}
+
+.listIdentity {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.listIdentity div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cmsBox pre {
+  max-height: 320px;
+  overflow: auto;
+  background: var(--ct-panel-solid);
+  border: 1px solid var(--ct-panel-border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.report {
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-solid);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+@media (max-width: 1320px) {
+  .cards.standing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lower {
+    grid-template-columns: minmax(0, 1fr) minmax(132px, 172px);
+  }
+
+  .dynamicRow {
+    grid-template-columns: minmax(42px, .36fr) minmax(0, 1fr);
+  }
+
+  .fullLabel {
+    display: none;
+  }
+
+  .shortLabel {
+    display: inline;
+  }
+}
+
+@media (max-width: 1040px) {
+  .catalogPage {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+
+  .masterGrid,
+  .extendedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .controlRow {
+    grid-template-columns: 1fr;
+  }
+
+  .viewSwitch {
+    justify-content: flex-start;
+  }
+
+  .cards.standing {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .main {
+    padding: 10px;
+  }
+
+  .topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .masterGrid,
+  .extendedGrid,
+  .periodPanel,
+  .museumGrid,
+  .listIdentity,
+  .listIdentity div {
+    grid-template-columns: 1fr;
+  }
+
+  .periodButtons button,
+  .viewSwitch button,
+  .segmentSwitch button {
+    flex: 1 1 44%;
+  }
+
+  .timeline {
+    min-height: 96px;
+    padding: 10px 14px 12px;
+  }
+
+  .timelineSegments {
+    height: 30px;
+  }
+
+  .timelineSegments button {
+    font-size: 8px;
+    min-width: 42px;
+    padding: 3px;
+  }
+
+  .ticks {
+    font-size: 9px;
+  }
+
+  .horizontal .dynamicPanel,
+  .list .dynamicPanel {
+    display: none;
+  }
+
+  .museum .dynamicPanel {
+    display: none;
+  }
+
+  .museum .museumTitle {
+    font-size: 25px;
+  }
+
+  .lower {
+    grid-template-columns: minmax(0, 1fr) minmax(112px, 142px);
+  }
+
+  .dynamicPanel h3 {
+    font-size: 17px;
+  }
+
+  .dynamicRow {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .fieldLabel {
+    justify-content: center;
+  }
+
+  .fieldLabel i {
+    display: none;
+  }
+
+  .shortLabel {
+    display: none;
+  }
+
+  .letterLabel {
+    display: inline;
+    border: 1px solid var(--ct-panel-border);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    background: var(--ct-accent-soft);
+    font-size: 10px;
+  }
+
+  .statusItem {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .statusItem i {
+    display: none;
+  }
+
+  .statusItem small {
+    display: none;
+  }
+
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .actions i {
+    display: none;
+  }
+
+  .actionFull {
+    display: none;
+  }
+
+  .actionShort {
+    display: inline;
+  }
+
+  .list .banknote {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .catalogPage {
+    display: block;
+  }
+
+  .sidebar {
+    padding: 18px 12px;
+  }
+
+  .banknote {
+    min-height: 118px;
+    padding: 18px;
+  }
+
+  .banknote small {
+    left: 18px;
+    bottom: 14px;
+    font-size: 9px;
+  }
+
+  .identity h2,
+  .listIdentity h2 {
+    font-size: 28px;
+  }
+
+  .identityGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cardInner {
+    padding: 10px;
+  }
+
+  .lower {
+    grid-template-columns: minmax(0, 1fr) minmax(102px, 126px);
+    gap: 8px;
+  }
+
+  .dynamicPanel {
+    padding: 9px;
+  }
+
+  .dynamicRow {
+    padding: 5px 0;
+  }
+
+  .priceBox b {
+    font-size: 25px;
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 390px) {
+  .identityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .lower {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    grid-template-columns: 1fr;
+  }
+
+  .statusList {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .priceBox {
+    min-height: 76px;
+  }
+}
