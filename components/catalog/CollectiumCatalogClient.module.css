@@ -976,3 +976,29 @@ button.active,
 
 
 
+
+/* CT-PATCH: remove-local-catalog-sidebar
+ * Formaal:
+ * Katalogen skal ikke eie global sidebar, topbar eller skin.
+ * Global TemplateRoot styrer TemplateToppmeny, TemplateSidemeny og TemplatePageFrame.
+ */
+.catalogPage {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: auto !important;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.sidebar,
+.topbar,
+.skinGrid {
+  display: none !important;
+}
+
+.main {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}

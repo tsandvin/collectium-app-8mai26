@@ -57,7 +57,6 @@ import styles from "./CollectiumCatalogClient.module.css"
 type Membership = "gratis" | "bronse" | "solv" | "gull" | "platinum"
 type Segment = "samler" | "historie" | "finans"
 type ViewMode = "standing" | "horizontal" | "list" | "museum"
-type Skin = "collectium" | "finans" | "minimal" | "museum"
 type PeriodType = "national" | "ruler" | "signature" | "person" | "finance"
 
 type CatalogObject = {
@@ -219,7 +218,6 @@ export default function CollectiumCatalogClient() {
   const [membership, setMembership] = useState<Membership>("platinum")
   const [segment, setSegment] = useState<Segment>("historie")
   const [view, setView] = useState<ViewMode>("standing")
-  const [skin, setSkin] = useState<Skin>("collectium")
   const [periodType, setPeriodType] = useState<PeriodType>("ruler")
   const [periodIndex, setPeriodIndex] = useState(2)
 
@@ -390,48 +388,9 @@ export default function CollectiumCatalogClient() {
   }
 
   return (
-    <section className={`${styles.catalogPage} ${styles[`skin_${skin}`]}`}>
-      <aside className={styles.sidebar}>
-        <div>
-          <h1>Collectium</h1>
-          <p>KATALOG · FILTER · CMS TEST</p>
-        </div>
-
-        <nav className={styles.nav}>
-          <button className={styles.navActive}>▣ Katalogfilter</button>
-          <button>◇ Objekt</button>
-          <button>⊙ Relasjoner</button>
-          <button>△ Index</button>
-          <button>⚙ Admin/system</button>
-        </nav>
-
-        <div className={styles.sideBox}>
-          <h3>4 farger / skins</h3>
-          <div className={styles.skinGrid}>
-            {(["collectium", "finans", "minimal", "museum"] as Skin[]).map((value) => (
-              <button
-                key={value}
-                className={skin === value ? styles.active : ""}
-                onClick={() => setSkin(value)}
-              >
-                {value === "collectium" ? "Collectium" : value === "finans" ? "Finans" : value === "minimal" ? "Minimal" : "Museum"}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.sideBox}>
-          <h3>DB/API status</h3>
-          <p>Lokal CMS-modus. DB-kontrakt er synlig, men ingen produksjonsdata skrives.</p>
-        </div>
-      </aside>
+    <section className={styles.catalogPage}>
 
       <main className={styles.main}>
-        <div className={styles.topbar}>
-          <input placeholder="Søk 100 kroner 1877 Oscar II" />
-          <button type="button">Kjør browser-test</button>
-          <button type="button">Last ned CMS JSON</button>
-        </div>
 
         <section className={styles.filterPanel}>
           <div className={styles.filterHead}>
@@ -709,5 +668,7 @@ function Actions({ href }: { href: string }) {
     </div>
   )
 }
+
+
 
 
