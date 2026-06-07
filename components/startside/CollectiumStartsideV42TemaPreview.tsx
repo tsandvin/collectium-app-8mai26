@@ -129,8 +129,8 @@ const membership = [
 
 export default function CollectiumStartsideV42TemaPreview() {
   const [theme, setTheme] = useState<ThemeKey>("collectium");
-
-  return (
+  const [billing, setBilling] = useState<BillingMode>("monthly");
+return (
     <main className={styles.page} data-theme={theme}>
       <header className={styles.topbar}>
         <a className={styles.brand} href="/startside" aria-label="Collectium startside">
@@ -455,5 +455,6 @@ function Progress({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
 
 
