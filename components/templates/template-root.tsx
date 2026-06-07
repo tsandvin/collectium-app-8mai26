@@ -1,3 +1,5 @@
+﻿"use client";
+
 /**
  * COLLECTIUM FILE HEADER
  *
@@ -8,16 +10,22 @@
  * Global root-template for Collectium.
  * Eierskap til toppmeny, sidemeny, page-frame og globalt skall ligger her.
  *
+ * Unntak:
+ * /startside rendres som fullbredde startside-preview uten global toppmeny,
+ * sidemeny eller TemplatePageFrame.
+ *
  * Bruksområde:
  * app/layout.tsx
  *
  * Berørte sider / routes:
  * - alle routes
+ * - /startside
  *
  * Berørte DB-brytere / feature_keys:
  * - local.template.root
  * - local.template.toppmeny
  * - local.template.sidemeny
+ * - public.startside.view
  *
  * Berørte API-ruter:
  * - ingen i denne grunnversjonen
@@ -26,15 +34,16 @@
  * - senere ct_v_app_menu
  *
  * Dataretning:
- * Template/local UI → React → UI
+ * Template/local UI -> React -> UI
  *
  * Logging:
  * ingen
  *
  * Versjon:
- * CT-FILE-TEMPLATE-ROOT-0002 / CHANGE-2026-06-06-TEMPLATE-MENUS
+ * CT-FILE-TEMPLATE-ROOT-0003 / CHANGE-2026-06-07-STARTSIDE-FULLBLEED
  */
 
+import { usePathname } from "next/navigation";
 import { COLLECTIUM_SKIN, COLLECTIUM_TEMPLATE, COLLECTIUM_VIEWPORT_DEFAULT } from "./template-skins";
 import { TemplatePageFrame } from "./template-page-frame";
 import { TemplateSidemeny } from "./template-sidemeny";
@@ -45,6 +54,25 @@ export function TemplateRoot({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
+  const isStartside =
+    pathname === "/startside" || pathname.startsWith("/startside/");
+
+  if (isStartside) {
+    return (
+      <div
+        data-template={COLLECTIUM_TEMPLATE}
+        data-skin={COLLECTIUM_SKIN}
+        data-vp={COLLECTIUM_VIEWPORT_DEFAULT}
+        data-route-mode="startside-fullbleed"
+        className="ct-template-root ct-template-root--startside-fullbleed"
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       data-template={COLLECTIUM_TEMPLATE}
