@@ -1085,3 +1085,45 @@
 
 /* END COLLECTIUM COMPACT WHITESPACE FIX 0005 */
 
+/* COLLECTIUM CATALOG SECTION AIR 0006
+   Formål:
+   Gir katalogfeltet mer luft over og under, ca. 150px,
+   uten å gjøre selve visningskortet luftigere.
+*/
+
+.section {
+  padding-top: 150px !important;
+  padding-bottom: 150px !important;
+}
+
+/* Behold kompakt innhold inne i feltet */
+.titleRow {
+  margin-bottom: 10px !important;
+}
+
+.periodFilter {
+  margin-bottom: 8px !important;
+}
+
+.cardShell {
+  margin-top: 8px !important;
+}
+
+/* Tablet: litt mindre, men fortsatt tydelig luft */
+@media (max-width: 1080px) {
+  .section {
+    padding-top: 105px !important;
+    padding-bottom: 105px !important;
+  }
+}
+
+/* Mobil: ikke 150px, ellers blir det for langt */
+@media (max-width: 720px) {
+  .section {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+}
+
+/* END COLLECTIUM CATALOG SECTION AIR 0006 */
+
