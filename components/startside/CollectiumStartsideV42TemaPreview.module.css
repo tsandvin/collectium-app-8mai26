@@ -824,3 +824,110 @@
   }
 }
 
+
+/* COLLECTIUM V42 ASSET + ANIMATION PATCH */
+
+.brandMark {
+  background:
+    url("/collectium-tema/collectium-tema-logo-c.png") center / contain no-repeat,
+    var(--ct-accent) !important;
+  color: transparent !important;
+}
+
+.footer .brandMark {
+  width: 28px;
+  height: 28px;
+}
+
+.heroInner,
+.sectionInner,
+.split,
+.ctaInner {
+  animation: ctFadeRise 720ms ease both;
+}
+
+.catalogCard,
+.priceCard,
+.infoBlock,
+.miniDashboard,
+.artPanel,
+.marketStats,
+.dataTable {
+  animation: ctSoftReveal 760ms ease both;
+}
+
+.catalogCard:nth-child(2),
+.priceCard:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.catalogCard:nth-child(3),
+.priceCard:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.catalogCard:nth-child(4),
+.priceCard:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.34), rgba(0,0,0,0.82)),
+    url("/collectium-tema/collectium-tema-familie-samling.png") center / cover no-repeat,
+    var(--ct-section-bg) !important;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, transparent 0, rgba(0,0,0,0.18) 34%, rgba(0,0,0,0.72) 100%);
+  pointer-events: none;
+}
+
+.ctaInner {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes ctFadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ctSoftReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroInner,
+  .sectionInner,
+  .split,
+  .ctaInner,
+  .catalogCard,
+  .priceCard,
+  .infoBlock,
+  .miniDashboard,
+  .artPanel,
+  .marketStats,
+  .dataTable {
+    animation: none !important;
+  }
+}
