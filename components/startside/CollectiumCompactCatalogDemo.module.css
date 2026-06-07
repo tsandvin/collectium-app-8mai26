@@ -712,3 +712,114 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* COLLECTIUM COMPACT CATALOG UI85 SKIN LOCK 0001
+   Formål:
+   Katalogdemoen skal følge skin-fargene fra startsiden.
+*/
+
+.catalogSection {
+  background:
+    radial-gradient(circle at 18% 14%, var(--ct-watermark), transparent 32rem),
+    linear-gradient(115deg, var(--ct-section-bg), var(--ct-section-bg-2)) !important;
+  color: var(--ct-text) !important;
+}
+
+.sectionHeader h2,
+.periodTop h3,
+.objectMain h3,
+.panelHead h3,
+.dynamicTitle h3 {
+  color: var(--ct-text) !important;
+}
+
+.sectionHeader p,
+.periodTop p,
+.panelIntro,
+.membershipRow p,
+.explainList p,
+.dynamicTitle p,
+.metaLine {
+  color: var(--ct-text-soft) !important;
+}
+
+.periodCard,
+.objectCard,
+.dynamicCard,
+.accessPanel,
+.objectStamp,
+.objectMain,
+.priceBox,
+.infoBadge,
+.explainList p {
+  border-color: var(--ct-border) !important;
+  background: color-mix(in srgb, var(--ct-panel-bg) 88%, transparent) !important;
+  box-shadow: 0 18px 46px var(--ct-shadow) !important;
+}
+
+.timeline {
+  border-color: var(--ct-border) !important;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--ct-panel-solid) 78%, transparent), color-mix(in srgb, var(--ct-panel-bg) 90%, transparent)) !important;
+}
+
+.kindSwitch,
+.periodButtons button,
+.segmentTabs button,
+.actionRow button {
+  border-color: var(--ct-border) !important;
+  background: var(--ct-panel-bg) !important;
+  color: var(--ct-text) !important;
+  box-shadow: none !important;
+}
+
+.kindSwitch button.isActive,
+.periodButtons button.isActive,
+.segmentTabs button.isActive {
+  background: var(--ct-accent) !important;
+  border-color: var(--ct-border-strong) !important;
+  color: #fff8df !important;
+}
+
+:global(.page[data-theme="museum"]) .kindSwitch button.isActive,
+:global(.page[data-theme="museum"]) .periodButtons button.isActive,
+:global(.page[data-theme="museum"]) .segmentTabs button.isActive {
+  background: linear-gradient(180deg, #d6b459, #a77c29) !important;
+  color: #11100e !important;
+}
+
+.infoBadge,
+.priceBox {
+  border-color: var(--ct-border-strong) !important;
+}
+
+.infoBadge span,
+.dynamicIcon,
+.panelIcon {
+  background: color-mix(in srgb, var(--ct-accent) 12%, var(--ct-panel-bg)) !important;
+  color: var(--ct-accent) !important;
+}
+
+.gold {
+  background: var(--ct-accent-soft) !important;
+  color: #10221c !important;
+}
+
+.green {
+  background: var(--ct-accent) !important;
+}
+
+.dark {
+  background: var(--ct-accent-dark) !important;
+}
+
+.muted {
+  background: color-mix(in srgb, var(--ct-accent-dark) 58%, var(--ct-panel-bg)) !important;
+}
+
+.objectStamp::after {
+  color: var(--ct-watermark) !important;
+}
+
+/* END COLLECTIUM COMPACT CATALOG UI85 SKIN LOCK 0001 */
+

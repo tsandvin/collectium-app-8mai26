@@ -386,3 +386,69 @@
 
 /* END COLLECTIUM REGENT LINK ACTIONS 0002 */
 
+/* COLLECTIUM REGENT UI85 SKIN LOCK 0001
+   Formål:
+   Regentfeltet skal bruke museum/arkiv-farge riktig uten tunge knappestiler.
+*/
+
+.regentSection {
+  background:
+    radial-gradient(circle at 72% 40%, rgba(198, 163, 72, .12), transparent 36rem),
+    linear-gradient(90deg, #050504 0%, #080807 44%, #0d0b09 100%) !important;
+  color: #f3ead8 !important;
+}
+
+.content h2 {
+  color: #f3ead8 !important;
+}
+
+.content h2 em,
+.kicker,
+.yearGrid strong,
+.actions a:first-child {
+  color: #d6b459 !important;
+}
+
+.lead,
+.yearGrid span {
+  color: rgba(243, 234, 216, .78) !important;
+}
+
+.actions {
+  align-items: center !important;
+  gap: 28px !important;
+  margin-top: 48px !important;
+}
+
+.actions a {
+  min-height: 0 !important;
+  padding: 0 0 5px !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(198, 163, 72, .44) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(243, 234, 216, .86) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.actions a:hover {
+  transform: translateY(-1px) !important;
+  color: #f3ead8 !important;
+  border-color: #d6b459 !important;
+  box-shadow: none !important;
+}
+
+.yearGrid a {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.yearGrid a:hover {
+  background: rgba(198, 163, 72, .08) !important;
+  box-shadow: none !important;
+}
+
+/* END COLLECTIUM REGENT UI85 SKIN LOCK 0001 */
+

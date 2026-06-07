@@ -2093,3 +2093,287 @@
 
 /* END COLLECTIUM STARTSIDE LINK BUTTON RESET 0001 */
 
+/* COLLECTIUM UI85 SKIN LOCK 0001
+   Formål:
+   Låser riktige farger per skin etter UI 8.5-malene.
+   Viktig:
+   - Ikke én global farge over alt.
+   - Collectium = pergament, grønn, gull.
+   - Enkel = ren blå/grå katalogflate.
+   - Museum = mørk arkivflate med antikk gull.
+   - Finans = teal/data/markedsflate.
+   - Meny/logo skal ikke ha tung skygge.
+   - Regentlenker skal være lenker, ikke tunge knapper.
+*/
+
+.page {
+  --ct-radius: 8px;
+  --ct-motion: 150ms ease;
+}
+
+/* ---------- COLLECTIUM / SIGNATURE ---------- */
+.page[data-theme="collectium"] {
+  --ct-app-bg: #f5ead7;
+  --ct-section-bg: #f7eddd;
+  --ct-section-bg-2: #efe0c8;
+  --ct-panel-bg: #fff8ea;
+  --ct-panel-solid: #fbf1df;
+  --ct-card-bg: #fffaf0;
+  --ct-border: #dcc59a;
+  --ct-border-strong: #c4a24e;
+  --ct-line: #d5c09a;
+  --ct-text: #063a30;
+  --ct-text-soft: #4f6a60;
+  --ct-text-muted: #8f7c58;
+  --ct-accent: #087447;
+  --ct-accent-dark: #064f38;
+  --ct-accent-soft: #d9ad35;
+  --ct-signature: #a87c29;
+  --ct-watermark: rgba(166, 124, 41, .16);
+  --ct-status-ok: #0b754a;
+  --ct-status-pending: #b0832c;
+  --ct-status-rejected: #a23a22;
+  --ct-shadow: rgba(70, 48, 14, .12);
+  --ct-hero-dark: #10100e;
+  --ct-hero-text: #f7eedb;
+}
+
+/* ---------- ENKEL / SAMLER ---------- */
+.page[data-theme="enkel"] {
+  --ct-app-bg: #f5f8fb;
+  --ct-section-bg: #f7fafc;
+  --ct-section-bg-2: #e9f0f6;
+  --ct-panel-bg: #ffffff;
+  --ct-panel-solid: #f4f8fb;
+  --ct-card-bg: #ffffff;
+  --ct-border: #d5e0ea;
+  --ct-border-strong: #9db2c5;
+  --ct-line: #d3dde6;
+  --ct-text: #0b304c;
+  --ct-text-soft: #506a80;
+  --ct-text-muted: #7d8c9b;
+  --ct-accent: #1e6598;
+  --ct-accent-dark: #0c3858;
+  --ct-accent-soft: #b9d3e8;
+  --ct-signature: #1e6598;
+  --ct-watermark: rgba(30, 101, 152, .10);
+  --ct-status-ok: #376f58;
+  --ct-status-pending: #84682b;
+  --ct-status-rejected: #9c3a23;
+  --ct-shadow: rgba(13, 42, 68, .12);
+  --ct-hero-dark: #0c2236;
+  --ct-hero-text: #f5f8fb;
+}
+
+/* ---------- MUSEUM ---------- */
+.page[data-theme="museum"] {
+  --ct-app-bg: #13110f;
+  --ct-section-bg: #1b1916;
+  --ct-section-bg-2: #242019;
+  --ct-panel-bg: #201d19;
+  --ct-panel-solid: #171513;
+  --ct-card-bg: #211f1b;
+  --ct-border: rgba(190, 151, 69, .32);
+  --ct-border-strong: rgba(214, 181, 91, .68);
+  --ct-line: rgba(190, 151, 69, .25);
+  --ct-text: #f3ead8;
+  --ct-text-soft: rgba(243, 234, 216, .72);
+  --ct-text-muted: rgba(243, 234, 216, .48);
+  --ct-accent: #c6a348;
+  --ct-accent-dark: #8b6826;
+  --ct-accent-soft: #d8c17a;
+  --ct-signature: #b88f37;
+  --ct-watermark: rgba(198, 163, 72, .12);
+  --ct-status-ok: #8fb982;
+  --ct-status-pending: #d7bd77;
+  --ct-status-rejected: #c9785d;
+  --ct-shadow: rgba(0, 0, 0, .34);
+  --ct-hero-dark: #090807;
+  --ct-hero-text: #f3ead8;
+}
+
+/* ---------- FINANS ---------- */
+.page[data-theme="finans"] {
+  --ct-app-bg: #071b1d;
+  --ct-section-bg: #10282d;
+  --ct-section-bg-2: #17333a;
+  --ct-panel-bg: #172f35;
+  --ct-panel-solid: #0d2428;
+  --ct-card-bg: #162d33;
+  --ct-border: rgba(63, 148, 135, .36);
+  --ct-border-strong: rgba(43, 180, 132, .68);
+  --ct-line: rgba(80, 151, 143, .26);
+  --ct-text: #e9fbf4;
+  --ct-text-soft: rgba(233, 251, 244, .72);
+  --ct-text-muted: rgba(233, 251, 244, .48);
+  --ct-accent: #27ad7b;
+  --ct-accent-dark: #08735a;
+  --ct-accent-soft: #7dcaa8;
+  --ct-signature: #28ad7b;
+  --ct-watermark: rgba(39, 173, 123, .10);
+  --ct-status-ok: #27ad7b;
+  --ct-status-pending: #c0a24a;
+  --ct-status-rejected: #d24c4c;
+  --ct-shadow: rgba(0, 28, 26, .34);
+  --ct-hero-dark: #061012;
+  --ct-hero-text: #e9fbf4;
+}
+
+/* ---------- Grunnflate per skin ---------- */
+
+.page {
+  background: var(--ct-app-bg) !important;
+  color: var(--ct-text) !important;
+}
+
+.page :where(section) {
+  color: var(--ct-text);
+}
+
+.page :where(section[class*="catalog"], section[class*="Catalog"]) {
+  background:
+    radial-gradient(circle at 20% 12%, var(--ct-watermark), transparent 30rem),
+    linear-gradient(115deg, var(--ct-section-bg), var(--ct-section-bg-2)) !important;
+  color: var(--ct-text) !important;
+}
+
+.page :where(article, aside, div)[class*="Card"],
+.page :where(article, aside, div)[class*="card"],
+.page :where(article, aside, div)[class*="Panel"],
+.page :where(article, aside, div)[class*="panel"] {
+  border-color: var(--ct-border) !important;
+  background-color: var(--ct-panel-bg);
+}
+
+/* ---------- Tekst ---------- */
+
+.page :where(h1, h2, h3, h4) {
+  color: var(--ct-text) !important;
+}
+
+.page :where(p, span, small, li) {
+  color: inherit;
+}
+
+.page :where([class*="kicker"], [class*="Kicker"], [class*="eyebrow"], [class*="Eyebrow"]) {
+  color: var(--ct-signature) !important;
+}
+
+/* ---------- Logo og meny uten tung skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(header, nav) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Venstre/topplinker som rolige chips/lenker */
+.page :where(header, nav) :where(a, button) {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-text) !important;
+  text-decoration: none;
+  font-weight: 850;
+  transition:
+    color var(--ct-motion),
+    background var(--ct-motion),
+    border-color var(--ct-motion),
+    transform var(--ct-motion);
+}
+
+.page :where(header, nav) :where(a, button):hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-border);
+  background: color-mix(in srgb, var(--ct-panel-bg) 54%, transparent);
+  color: var(--ct-accent) !important;
+}
+
+/* ---------- Normale handlingsknapper ---------- */
+
+.page :where(button, a)[class*="primary"],
+.page :where(button, a)[class*="Primary"],
+.page :where(button, a)[class*="cta"],
+.page :where(button, a)[class*="Cta"] {
+  border-radius: var(--ct-radius);
+  border: 1px solid var(--ct-border-strong);
+  background: linear-gradient(180deg, var(--ct-accent), var(--ct-accent-dark));
+  color: #fff8df !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    0 8px 18px var(--ct-shadow);
+  text-shadow: none !important;
+}
+
+.page :where(button, a)[class*="primary"]:hover,
+.page :where(button, a)[class*="Primary"]:hover,
+.page :where(button, a)[class*="cta"]:hover,
+.page :where(button, a)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    0 12px 26px var(--ct-shadow);
+}
+
+/* Sekundære CTA-er og regenthandlinger skal kunne være lenker */
+.page :where(button, a)[class*="secondary"],
+.page :where(button, a)[class*="Secondary"] {
+  background: transparent !important;
+  color: var(--ct-text) !important;
+  box-shadow: none !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Toggle / aktiv tilstand ---------- */
+
+.page :where(button[aria-pressed="true"], button[class*="isActive"], button[class*="active"], button[class*="Active"]) {
+  background: var(--ct-accent) !important;
+  border-color: var(--ct-border-strong) !important;
+  color: #fff8df !important;
+  box-shadow: 0 8px 18px var(--ct-shadow);
+}
+
+/* Museum aktiv = gull, ikke grønn */
+.page[data-theme="museum"] :where(button[aria-pressed="true"], button[class*="isActive"], button[class*="active"], button[class*="Active"]) {
+  background: linear-gradient(180deg, #d6b459, #a77c29) !important;
+  color: #11100e !important;
+}
+
+/* ---------- Pricing skal følge skin, ikke være fast blå/grønn ---------- */
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+  background:
+    radial-gradient(circle at 68% 92%, var(--ct-watermark), transparent 28rem),
+    linear-gradient(180deg, var(--ct-hero-dark), color-mix(in srgb, var(--ct-hero-dark) 82%, var(--ct-section-bg) 18%)) !important;
+  color: var(--ct-hero-text) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(h2, h3, h4) {
+  color: var(--ct-hero-text) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(p, span, small, li) {
+  color: color-mix(in srgb, var(--ct-hero-text) 76%, transparent) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+  border: 1px solid color-mix(in srgb, var(--ct-border-strong) 44%, transparent) !important;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+    color-mix(in srgb, var(--ct-panel-solid) 84%, #111 16%) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.22) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) {
+  color: var(--ct-accent-soft) !important;
+}
+
+/* END COLLECTIUM UI85 SKIN LOCK 0001 */
+
