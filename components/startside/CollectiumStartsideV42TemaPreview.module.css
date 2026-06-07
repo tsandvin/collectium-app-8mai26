@@ -918,3 +918,144 @@
   }
 }
 
+/* === COLLECTIUM LIGHT FORCE OVERRIDE START ===
+   Formål:
+   Tvinger Collectium-standard til lys pergament.
+   Museum og Finans skal være mørke. Collectium skal ikke være svart.
+   ============================================================ */
+
+.previewShell[data-tema="collectium"] {
+  background: #f3eadb;
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .page {
+  background:
+    radial-gradient(circle at 86% 8%, rgba(17, 104, 63, 0.08), transparent 24%),
+    linear-gradient(180deg, #f3eadb 0%, #efe1c7 48%, #f8f1e5 100%);
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .topbar {
+  background: rgba(255, 248, 235, 0.94);
+  border-bottom: 1px solid #e2cfad;
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .brand,
+.previewShell[data-tema="collectium"] .nav a,
+.previewShell[data-tema="collectium"] .topActions a {
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .hero {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(168, 58, 33, 0.07), transparent 22%),
+    radial-gradient(circle at 72% 30%, rgba(17, 104, 63, 0.08), transparent 24%),
+    linear-gradient(180deg, #f3eadb 0%, #ead9bd 100%);
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .manifest,
+.previewShell[data-tema="collectium"] .catalog,
+.previewShell[data-tema="collectium"] .context,
+.previewShell[data-tema="collectium"] .collection,
+.previewShell[data-tema="collectium"] .pricing,
+.previewShell[data-tema="collectium"] .footer {
+  background: #fff7e8;
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .history,
+.previewShell[data-tema="collectium"] .regent,
+.previewShell[data-tema="collectium"] .market,
+.previewShell[data-tema="collectium"] .cta {
+  background:
+    radial-gradient(circle at 82% 14%, rgba(17, 104, 63, 0.08), transparent 24%),
+    linear-gradient(180deg, #efe1c7 0%, #f3eadb 100%);
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .sectionHead h2,
+.previewShell[data-tema="collectium"] .regent h2,
+.previewShell[data-tema="collectium"] .collection h2,
+.previewShell[data-tema="collectium"] .cta h2,
+.previewShell[data-tema="collectium"] .timeline p,
+.previewShell[data-tema="collectium"] .quote blockquote,
+.previewShell[data-tema="collectium"] .timeline b,
+.previewShell[data-tema="collectium"] .marketStats strong {
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] .sectionHead span,
+.previewShell[data-tema="collectium"] .regent span,
+.previewShell[data-tema="collectium"] .collection span,
+.previewShell[data-tema="collectium"] .heroCopy > p:not(.kicker),
+.previewShell[data-tema="collectium"] .timeline span,
+.previewShell[data-tema="collectium"] .marketStats span,
+.previewShell[data-tema="collectium"] .cta p {
+  color: #354f3f;
+}
+
+.previewShell[data-tema="collectium"] .catalogCards article,
+.previewShell[data-tema="collectium"] .contextPanels article,
+.previewShell[data-tema="collectium"] .collectionCard,
+.previewShell[data-tema="collectium"] .priceGrid article,
+.previewShell[data-tema="collectium"] .marketStats article,
+.previewShell[data-tema="collectium"] .marketTable {
+  background: #fff8ed;
+  color: #103b2b;
+  border-color: #e2cfad;
+}
+
+.previewShell[data-tema="collectium"] .contextPanels .darkPanel,
+.previewShell[data-tema="collectium"] .regentImage {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(216, 173, 63, 0.16), transparent 26%),
+    linear-gradient(135deg, #fff8ed, #ead9bd);
+  color: #103b2b;
+  border-color: #d2b98b;
+}
+
+.previewShell[data-tema="collectium"] .yearMark,
+.previewShell[data-tema="collectium"] .regentImage span {
+  color: rgba(17, 104, 63, 0.08);
+}
+
+.previewShell[data-tema="collectium"] .hero h1,
+.previewShell[data-tema="collectium"] .sectionHead h2,
+.previewShell[data-tema="collectium"] .regent h2,
+.previewShell[data-tema="collectium"] .collection h2,
+.previewShell[data-tema="collectium"] .cta h2 {
+  color: #103b2b;
+}
+
+.previewShell[data-tema="collectium"] em,
+.previewShell[data-tema="collectium"] .hero h1 em,
+.previewShell[data-tema="collectium"] .sectionHead h2 em,
+.previewShell[data-tema="collectium"] .manifest h3 em,
+.previewShell[data-tema="collectium"] .timeline p em,
+.previewShell[data-tema="collectium"] .regent h2 em,
+.previewShell[data-tema="collectium"] .collection h2 em,
+.previewShell[data-tema="collectium"] .pricing h2 em,
+.previewShell[data-tema="collectium"] .cta h2 em {
+  color: #11683f;
+}
+
+.previewShell[data-tema="collectium"] .heroActions a,
+.previewShell[data-tema="collectium"] .centerActions a,
+.previewShell[data-tema="collectium"] .priceGrid button,
+.previewShell[data-tema="collectium"] .memberButton {
+  background: #11683f;
+  border-color: #093c2b;
+  color: #fff7e8 !important;
+}
+
+.previewShell[data-tema="collectium"] .heroActions a + a,
+.previewShell[data-tema="collectium"] .centerActions a + a {
+  background: transparent;
+  color: #103b2b !important;
+}
+
+/* === COLLECTIUM LIGHT FORCE OVERRIDE END === */
+

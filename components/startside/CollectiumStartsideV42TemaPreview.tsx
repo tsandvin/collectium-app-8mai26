@@ -378,3 +378,4 @@ export default function CollectiumStartsideV42TemaPreview() {
     </div>
   );
 }
+
