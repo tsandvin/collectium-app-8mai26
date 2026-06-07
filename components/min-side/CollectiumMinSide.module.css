@@ -1,0 +1,324 @@
+﻿/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * CollectiumMinSide.module.css
+ *
+ * Definering / formÃ¥l:
+ * Lokal innholdsstil for Min side-komponenten. Skal kun style innhold inne i eksisterende template.
+ * Skal ikke definere body/html, global bakgrunn, sidebar, topbar, AppShell, PageFrame eller shell-layout.
+ *
+ * BruksomrÃ¥de:
+ * Brukes av components/min-side/CollectiumMinSideClient.tsx.
+ *
+ * Versjon:
+ * CT-MINSIDE-CSS-0002 / CHANGE-2026-06-08-0001
+ */
+
+.minSideContent {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 18px;
+  color: var(--ct-text, #12312d);
+}
+
+.headerBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ct-muted, #61736e);
+}
+
+.headerBlock h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 3.2rem);
+  line-height: 1;
+  font-weight: 600;
+}
+
+.lead {
+  max-width: 78ch;
+  margin: 12px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ct-muted, #526660);
+}
+
+.profileCard,
+.infoCard,
+.panel,
+.listPanel,
+.tableLike {
+  position: relative;
+  border: 1px solid var(--ct-border, rgba(30, 76, 88, 0.18));
+  border-radius: 18px;
+  background: var(--ct-panel, rgba(255, 255, 255, 0.78));
+  box-shadow: 0 14px 40px rgba(15, 40, 44, 0.06);
+}
+
+.profileCard::after,
+.infoCard::after,
+.panel::after,
+.listPanel::after,
+.tableLike::after {
+  content: "â”€â”€â”€â”€â”€â”€â”€â”€ Collectium";
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  font-size: 8px;
+  color: var(--ct-signature, rgba(29, 74, 82, 0.42));
+  pointer-events: none;
+}
+
+.profileCard {
+  padding: 18px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.profileCard strong {
+  font-size: 1rem;
+}
+
+.profileCard span {
+  color: var(--ct-muted, #61736e);
+  font-size: 0.86rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tabs button,
+.actionRow button,
+.rowMeta button {
+  border: 1px solid var(--ct-border, rgba(30, 76, 88, 0.18));
+  background: var(--ct-button, rgba(255, 255, 255, 0.82));
+  color: var(--ct-text, #12312d);
+  border-radius: 999px;
+  padding: 9px 13px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.tabs .activeTab {
+  background: var(--ct-accent, #194f69);
+  border-color: var(--ct-accent, #194f69);
+  color: var(--ct-accent-contrast, #fff);
+}
+
+.sectionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.infoCard {
+  min-height: 150px;
+  padding: 16px 16px 30px;
+  display: grid;
+  gap: 8px;
+}
+
+.infoCard h2,
+.panel h2,
+.listRow h2 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.infoCard strong {
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+.infoCard p,
+.panel p,
+.listRow p {
+  margin: 0;
+  color: var(--ct-muted, #61736e);
+  line-height: 1.45;
+  font-size: 0.86rem;
+}
+
+.statusDot,
+.badge {
+  justify-self: start;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.statusOk {
+  color: #176348;
+  background: rgba(23, 99, 72, 0.1);
+}
+
+.statusWarning {
+  color: #8a5b00;
+  background: rgba(181, 125, 0, 0.12);
+}
+
+.statusError {
+  color: #8f1d1d;
+  background: rgba(143, 29, 29, 0.11);
+}
+
+.statusNeutral {
+  color: #42535a;
+  background: rgba(66, 83, 90, 0.1);
+}
+
+.twoColumn {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.panel {
+  padding: 18px 18px 32px;
+  display: grid;
+  gap: 12px;
+}
+
+.definitionList {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.definitionList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid rgba(30, 76, 88, 0.09);
+  padding-bottom: 7px;
+}
+
+.definitionList dt {
+  color: var(--ct-muted, #61736e);
+  font-size: 0.84rem;
+}
+
+.definitionList dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.listPanel {
+  padding: 8px 8px 28px;
+  display: grid;
+  gap: 8px;
+}
+
+.listRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, auto);
+  gap: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(30, 76, 88, 0.08);
+}
+
+.badge {
+  display: inline-flex;
+  margin-bottom: 7px;
+  background: rgba(25, 79, 105, 0.1);
+  color: var(--ct-accent, #194f69);
+}
+
+.rowMeta {
+  display: grid;
+  justify-items: end;
+  align-content: center;
+  gap: 6px;
+  text-align: right;
+}
+
+.rowMeta small {
+  color: var(--ct-muted, #61736e);
+}
+
+.tableLike {
+  overflow: hidden;
+  padding-bottom: 28px;
+}
+
+.tableHead,
+.tableRow {
+  display: grid;
+  grid-template-columns: 110px minmax(180px, 1.2fr) 120px 140px 120px 90px;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.tableHead {
+  background: rgba(25, 79, 105, 0.08);
+  font-weight: 600;
+  color: var(--ct-muted, #61736e);
+  font-size: 0.78rem;
+}
+
+.tableRow {
+  border-top: 1px solid rgba(30, 76, 88, 0.08);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 1100px) {
+  .sectionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .headerBlock,
+  .twoColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .tableLike {
+    overflow-x: auto;
+  }
+
+  .tableHead,
+  .tableRow {
+    min-width: 780px;
+  }
+}
+
+@media (max-width: 720px) {
+  .sectionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .listRow {
+    grid-template-columns: 1fr;
+  }
+
+  .rowMeta {
+    justify-items: start;
+    text-align: left;
+  }
+}
