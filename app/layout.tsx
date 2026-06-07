@@ -1,29 +1,29 @@
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * Root layout
  *
- * Definering / formål:
+ * Definering / formÃ¥l:
  * Global Next.js layout. Kobler appen til Collectium TemplateRoot.
  *
- * Bruksområde:
+ * BruksomrÃ¥de:
  * Alle routes i app/
  *
- * Berørte sider / routes:
+ * BerÃ¸rte sider / routes:
  * - alle
  *
- * Berørte DB-brytere / feature_keys:
+ * BerÃ¸rte DB-brytere / feature_keys:
  * - local.template.root_layout
  *
- * Berørte API-ruter:
+ * BerÃ¸rte API-ruter:
  * - ingen
  *
- * Berørte tabeller / views:
+ * BerÃ¸rte tabeller / views:
  * - ingen
  *
  * Dataretning:
- * Template/local UI → Next.js → React → UI
+ * Template/local UI â†’ Next.js â†’ React â†’ UI
  *
  * Logging:
  * ingen
@@ -34,6 +34,7 @@
 
 import "./globals.css";
 import "@/styles/collectium-global.css";
+import "../styles/collectium-template-skin-screen-font.css";
 import { TemplateRoot } from "@/components/templates/template-root";
 
 export default function RootLayout({
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="no">
+    <html lang="no" data-template="collectium" data-skin="signature-light" data-vp="pc" data-font="normal">
       <body>
         <TemplateRoot>{children}</TemplateRoot>
       </body>

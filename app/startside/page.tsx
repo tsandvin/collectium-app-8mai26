@@ -1,4 +1,5 @@
-﻿/**
+﻿import CollectiumPublicShell from "@/components/layout/CollectiumPublicShell";
+/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
@@ -40,5 +41,10 @@
 import CollectiumStartsideV46React from "@/components/startside/CollectiumStartsideV46React";
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV46React />;
+  return (
+    <CollectiumPublicShell>
+      <CollectiumStartsideV46React />
+    </CollectiumPublicShell>
+  );
 }
+

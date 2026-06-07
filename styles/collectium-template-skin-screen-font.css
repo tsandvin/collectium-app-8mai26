@@ -1,0 +1,266 @@
+﻿/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * Collectium Template / Skin / Screen / Font Tokens
+ *
+ * Definering / formål:
+ * Global tokenfil for Collectium sitt template-, skin-, skjerm- og skriftkontrollsystem.
+ *
+ * Bruksområde:
+ * Importeres globalt i app/layout.tsx og brukes av PublicShell, AppShell, Topbar, Sidebar,
+ * PageFrame og sideinnhold.
+ *
+ * Berørte sider / routes:
+ * - /startside
+ * - /katalog
+ * - /auksjon
+ * - /min-side
+ * - /admin
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - template.ui.view
+ * - template.skin.switch
+ * - template.viewport.switch
+ * - template.font.switch
+ *
+ * Berørte API-ruter:
+ * - Ingen direkte. Dette er lokal UI/template-kontroll.
+ *
+ * Berørte tabeller / views:
+ * - Ingen direkte.
+ *
+ * Dataretning:
+ * Global template/design → React UI
+ *
+ * Logging:
+ * Lokal UI-kontroll. Ingen DB-skriving.
+ *
+ * Versjon:
+ * CT-DESIGN-TOKENS-8.5-0001
+ *
+ * Endringsregel:
+ * Design/skall styres globalt. Sider skal ikke eie shell, rammer eller skin.
+ */
+
+/* ============================================================
+   COLLECTIUM TEMPLATE / SKIN / SCREEN / FONT TOKENS 8.5
+   ============================================================ */
+
+:root {
+  --ct-font-base: 14px;
+
+  --ct-topbar-h: 72px;
+  --ct-sidebar-w: 264px;
+  --ct-page-pad: clamp(18px, 2.3vw, 42px);
+  --ct-page-max: 1780px;
+  --ct-radius-shell: 28px;
+  --ct-radius-card: 18px;
+
+  --ct-shadow-soft: 0 24px 80px rgba(18, 34, 47, 0.12);
+  --ct-shadow-card: 0 18px 44px rgba(18, 34, 47, 0.10);
+
+  --ct-app-bg: #eaf3f6;
+  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f6f8f8 48%, #dfe9ec 100%);
+  --ct-panel-bg: rgba(255, 255, 255, 0.72);
+  --ct-panel-border: rgba(101, 130, 146, 0.22);
+  --ct-text: #14242e;
+  --ct-muted: #617482;
+  --ct-strong: #0b1720;
+  --ct-topbar-bg: #202932;
+  --ct-topbar-text: #f5efe4;
+  --ct-sidebar-bg: linear-gradient(180deg, #f7f3eb 0%, #ece6dc 100%);
+  --ct-accent: #9a7432;
+  --ct-accent-2: #174c78;
+  --ct-blue: #174c78;
+  --ct-gold: #9a7432;
+  --ct-frame-line: rgba(85, 113, 130, 0.32);
+}
+
+/* Template names */
+html[data-template="collectium"] {
+  --ct-radius-shell: 28px;
+  --ct-radius-card: 18px;
+}
+
+html[data-template="minimal"] {
+  --ct-radius-shell: 16px;
+  --ct-radius-card: 12px;
+  --ct-shadow-soft: 0 18px 48px rgba(18, 34, 47, 0.09);
+}
+
+html[data-template="museum"] {
+  --ct-radius-shell: 30px;
+  --ct-radius-card: 20px;
+  --ct-accent: #a47a35;
+}
+
+html[data-template="finans"] {
+  --ct-radius-shell: 18px;
+  --ct-radius-card: 12px;
+  --ct-accent: #1d6b63;
+}
+
+/* Skins */
+html[data-skin="signature-light"] {
+  --ct-app-bg: #eaf3f6;
+  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f6f8f8 48%, #dfe9ec 100%);
+  --ct-panel-bg: rgba(255, 255, 255, 0.74);
+  --ct-panel-border: rgba(87, 116, 133, 0.24);
+  --ct-text: #14242e;
+  --ct-muted: #627786;
+  --ct-strong: #08151e;
+  --ct-topbar-bg: #202932;
+  --ct-topbar-text: #f5efe4;
+  --ct-sidebar-bg: linear-gradient(180deg, #f7f3eb 0%, #ece6dc 100%);
+  --ct-accent: #9a7432;
+  --ct-accent-2: #174c78;
+}
+
+html[data-skin="signature-dark"] {
+  --ct-app-bg: #111a20;
+  --ct-page-bg: radial-gradient(circle at top left, #263743 0%, #101820 42%, #0b1117 100%);
+  --ct-panel-bg: rgba(25, 39, 48, 0.78);
+  --ct-panel-border: rgba(201, 178, 126, 0.22);
+  --ct-text: #f2eee4;
+  --ct-muted: #b9c0c4;
+  --ct-strong: #ffffff;
+  --ct-topbar-bg: #10171e;
+  --ct-topbar-text: #f5efe4;
+  --ct-sidebar-bg: linear-gradient(180deg, #16232c 0%, #0f171d 100%);
+  --ct-accent: #c7a25a;
+  --ct-accent-2: #8fb5d0;
+}
+
+html[data-skin="minimal-light"] {
+  --ct-app-bg: #f3f6f8;
+  --ct-page-bg: linear-gradient(180deg, #f6f8f9 0%, #e9eff2 100%);
+  --ct-panel-bg: rgba(255, 255, 255, 0.86);
+  --ct-panel-border: rgba(32, 61, 78, 0.14);
+  --ct-text: #17242d;
+  --ct-muted: #61717c;
+  --ct-strong: #091219;
+  --ct-topbar-bg: #183348;
+  --ct-topbar-text: #ffffff;
+  --ct-sidebar-bg: #f6f8f9;
+  --ct-accent: #1b5d87;
+  --ct-accent-2: #1b5d87;
+}
+
+html[data-skin="minimal-dark"] {
+  --ct-app-bg: #0f1418;
+  --ct-page-bg: linear-gradient(180deg, #172029 0%, #0d1217 100%);
+  --ct-panel-bg: rgba(22, 31, 39, 0.88);
+  --ct-panel-border: rgba(178, 198, 210, 0.13);
+  --ct-text: #edf2f4;
+  --ct-muted: #aeb8bf;
+  --ct-strong: #ffffff;
+  --ct-topbar-bg: #0c1116;
+  --ct-topbar-text: #ffffff;
+  --ct-sidebar-bg: #121a21;
+  --ct-accent: #6aa6c9;
+  --ct-accent-2: #6aa6c9;
+}
+
+/* Screen / viewport modes */
+html[data-vp="mobile"] {
+  --ct-font-base: 13px;
+  --ct-topbar-h: 64px;
+  --ct-sidebar-w: 0px;
+  --ct-page-pad: 14px;
+  --ct-page-max: 100%;
+  --ct-radius-shell: 18px;
+}
+
+html[data-vp="tablet"] {
+  --ct-font-base: 13.5px;
+  --ct-topbar-h: 68px;
+  --ct-sidebar-w: 0px;
+  --ct-page-pad: 22px;
+  --ct-page-max: 1180px;
+}
+
+html[data-vp="pc"] {
+  --ct-font-base: 14px;
+  --ct-topbar-h: 72px;
+  --ct-sidebar-w: 264px;
+  --ct-page-pad: clamp(24px, 2.2vw, 42px);
+  --ct-page-max: 1780px;
+}
+
+html[data-vp="wide"] {
+  --ct-font-base: 14px;
+  --ct-topbar-h: 72px;
+  --ct-sidebar-w: 264px;
+  --ct-page-pad: 42px;
+  --ct-page-max: 2400px;
+}
+
+html[data-vp="tv"] {
+  --ct-font-base: 16px;
+  --ct-topbar-h: 84px;
+  --ct-sidebar-w: 300px;
+  --ct-page-pad: 54px;
+  --ct-page-max: 2900px;
+}
+
+/* Font scale */
+html[data-font="compact"] { --ct-font-base: 12.5px; }
+html[data-font="normal"] { --ct-font-base: 14px; }
+html[data-font="large"] { --ct-font-base: 15.5px; }
+html[data-font="presentation"] { --ct-font-base: 17px; }
+
+/* Global frame/signature helper */
+.ct-frame,
+.ct-panel,
+.ct-card,
+.ct-info-box {
+  position: relative;
+  border: 1px solid var(--ct-panel-border);
+  background: var(--ct-panel-bg);
+  box-shadow: var(--ct-shadow-card);
+  border-radius: var(--ct-radius-card);
+}
+
+.ct-frame::after,
+.ct-panel::after,
+.ct-card::after,
+.ct-info-box::after {
+  content: "──────── Collectium";
+  position: absolute;
+  right: 18px;
+  bottom: 10px;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ct-muted) 70%, transparent);
+  pointer-events: none;
+}
+
+/* Utility shell */
+.ct-public-page {
+  min-height: 100vh;
+  background: var(--ct-page-bg);
+  color: var(--ct-text);
+  font-size: var(--ct-font-base);
+}
+
+.ct-app-page {
+  min-height: 100vh;
+  background: var(--ct-page-bg);
+  color: var(--ct-text);
+  font-size: var(--ct-font-base);
+}
+
+@media (max-width: 719px) {
+  :root {
+    --ct-topbar-h: 64px;
+    --ct-page-pad: 14px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1100px) {
+  :root {
+    --ct-topbar-h: 68px;
+    --ct-page-pad: 22px;
+  }
+}
