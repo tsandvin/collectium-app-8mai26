@@ -497,7 +497,7 @@
 .artPanel {
   min-height: 420px;
   display: grid;
-  place-items: end start;
+  place-items: flex-end flex-start;
   padding: 26px;
   border: 1px solid var(--ct-panel-border);
   border-radius: 10px;
@@ -823,3 +823,4 @@
     margin-top: 20px;
   }
 }
+
