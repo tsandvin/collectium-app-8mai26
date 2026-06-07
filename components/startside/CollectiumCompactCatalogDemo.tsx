@@ -415,6 +415,40 @@ export default function CollectiumCompactCatalogDemo() {
                 </div>
               </div>
             </div>
+
+            <aside className={styles.catalogInfoPanel}>
+              <span className={styles.infoEyebrow}>Katalogfunksjon</span>
+              <h3>Slik leses objektet</h3>
+              <p>
+                Katalogen viser ikke bare ett objekt. Den viser objektet i sammenheng med
+                kilde, periode, regent, signatur, motiv, marked og brukerstatus.
+              </p>
+
+              <div className={styles.infoList}>
+                <div>
+                  <strong>Samler</strong>
+                  <span>Hjerte, stjerne, Min samling, dokumentasjon og egne handlinger.</span>
+                </div>
+                <div>
+                  <strong>Historie</strong>
+                  <span>Regent, periode, signatur, motiv/person og relasjoner.</span>
+                </div>
+                <div>
+                  <strong>Finans</strong>
+                  <span>Pris, trend, marked, likviditet og verdikontekst.</span>
+                </div>
+              </div>
+
+              <div className={styles.membershipFilterBox}>
+                <strong>Medlemskap og filter</strong>
+                <p>
+                  Filterdybden styres av tilgangsnivå. Free ser enkel katalog.
+                  Silver åpner flere filter. Gold og Platinum får dypere historisk
+                  og finansiell innsikt.
+                </p>
+              </div>
+            </aside>
+
           </div>
         </section>
       </div>
@@ -423,9 +457,23 @@ export default function CollectiumCompactCatalogDemo() {
 }
 
 function Metric({ label, value }: { label: string; value: string }) {
+  const icon =
+    label === "Hjerte"
+      ? "♡"
+      : label === "Stjerne"
+        ? "☆"
+        : label === "Auksjon"
+          ? "⌘"
+          : label === "Nettbutikk"
+            ? "▦"
+            : "•";
+
   return (
     <div className={styles.metric}>
-      <span>{label}</span>
+      <span>
+        <i aria-hidden="true">{icon}</i>
+        {label}
+      </span>
       <strong>{value}</strong>
     </div>
   );
@@ -439,3 +487,4 @@ function Data({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
