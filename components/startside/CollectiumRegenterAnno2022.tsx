@@ -78,7 +78,7 @@ export default function CollectiumRegenterAnno2022() {
 
           <div className={styles.yearGrid} aria-label="Regentperioder">
             {regentYears.map((item) => (
-              <a key={item.year} href={/katalog?regent=}>
+              <a key={item.year} href={`/katalog?regent=${encodeURIComponent(item.label)}`}>
                 <strong>{item.year}</strong>
                 <span>{item.label}</span>
               </a>
@@ -102,3 +102,4 @@ export default function CollectiumRegenterAnno2022() {
     </section>
   );
 }
+
