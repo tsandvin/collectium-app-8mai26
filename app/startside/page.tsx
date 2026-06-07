@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Next.js route for Collectium startside.
- * Renderer kontrollert Startside V42 med fire skins.
+ * Renderer CollectiumStartsideV46React som fullbredde startside.
  *
  * Bruksområde:
  * Route: /startside
@@ -17,6 +17,8 @@
  * Berørte DB-brytere / feature_keys:
  * - public.startside.view
  * - public.theme.preview
+ * - public.catalog.preview
+ * - public.membership.preview
  *
  * Berørte API-ruter:
  * - Ingen direkte.
@@ -25,20 +27,17 @@
  * - Ingen direkte.
  *
  * Dataretning:
- * Statisk preview -> React -> UI
+ * Statisk frontend-preview -> React -> UI
  *
  * Logging:
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0005
- *
- * Endringsregel:
- * Denne filen skal kun rendre startsidens innholdskomponent.
+ * CT-STARTSIDE-ROUTE-V46-REACT-0001
  */
 
-import CollectiumStartsideV42TemaPreview from "@/components/startside/CollectiumStartsideV42TemaPreview";
+import CollectiumStartsideV46React from "@/components/startside/CollectiumStartsideV46React";
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV42TemaPreview />;
+  return <CollectiumStartsideV46React />;
 }
