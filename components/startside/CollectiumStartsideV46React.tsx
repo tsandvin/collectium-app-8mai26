@@ -431,9 +431,9 @@ const tiers = [
   {
     name: "Platinum",
     tag: "Profesjonell analyse, alle land og bredere kildegrunnlag.",
-    monthly: { main: "Kun år", sub: "Ingen månedlig pris", meta: "Kontakt Collectium" },
+    monthly: { main: "Kun år", sub: "Ingen Månedlig pris", meta: "Kontakt Collectium" },
     yearly: { main: "50 000 kr", sub: "/ 2 år", meta: "100 000 kr/år ordinært" },
-    features: ["Ingen månedlig pris", "Alle land og kilder", "Full historikk", "Profesjonell analyse"],
+    features: ["Ingen Månedlig pris", "Alle land og kilder", "Full historikk", "Profesjonell analyse"],
     cta: "Kontakt oss",
   },
 ];
@@ -671,7 +671,7 @@ export default function CollectiumStartsideV46React() {
               <Roman nr="IX" label="Medlemskap" />
               <h2 className={styles.sectionH}>Riktige priser, <em>riktig</em> tilgangsnivå.</h2>
               <p className={styles.sectionLead}>
-                Fem nivåer fra gratis-tilgang til profesjonell analyse. Velg månedlig eller årlig fakturering.
+                Premium brukes ikke. Platinum finnes ikke som Månedlig medlemskap.
               </p>
             </div>
 
@@ -844,6 +844,7 @@ function Progress({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
 
 
 

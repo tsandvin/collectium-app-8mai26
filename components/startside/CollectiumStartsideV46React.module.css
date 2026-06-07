@@ -1641,3 +1641,273 @@
 
 /* === COLLECTIUM 3D BUTTON SYSTEM END === */
 
+/* COLLECTIUM DARK PRICING SECTION 0002
+   Formål:
+   Matcher referansebilde 2:
+   - mørk Collectium medlemskapsseksjon
+   - mindre og roligere overskrift
+   - mørke kort med tynne rammer
+   - Silver markert med gullramme
+   - Årlig aktiv med gull knapp
+   - mindre grønn/glow på prisfeltet
+*/
+
+/* Hovedseksjon for pris/medlemskap */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+  position: relative !important;
+  padding: 72px 64px 92px !important;
+  background:
+    radial-gradient(circle at 63% 92%, rgba(190, 145, 51, .14), transparent 28rem),
+    radial-gradient(circle at 8% 18%, rgba(255, 255, 255, .025), transparent 24rem),
+    linear-gradient(180deg, #1a1b1a 0%, #202221 48%, #181918 100%) !important;
+  color: #f4ead8 !important;
+  border-top: 1px solid rgba(205, 164, 72, .10) !important;
+  border-bottom: 1px solid rgba(205, 164, 72, .10) !important;
+  overflow: hidden !important;
+}
+
+/* Fjern tidligere lys/cream effekt dersom den ligger i seksjonen */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"])::before,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"])::after {
+  opacity: .28 !important;
+}
+
+/* Header i prisfeltet */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(h2, h3) {
+  color: #fff4df !important;
+  text-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) h2 {
+  max-width: 780px !important;
+  margin: 0 !important;
+  font-size: clamp(26px, 2.3vw, 38px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.045em !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) p {
+  color: rgba(244, 234, 216, .78) !important;
+}
+
+/* Liten "MEDLEMSKAP"-label dersom den finnes / øvre label */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(.kicker, [class*="kicker"], [class*="eyebrow"], [class*="Eyebrow"]) {
+  color: #caa64e !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+}
+
+/* Header-rad: tekst venstre, toggle høyre */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="header"], [class*="Header"], [class*="top"], [class*="Top"]) {
+  align-items: end !important;
+}
+
+/* Månedlig/Årlig toggle */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) {
+  padding: 8px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, .025) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 18px 40px rgba(0, 0, 0, .22) !important;
+}
+
+/* Toggle-knapper: ikke grønn glød, rolig mørk/gull */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button {
+  min-height: 48px !important;
+  padding: 0 22px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, .14) !important;
+  background: transparent !important;
+  color: #fff4df !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button:hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(207, 169, 83, .52) !important;
+  background: rgba(207, 169, 83, .08) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22) !important;
+}
+
+/* Aktiv Årlig/Månedlig: gull slik som referanse */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[aria-pressed="true"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[class*="active"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[class*="Active"] {
+  background: linear-gradient(180deg, #d6b459 0%, #b78c36 100%) !important;
+  border-color: #d6b459 !important;
+  color: #fff8df !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .24),
+    0 14px 30px rgba(0, 0, 0, .25) !important;
+}
+
+/* Kort-grid */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+  gap: 18px !important;
+  margin-top: 34px !important;
+}
+
+/* Alle medlemskort */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+  min-height: 525px !important;
+  padding: 30px 28px !important;
+  border: 1px solid rgba(255, 255, 255, .16) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .012)),
+    rgba(28, 31, 29, .88) !important;
+  color: #f6eddc !important;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, .20),
+    inset 0 0 0 1px rgba(255, 255, 255, .015) !important;
+  transform: none !important;
+}
+
+/* Unngå at gammel cream-card styling vinner */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) * {
+  text-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]):hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(207, 169, 83, .44) !important;
+  box-shadow:
+    0 42px 92px rgba(0, 0, 0, .30),
+    0 0 0 1px rgba(207, 169, 83, .12) !important;
+}
+
+/* Silver / valgt kort: gullramme, ikke grønn cream */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]):has(:where(h3, h4, strong):first-child),
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="active"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="highlight"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="featured"] {
+  border-color: rgba(207, 169, 83, .74) !important;
+}
+
+/* Kort-titler */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(h3, h4) {
+  margin-top: 0 !important;
+  color: #fff4df !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Pris */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) {
+  color: #fff4df !important;
+  font-size: 28px !important;
+  line-height: 1.05 !important;
+  font-weight: 950 !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) strong,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) b {
+  color: #fff4df !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) span,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) small {
+  color: #cfa953 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+/* Brødtekst og punktlister */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(li, p, span, small) {
+  color: rgba(246, 237, 220, .82) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) ul {
+  margin-top: 24px !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) li {
+  position: relative !important;
+  margin: 0 0 11px !important;
+  padding-left: 24px !important;
+  font-size: 15px !important;
+  line-height: 1.35 !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) li::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: .58em !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: #cfa953 !important;
+}
+
+/* Kortknapper: i referansen er de mørke/outline, ikke grønn glød */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(button, a) {
+  width: 100% !important;
+  min-height: 46px !important;
+  margin-top: auto !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  background: transparent !important;
+  color: #fff4df !important;
+  font-size: 15px !important;
+  font-weight: 950 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(button, a):hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(207, 169, 83, .65) !important;
+  background: rgba(207, 169, 83, .08) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .24) !important;
+}
+
+/* Badge, f.eks. Aktiv samler */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="badge"], [class*="Badge"], [class*="pill"], [class*="Pill"]) {
+  background: #cfa953 !important;
+  color: #fff9e7 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 950 !important;
+}
+
+/* Responsiv */
+@media (max-width: 1100px) {
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+    padding: 64px 24px 76px !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+    padding: 52px 14px 64px !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+    min-height: auto !important;
+  }
+}
+
+/* END COLLECTIUM DARK PRICING SECTION 0002 */
+
