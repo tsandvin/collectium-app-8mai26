@@ -4,3 +4,73 @@ body {
   margin: 0;
   background: #ffffff;
 }
+/* COLLECTIUM GLOBAL SIGNATURE COLOR PATCH 2026-06-07
+   Formål:
+   Setter Collectium standardfarge for alle vanlige sider.
+   /startside har egen fullbredde V42, men bruker samme fargefamilie.
+*/
+
+:root,
+[data-template="collectium"],
+.ct-template-root {
+  --ct-app-bg: #f7efe1;
+  --ct-app-sidebar-bg: #fff8ea;
+  --ct-app-topbar-bg: rgba(255, 248, 234, 0.92);
+
+  --ct-panel-bg: rgba(255, 249, 238, 0.86);
+  --ct-panel-solid: #fff8ea;
+  --ct-card-bg: #fff7e7;
+
+  --ct-panel-border: rgba(158, 118, 46, 0.22);
+  --ct-border-strong: rgba(13, 105, 66, 0.72);
+  --ct-line: rgba(90, 70, 38, 0.18);
+
+  --ct-text: #062b20;
+  --ct-text-soft: rgba(6, 43, 32, 0.76);
+  --ct-text-muted: rgba(6, 43, 32, 0.56);
+
+  --ct-accent: #0f6b43;
+  --ct-accent-dark: #073d2b;
+  --ct-accent-soft: #d8aa3e;
+
+  --ct-signature: #a77d2d;
+  --ct-watermark: rgba(167, 125, 45, 0.12);
+
+  --ct-status-ok: #0f6b43;
+  --ct-status-pending: #a77d2d;
+  --ct-status-rejected: #a33a22;
+}
+
+body {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(167, 125, 45, 0.10), transparent 34rem),
+    linear-gradient(180deg, #fff9ed 0%, #f7efe1 52%, #f2e3c9 100%);
+  color: var(--ct-text);
+}
+
+.ct-template-root {
+  background:
+    radial-gradient(circle at 82% 4%, var(--ct-watermark), transparent 32rem),
+    linear-gradient(180deg, var(--ct-app-bg), #f2e3c9);
+  color: var(--ct-text);
+}
+
+.ct-template-shell {
+  background: transparent;
+}
+
+.ct-page-frame,
+.ct-signature-frame,
+.ct-panel,
+.ct-card,
+[class*="Card"],
+[class*="Panel"] {
+  border-color: var(--ct-panel-border);
+}
+
+a,
+button,
+[role="button"] {
+  accent-color: var(--ct-accent);
+}
+

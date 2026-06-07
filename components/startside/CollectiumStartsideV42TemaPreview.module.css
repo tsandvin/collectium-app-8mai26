@@ -1,24 +1,24 @@
 ﻿.page {
-  --ct-app-bg: #071112;
-  --ct-section-bg: #0b1718;
-  --ct-panel-bg: rgba(24, 43, 45, 0.72);
-  --ct-panel-solid: #132426;
-  --ct-card-bg: #edf4ee;
-  --ct-card-text: #10201f;
-  --ct-panel-border: rgba(255, 255, 255, 0.12);
-  --ct-border-strong: rgba(33, 191, 135, 0.58);
-  --ct-line: rgba(255, 255, 255, 0.14);
-  --ct-text: #edf7f1;
-  --ct-text-soft: rgba(237, 247, 241, 0.78);
-  --ct-text-muted: rgba(237, 247, 241, 0.52);
-  --ct-accent: #22c487;
-  --ct-accent-dark: #149765;
-  --ct-accent-soft: #b8e5ca;
-  --ct-signature: #1fc987;
-  --ct-watermark: rgba(31, 201, 135, 0.09);
-  --ct-status-ok: #25c985;
-  --ct-status-pending: #c39a3b;
-  --ct-status-rejected: #d55353;
+  --ct-app-bg: #f7efe1;
+  --ct-section-bg: #f3ead8;
+  --ct-panel-bg: rgba(255, 249, 238, 0.82);
+  --ct-panel-solid: #fff8ea;
+  --ct-card-bg: #fff7e7;
+  --ct-card-text: #062b20;
+  --ct-panel-border: rgba(158, 118, 46, 0.22);
+  --ct-border-strong: rgba(13, 105, 66, 0.72);
+  --ct-line: rgba(90, 70, 38, 0.18);
+  --ct-text: #062b20;
+  --ct-text-soft: rgba(6, 43, 32, 0.76);
+  --ct-text-muted: rgba(6, 43, 32, 0.56);
+  --ct-accent: #0f6b43;
+  --ct-accent-dark: #073d2b;
+  --ct-accent-soft: #d8aa3e;
+  --ct-signature: #a77d2d;
+  --ct-watermark: rgba(167, 125, 45, 0.12);
+  --ct-status-ok: #0f6b43;
+  --ct-status-pending: #a77d2d;
+  --ct-status-rejected: #a33a22;
 
   min-height: 100vh;
   background:
@@ -580,7 +580,7 @@
 
 .pricingHead {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 28px;
 }
@@ -748,7 +748,7 @@
   }
 
   .themeSwitch {
-    justify-self: end;
+    justify-self: flex-end;
     max-width: 100%;
     overflow-x: auto;
   }
@@ -931,3 +931,4 @@
     animation: none !important;
   }
 }
+
