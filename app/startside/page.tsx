@@ -4,41 +4,39 @@
  * Overskrift:
  * Startside
  *
- * Definering / formÃ¥l:
- * Next.js route for Collectium startside. Renders only the page content component.
- * The global shell, topbar, sidebar, mobile menu, page frame and skin are owned by
- * app/layout.tsx and components/layout/components/templates.
+ * Definering / formål:
+ * Next.js route for Collectium startside.
+ * Viser kontrollert V42 Tema Preview.
  *
- * BruksomrÃ¥de:
- * Public startside route.
+ * Bruksområde:
+ * Route: /startside
  *
- * BerÃ¸rte sider / routes:
- * - /startside
+ * Berørte DB-brytere / feature_keys:
+ * - public.startside.view
+ * - public.theme.preview
  *
- * BerÃ¸rte DB-brytere / feature_keys:
- * - landing.view
- * - catalog.view
- * - membership.view
+ * Berørte API-ruter:
+ * - Ingen direkte.
  *
- * BerÃ¸rte API-ruter:
- * - none in this static first React version
- *
- * BerÃ¸rte tabeller / views:
- * - none in this static first React version
+ * Berørte tabeller / views:
+ * - Ingen direkte.
  *
  * Dataretning:
- * MariaDB â†’ API/backend â†’ Next.js â†’ React â†’ UI
+ * Statisk preview -> React -> UI
  *
  * Logging:
- * log_category: landing
- * log_action: view
+ * Ingen DB-logging.
+ *
+ * Versjon:
+ * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0001
  *
  * Endringsregel:
- * This file must not create AppShell, Topbar, Sidebar, body/html or local global shell.
+ * Denne filen skal kun rendre startsidens innholdskomponent.
+ * Global template-root endres ikke i denne patchen.
  */
 
-import CollectiumStartsideV46React from "@/components/startside/CollectiumStartsideV46React";
+import CollectiumStartsideV42TemaPreview from "@/components/startside/CollectiumStartsideV42TemaPreview";
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV46React />;
+  return <CollectiumStartsideV42TemaPreview />;
 }
