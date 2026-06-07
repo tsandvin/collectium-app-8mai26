@@ -440,11 +440,15 @@ export default function CollectiumStartsideV46React() {
   const [template, setTemplate] = useState<TemplateKey>("collectium");
   const [designOpen, setDesignOpen] = useState(false);
   const [catalogSegment, setCatalogSegment] = useState<CatalogSegment>("samler");
+  const [objectKind, setObjectKind] = useState<ObjectKind>("banknote");
+  const [periodKey, setPeriodKey] = useState<PeriodKey>("oscar");
   const [statsTab, setStatsTab] = useState<CatalogSegment>("historie");
   const [billing, setBilling] = useState<BillingMode>("yearly");
   const [fontSize, setFontSize] = useState(14);
 
   const selectedSegment = catalogSegments[catalogSegment];
+  const selectedObject = objectPreviewData[objectKind][periodKey];
+  const selectedPeriod = periodFilters.find((item) => item.key === periodKey) ?? periodFilters[0];
   const selectedStats = statsTabs[statsTab];
   const yearly = billing === "yearly";
 
