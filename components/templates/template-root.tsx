@@ -1,63 +1,94 @@
+﻿"use client";
+
 /**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * template-root
+ * TemplateRoot
  *
  * Definering / formål:
- * Global root-template for Collectium.
- * Eierskap til toppmeny, sidemeny, page-frame og globalt skall ligger her.
+ * Global route-aware template root for Collectium.
+ * Skiller mellom public routes og app routes.
  *
  * Bruksområde:
- * app/layout.tsx
+ * Brukes av app/layout.tsx som global wrapper rundt alle Next.js routes.
  *
- * Berørte sider / routes:
- * - alle routes
+ * Public routes:
+ * - /startside
+ * - /landingsside
+ * - /login
+ * - /registrering
+ * - /sign-in
+ * - /sign-up
+ *
+ * App routes:
+ * - /katalog
+ * - /auksjoner
+ * - /min-side
+ * - /admin
  *
  * Berørte DB-brytere / feature_keys:
- * - local.template.root
- * - local.template.toppmeny
- * - local.template.sidemeny
+ * - template.root.view
+ * - template.public.shell
+ * - template.app.shell
  *
  * Berørte API-ruter:
- * - ingen i denne grunnversjonen
+ * - Ingen direkte.
  *
  * Berørte tabeller / views:
- * - senere ct_v_app_menu
+ * - Ingen direkte.
  *
  * Dataretning:
- * Template/local UI → React → UI
+ * Route → TemplateRoot → riktig shell → sideinnhold
  *
  * Logging:
- * ingen
+ * Ingen DB-logging.
  *
  * Versjon:
- * CT-FILE-TEMPLATE-ROOT-0002 / CHANGE-2026-06-06-TEMPLATE-MENUS
+ * CT-TEMPLATE-ROOT-8.5-ROUTE-AWARE-0001
+ *
+ * Endringsregel:
+ * Public routes skal ikke pakkes i app-sidebar/app-topbar.
+ * App routes skal fortsatt bruke global app-template.
  */
 
-import { COLLECTIUM_SKIN, COLLECTIUM_TEMPLATE, COLLECTIUM_VIEWPORT_DEFAULT } from "./template-skins";
-import { TemplatePageFrame } from "./template-page-frame";
-import { TemplateSidemeny } from "./template-sidemeny";
-import { TemplateToppmeny } from "./template-toppmeny";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
+import TemplatePageFrame from "./template-page-frame";
 
-export function TemplateRoot({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <div
-      data-template={COLLECTIUM_TEMPLATE}
-      data-skin={COLLECTIUM_SKIN}
-      data-vp={COLLECTIUM_VIEWPORT_DEFAULT}
-      className="ct-template-root"
-    >
-      <TemplateToppmeny />
+type TemplateRootProps = {
+  children: ReactNode;
+};
 
-      <div className="ct-template-shell">
-        <TemplateSidemeny />
-        <TemplatePageFrame>{children}</TemplatePageFrame>
-      </div>
-    </div>
-  );
+const publicRoutes = [
+  "/",
+  "/startside",
+  "/landingsside",
+  "/login",
+  "/registrering",
+  "/sign-in",
+  "/sign-up",
+];
+
+function isPublicRoute(pathname: string | null): boolean {
+  if (!pathname) return false;
+
+  if (publicRoutes.includes(pathname)) {
+    return true;
+  }
+
+  return publicRoutes.some((route) => {
+    if (route === "/") return false;
+    return pathname.startsWith(`${route}/`);
+  });
+}
+
+export default function TemplateRoot({ children }: TemplateRootProps) {
+  const pathname = usePathname();
+
+  if (isPublicRoute(pathname)) {
+    return <>{children}</>;
+  }
+
+  return <TemplatePageFrame>{children}</TemplatePageFrame>;
 }
