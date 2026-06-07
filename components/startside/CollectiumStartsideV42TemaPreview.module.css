@@ -932,3 +932,144 @@
   }
 }
 
+
+/* COLLECTIUM V42 INTERACTION ANIMATION PATCH
+   Hover: felt, bokser, kort og knapper får tydeligere ramme, løft og skygge.
+   Membership: Årlig/Mnd er ekte klikkbar state i React-komponenten.
+*/
+
+.primary,
+.secondary,
+.themeSwitch button,
+.togglePill button,
+.catalogCard,
+.priceCard,
+.infoBlock,
+.miniDashboard,
+.artPanel,
+.marketStats,
+.dataTable,
+.timelineRow,
+.progressRow {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.primary:hover,
+.secondary:hover,
+.themeSwitch button:hover,
+.togglePill button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--ct-accent) 22%, transparent);
+}
+
+.catalogCard:hover,
+.priceCard:hover,
+.infoBlock:hover,
+.miniDashboard:hover,
+.artPanel:hover,
+.marketStats:hover,
+.dataTable:hover {
+  transform: translateY(-5px);
+  border-color: var(--ct-border-strong) !important;
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.18),
+    0 0 0 1px color-mix(in srgb, var(--ct-border-strong) 52%, transparent);
+}
+
+.timelineRow:hover,
+.progressRow:hover {
+  border-color: var(--ct-border-strong);
+  background: color-mix(in srgb, var(--ct-accent) 7%, transparent);
+  transform: translateX(4px);
+}
+
+.catalogCard:hover .cardImage {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.24),
+    0 12px 26px rgba(0,0,0,0.18);
+}
+
+.cardImage {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.priceCard:hover .badge {
+  transform: translateY(-2px);
+}
+
+.badge {
+  transition: transform 180ms ease;
+}
+
+.togglePill button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--ct-text-muted);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.togglePill button:hover {
+  color: var(--ct-text);
+}
+
+.togglePill .billingActive {
+  background: var(--ct-accent);
+  color: var(--ct-app-bg);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--ct-accent) 26%, transparent);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible,
+.themeSwitch button:focus-visible,
+.togglePill button:focus-visible,
+.priceCard a:focus-visible {
+  outline: 2px solid var(--ct-accent);
+  outline-offset: 3px;
+}
+
+.priceCard strong {
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.priceCard:hover strong {
+  transform: translateY(-1px);
+  color: var(--ct-accent-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .secondary,
+  .themeSwitch button,
+  .togglePill button,
+  .catalogCard,
+  .priceCard,
+  .infoBlock,
+  .miniDashboard,
+  .artPanel,
+  .marketStats,
+  .dataTable,
+  .timelineRow,
+  .progressRow,
+  .cardImage,
+  .badge,
+  .priceCard strong {
+    transition: none !important;
+    transform: none !important;
+  }
+}
