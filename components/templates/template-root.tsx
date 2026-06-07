@@ -14,6 +14,7 @@
  * Brukes av app/layout.tsx som global wrapper rundt alle Next.js routes.
  *
  * Public routes:
+ * - /
  * - /startside
  * - /landingsside
  * - /login
@@ -39,13 +40,13 @@
  * - Ingen direkte.
  *
  * Dataretning:
- * Route → TemplateRoot → riktig shell → sideinnhold
+ * Route -> TemplateRoot -> riktig shell -> sideinnhold
  *
  * Logging:
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-TEMPLATE-ROOT-8.5-ROUTE-AWARE-0001
+ * CT-TEMPLATE-ROOT-8.5-ROUTE-AWARE-0002
  *
  * Endringsregel:
  * Public routes skal ikke pakkes i app-sidebar/app-topbar.
@@ -54,7 +55,7 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import TemplatePageFrame from "./template-page-frame";
+import { TemplatePageFrame } from "./template-page-frame";
 
 type TemplateRootProps = {
   children: ReactNode;
@@ -83,7 +84,7 @@ function isPublicRoute(pathname: string | null): boolean {
   });
 }
 
-export default function TemplateRoot({ children }: TemplateRootProps) {
+export function TemplateRoot({ children }: TemplateRootProps) {
   const pathname = usePathname();
 
   if (isPublicRoute(pathname)) {
@@ -92,3 +93,5 @@ export default function TemplateRoot({ children }: TemplateRootProps) {
 
   return <TemplatePageFrame>{children}</TemplatePageFrame>;
 }
+
+export default TemplateRoot;
