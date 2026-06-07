@@ -7,11 +7,14 @@
  * CollectiumStartsideV42TemaPreview
  *
  * Definering / formål:
- * Visuell startside-preview basert på Collectium V42/V35-retningen.
- * Bruker lokal Tema-kontroll: Collectium, Enkel, Museum, Finans.
+ * Kontrollert Collectium startside-preview med fire visuelle skins:
+ * Collectium, Museum, Enkel og Finans.
  *
  * Bruksområde:
- * Brukes av /startside for å teste riktig visuell retning før global template-splitt.
+ * Brukes av /startside som visuell frontend-preview.
+ *
+ * Berørte sider / routes:
+ * - /startside
  *
  * Berørte DB-brytere / feature_keys:
  * - public.startside.view
@@ -19,7 +22,7 @@
  * - public.catalog.preview
  *
  * Berørte API-ruter:
- * - Ingen direkte i denne previewen.
+ * - Ingen direkte.
  *
  * Berørte tabeller / views:
  * - Ingen direkte.
@@ -31,351 +34,374 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-V42-TEMA-PREVIEW-0001
+ * CT-STARTSIDE-V42-TEMA-PREVIEW-0003
  */
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import styles from "./CollectiumStartsideV42TemaPreview.module.css";
 
-type TemaKey = "collectium" | "enkel" | "museum" | "finans";
+type ThemeKey = "collectium" | "museum" | "enkel" | "finans";
 
-const temaOptions: Array<{ key: TemaKey; label: string }> = [
+const themes: Array<{ key: ThemeKey; label: string }> = [
   { key: "collectium", label: "Collectium" },
-  { key: "enkel", label: "Enkel" },
   { key: "museum", label: "Museum" },
+  { key: "enkel", label: "Enkel" },
   { key: "finans", label: "Finans" },
 ];
 
 const catalogCards = [
-  { value: "100", title: "100 kroner · 1. utgave", meta: "1877 · seddelpapir", price: "15 000 kr" },
-  { value: "50", title: "50 kroner · 2. utgave", meta: "1899 · banknote", price: "9 200 kr" },
-  { value: "500", title: "500 kroner · 3. utgave", meta: "1948 · variant", price: "23 400 kr" },
-  { value: "1000", title: "1000 kroner · lagmann", meta: "1975 · serie", price: "4 500 kr" },
+  {
+    value: "100",
+    title: "100 kroner · Lagmann",
+    meta: "1. utgave · 1877",
+    price: "15 000 kr",
+  },
+  {
+    value: "50",
+    title: "50 kroner · 2. utgave",
+    meta: "Norges Bank · 1899",
+    price: "9 200 kr",
+  },
+  {
+    value: "500",
+    title: "500 kroner · 3. utgave",
+    meta: "Variant · 1948",
+    price: "23 400 kr",
+  },
+  {
+    value: "1000",
+    title: "1000 kroner · Lagmann",
+    meta: "Serie · 1975",
+    price: "4 500 kr",
+  },
 ];
 
 const timeline = [
-  { year: "800", title: "Vikingtid og tidlig handel", text: "De tidligste historiske lagene gir kontekst til perioder og funn." },
-  { year: "1642", title: "Stabilere kilder", text: "Fra 1600-tallet blir datagrunnlaget mer anvendelig for koblinger." },
+  { year: "800", title: "Vikingtid og tidlig handel", text: "Tidlige historiske lag gir kontekst til perioder, funn og handel." },
+  { year: "1642", title: "Stabilere kilder", text: "Fra 1600-tallet blir datagrunnlaget tydeligere og mer anvendelig." },
   { year: "1700+", title: "Marked og valuta", text: "KPI, valuta, metall og økonomiske kilder kan kobles mot objekter." },
   { year: "1920+", title: "Bred finansdata", text: "Flere indikatorer kan brukes samlet for markedsforståelse." },
 ];
 
-const pricing = [
-  { name: "Free", price: "0 kr", text: "Start med katalog og enkel oversikt." },
-  { name: "Bronze", price: "149 kr", text: "Ønskeliste, favoritter og samlingsverktøy." },
-  { name: "Silver", price: "3 000 kr", text: "Flere filter, historikk og markedsoversikt." },
-  { name: "Gold", price: "10 000 kr", text: "Forhandler- og profesjonell samleraktivitet." },
-  { name: "Platinum", price: "50 000 kr", text: "Utvidet arkiv, analyse og flere kilder." },
+const membership = [
+  { name: "Free", price: "0 kr", text: "Start med katalog og enkel oversikt.", cta: "Start gratis" },
+  { name: "Bronze", price: "149 kr", text: "Ønskeliste, favoritter og samlingsverktøy.", cta: "Velg Bronze" },
+  { name: "Silver", price: "3 000 kr", text: "Flere filter, historikk og markedsoversikt.", cta: "Velg Silver", featured: true },
+  { name: "Gold", price: "10 000 kr", text: "Forhandler- og profesjonell samleraktivitet.", cta: "Gå Gold" },
+  { name: "Platinum", price: "50 000 kr", text: "Utvidet arkiv, analyse og flere kilder.", cta: "Kontakt oss" },
 ];
 
 export default function CollectiumStartsideV42TemaPreview() {
-  const [tema, setTema] = useState<TemaKey>("collectium");
-
-  const titleAccent = useMemo(() => {
-    if (tema === "museum") return "ett";
-    if (tema === "finans") return "ett";
-    if (tema === "enkel") return "ett";
-    return "ett";
-  }, [tema]);
+  const [theme, setTheme] = useState<ThemeKey>("collectium");
 
   return (
-    <div className={styles.previewShell} data-tema={tema}>
+    <main className={styles.page} data-theme={theme}>
       <header className={styles.topbar}>
-        <a href="/startside" className={styles.brand} aria-label="Collectium startside">
+        <a className={styles.brand} href="/startside" aria-label="Collectium startside">
           <span className={styles.brandMark}>C</span>
-          <span>
-            <strong>Collectium</strong>
-            <small>Samlerplattform</small>
-          </span>
+          <span>Collectium</span>
         </a>
 
-        <nav className={styles.nav} aria-label="Startside meny">
-          <a href="/startside">Startside</a>
+        <nav className={styles.nav} aria-label="Hovedmeny">
           <a href="/katalog">Katalog</a>
           <a href="/auksjoner">Auksjon</a>
-          <a href="/katalog?segment=historie">Historie</a>
-          <a href="/min-side">Min samling</a>
+          <a href="/min-side">Min side</a>
+          <a href="/admin">Admin</a>
         </nav>
 
-        <div className={styles.topActions}>
-          <a href="/login">Logg inn</a>
-          <a href="/registrering" className={styles.memberButton}>Bli medlem</a>
-
-          <label className={styles.temaControl}>
-            <span>Tema</span>
-            <select value={tema} onChange={(event) => setTema(event.target.value as TemaKey)}>
-              {temaOptions.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className={styles.themeSwitch} aria-label="Velg tema">
+          {themes.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              className={theme === item.key ? styles.themeActive : ""}
+              onClick={() => setTheme(item.key)}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </header>
 
-      <main className={styles.page}>
-        <section className={styles.hero}>
-          <div className={styles.heroCopy}>
-            <p className={styles.kicker}>For samlere · For historien · For markedet</p>
-            <h1>
-              For samlere.
-              <br />
-              Av samlere.
-              <br />
-              Alt på <em>{titleAccent}</em>
-              <br className={styles.mobileBreak} />
-              sted.
-            </h1>
-            <p>
-              Samlerplattformen for norske sedler, mynter, historie og markedsutvikling.
-              Fra private samlinger til katalog, relasjoner og markedsdata.
-            </p>
-            <div className={styles.heroActions}>
-              <a href="/registrering">Start gratis</a>
-              <a href="/katalog">Se katalog</a>
-            </div>
+      <section className={`${styles.section} ${styles.hero}`}>
+        <div className={styles.watermark}>2022</div>
+        <div className={styles.heroInner}>
+          <p className={styles.kicker}>For samlere · fra markedsdata · for samling</p>
+          <h1>
+            For samlere.
+            <br />
+            Av samlere.
+            <br />
+            Alt på <em>ett</em> sted.
+          </h1>
+          <p className={styles.lead}>
+            Samlerplattformen for norske sedler, mynter, historie og markedsutvikling.
+            Katalog, samling, auksjon, relasjoner og verdi samlet i én struktur.
+          </p>
+
+          <div className={styles.actions}>
+            <a className={styles.primary} href="/katalog">Utforsk katalogen</a>
+            <a className={styles.secondary} href="/login">Logg inn</a>
           </div>
 
-          <div className={styles.yearMark}>2022</div>
-
-          <div className={styles.metrics}>
-            <span><strong>12 847</strong><small>katalogobjekter</small></span>
-            <span><strong>1817 →</strong><small>aktive tidslag</small></span>
-            <span><strong>5 land</strong><small>kilder og relasjoner</small></span>
-            <span><strong>847</strong><small>registrerte koblinger</small></span>
+          <div className={styles.stats}>
+            <Stat value="12 847" label="objekter" />
+            <Stat value="1817" label="år i tidslinje" />
+            <Stat value="5 land" label="kilder og områder" />
+            <Stat value="847" label="aktive relasjoner" />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className={styles.manifest}>
-          <div className={styles.sectionHead}>
-            <p>I · Manifest</p>
-            <h2>En <em>relasjonskatalog</em> bygd på data.</h2>
-            <span>
-              Collectium er bygget rundt objekter som alltid skal forstås sammen med kilde,
-              objektgruppe, årstall, variant, regent, materiale, relasjoner og markedsstatus.
-            </span>
+      <section className={`${styles.section} ${styles.archive}`}>
+        <div className={styles.sectionInner}>
+          <p className={styles.kicker}>I sentrum</p>
+          <h2>Et arkiv <em>bygd av samlere.</em></h2>
+          <p className={styles.sectionText}>
+            Collectium er ikke en database alene. Det er en levende struktur der
+            hvert objekt kan kobles mot samling, historie, marked, kilder og relasjoner.
+          </p>
+
+          <div className={styles.threeCols}>
+            <InfoBlock title="Din samling, i ditt navn" text="Hjerte, stjerne, Min samling, transaksjoner, notater og deling." />
+            <InfoBlock title="Hver mynt har en historie" text="Regent, periode, utgave, funn, signaturer, personer og hendelser." />
+            <InfoBlock title="Verdi i kontekst" text="Markedsverdi, prisobservasjoner, trend, likviditet og historisk økonomi." />
           </div>
+        </div>
+      </section>
 
-          <div className={styles.manifestGrid}>
-            <article>
-              <p>I · For samlere</p>
-              <h3>Samlerstatus, <em>på objektet.</em></h3>
-              <span>Hjerte, stjerne, Min samling, egne lister, kjøp, salg og dokumentasjon følger objektet.</span>
-            </article>
-            <article>
-              <p>II · For historien</p>
-              <h3>Historien er <em>en relasjon.</em></h3>
-              <span>Tidslinjen går fra år 800 og kobler objektår, regent, union, hendelser og økonomi.</span>
-            </article>
-            <article>
-              <p>III · For markedet</p>
-              <h3>Marked i <em>kontekst.</em></h3>
-              <span>0 kr betyr ikke reell verdi. Finansvisning skiller verdi, trend, likviditet og prisdata.</span>
-            </article>
-          </div>
-        </section>
-
-        <section className={styles.history}>
-          <div className={styles.quote}>
-            <p>II · Historie</p>
+      <section className={`${styles.section} ${styles.history}`}>
+        <div className={styles.split}>
+          <div className={styles.quoteBox}>
+            <p className={styles.kicker}>Historie</p>
             <blockquote>
-              Hver krone, hver seddel, hvert merke fra unionstiden bærer sporene av sin tid.
+              Hver krone, hver seddel, hvert merke fra unionstiden bærer sporene
+              av sin tid. Vi bevarer sporene.
             </blockquote>
           </div>
 
           <div className={styles.timeline}>
-            <p>Historien lever <em>i hver gjenstand.</em></p>
+            <p className={styles.kicker}>Historisk kontekst</p>
+            <h2>Historien lever <em>i hver gjenstand.</em></h2>
+            <p className={styles.sectionText}>
+              Fra tidlige kilder til moderne markedsdata bygger Collectium en
+              relasjonsmodell som forklarer hvorfor et objekt betyr noe.
+            </p>
+
             {timeline.map((item) => (
-              <article key={item.year}>
+              <div className={styles.timelineRow} key={item.year}>
                 <strong>{item.year}</strong>
-                <span>
-                  <b>{item.title}</b>
-                  {item.text}
-                </span>
-              </article>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className={styles.catalog}>
-          <div className={styles.sectionHead}>
-            <p>III · Katalog</p>
-            <h2>12 847 objekter, <em>én kilde.</em></h2>
-            <span>
-              Norske sedler, mynter og historiske objekter kan vises som samlerdata,
-              historiedata og finansdata i samme katalogiske sammenheng.
-            </span>
-          </div>
+      <section className={`${styles.section} ${styles.catalog}`}>
+        <div className={styles.sectionInner}>
+          <p className={styles.kicker}>Katalog</p>
+          <h2>12 847 objekter, <em>én kilde.</em></h2>
+          <p className={styles.sectionText}>
+            Norske sedler, mynter og historiske objekter samlet med kilde,
+            objektgruppe, relasjoner og markedsdata.
+          </p>
 
-          <div className={styles.catalogCards}>
+          <div className={styles.cardRow}>
             {catalogCards.map((card) => (
-              <article key={card.value}>
-                <div className={styles.cardImage}>
-                  <strong>{card.value}</strong>
-                  <span />
-                </div>
+              <article className={styles.catalogCard} key={card.value}>
+                <div className={styles.cardValue}>{card.value}</div>
+                <div className={styles.cardImage} />
                 <h3>{card.title}</h3>
                 <p>{card.meta}</p>
-                <b>{card.price}</b>
+                <strong>{card.price}</strong>
               </article>
             ))}
           </div>
 
-          <div className={styles.centerActions}>
-            <a href="/katalog">Åpne katalogen</a>
-            <a href="/katalog?segment=historie">Se historien</a>
+          <div className={styles.actionsCenter}>
+            <a className={styles.primary} href="/katalog">Åpne katalogen</a>
+            <a className={styles.secondary} href="/katalog?segment=historie">Historie</a>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className={styles.context}>
-          <div className={styles.sectionHead}>
-            <p>IV · Relasjon</p>
-            <h2>Katalogoversikt, historisk kontekst og <em>markedsinnsikt.</em></h2>
-            <span>
-              Ett objekt kan leses i flere lag: katalogfelt, relasjoner, historisk periode,
-              regent, materialer, verdiutvikling og brukerstatus.
-            </span>
-          </div>
-
-          <div className={styles.contextPanels}>
-            <article>
-              <h3>Katalogoversikt</h3>
-              <ul>
-                <li>Land / område</li>
-                <li>Kilde</li>
-                <li>Objekttype</li>
-                <li>Valørutgave / serie</li>
-              </ul>
-            </article>
-            <article className={styles.darkPanel}>
-              <h3>Historisk kontekst</h3>
-              <ul>
-                <li>Regent / konge</li>
-                <li>Historisk periode</li>
-                <li>Hendelser</li>
-                <li>Funn og proveniens</li>
-              </ul>
-            </article>
-            <article>
-              <h3>Markedsinnsikt</h3>
-              <ul>
-                <li>Markedsverdi</li>
-                <li>Trend 12 mnd</li>
-                <li>Likviditet</li>
-                <li>Auksjon / butikk</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section className={styles.regent}>
+      <section className={`${styles.section} ${styles.king}`}>
+        <div className={styles.split}>
           <div>
-            <p>V · Relasjon</p>
+            <p className={styles.kicker}>Relasjon</p>
             <h2>Fra Oscar II <br />til <em>Harald V.</em></h2>
-            <span>
-              Hver seddel og mynt kan kobles mot regent, periode, union, hendelser
-              og historisk maktstruktur.
-            </span>
-            <div className={styles.microStats}>
-              <b>1877</b>
-              <b>1905</b>
-              <b>2022</b>
-              <b>5 land</b>
+            <p className={styles.sectionText}>
+              Koble sedler og mynter mot regenter, perioder, utgaver, signaturer,
+              hendelser og markedsdata.
+            </p>
+
+            <div className={styles.smallStats}>
+              <Stat value="1872" label="start" />
+              <Stat value="1905" label="union" />
+              <Stat value="2022" label="arkiv" />
+              <Stat value="1848" label="objekter" />
+            </div>
+
+            <div className={styles.actions}>
+              <a className={styles.primary} href="/relasjon/konge">Se relasjoner</a>
+              <a className={styles.secondary} href="/katalog">Til katalog</a>
             </div>
           </div>
 
-          <div className={styles.regentImage}>
-            <span>ANN</span>
-            <small>© Collectium</small>
+          <div className={styles.artPanel}>
+            <span>ANNO</span>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className={styles.collection}>
-          <div className={styles.collectionCard}>
-            <p>Min samling · 47 objekter</p>
-            <div className={styles.miniTabs}>
-              <span>47</span>
-              <span>624 200</span>
-              <span>12+</span>
+      <section className={`${styles.section} ${styles.collection}`}>
+        <div className={styles.split}>
+          <div className={styles.miniDashboard}>
+            <p className={styles.kicker}>Min samling · 47 objekter</p>
+            <div className={styles.dashboardTop}>
+              <strong>47</strong>
+              <strong>624 200</strong>
+              <strong>1+</strong>
             </div>
-            <ul>
-              <li><span />1 krone · 1917-serien <b>+ 4,2 %</b></li>
-              <li><span />50 kroner · 2. utgave <b>+ 1,8 %</b></li>
-              <li><span />100 kroner · Oscar II <b>- 0,7 %</b></li>
-            </ul>
+            <Progress label="Norske sedler" value="82%" />
+            <Progress label="Mynter" value="46%" />
+            <Progress label="Historiske dokumenter" value="21%" />
           </div>
 
           <div>
-            <p>VI · Min samling</p>
+            <p className={styles.kicker}>Din samling</p>
             <h2>Ditt arkiv, <em>ditt valg av synlighet.</em></h2>
-            <span>
-              Registrer kvalitet, kjøpspris, proveniens, dokumentasjon og private notater.
-              Velg selv hva som skal være privat eller delt.
-            </span>
-          </div>
-        </section>
+            <p className={styles.sectionText}>
+              Registrer kjøp, salg, kvalitet, dokumentasjon, bilder og historikk.
+              Del enkeltobjekter eller grupper med tidslenke.
+            </p>
 
-        <section className={styles.market}>
-          <div className={styles.sectionHead}>
-            <p>VII · Marked</p>
-            <h2>Markedsdata fra <em>200 år.</em></h2>
-            <span>
-              Historisk og finansiell innsikt gjennom flere tidslag. KPI, valuta, gull,
-              sølv og markedsobservasjoner kobles til objektets periode.
-            </span>
+            <div className={styles.actions}>
+              <a className={styles.primary} href="/min-side">Min side</a>
+              <a className={styles.secondary} href="/samling">Samling</a>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className={`${styles.section} ${styles.market}`}>
+        <div className={styles.sectionInner}>
+          <p className={styles.kicker}>Marked</p>
+          <h2>Markedsdata fra <em>200 år.</em></h2>
+          <p className={styles.sectionText}>
+            Historisk og finansiell innsikt gjennom flere tidslag. Verdi, trend,
+            likviditet, auksjoner, valuta, metall og KPI samlet i samme analyseflate.
+          </p>
 
           <div className={styles.marketStats}>
-            <article><strong>800-tallet</strong><span>tidligste historiske lag</span></article>
-            <article><strong>1642+</strong><span>bedre struktur i kildene</span></article>
-            <article><strong>1700+</strong><span>KPI, valuta og metall</span></article>
-            <article><strong>1920+</strong><span>bred finanshistorikk</span></article>
+            <Stat value="8 432" label="markedsobjekter" />
+            <Stat value="3 124" label="prisobservasjoner" />
+            <Stat value="+4,2 %" label="trend 12 mnd" />
           </div>
 
-          <div className={styles.marketTable}>
-            <span>1917 · 1 krone · prisobservasjon</span><b>15 000 kr</b>
-            <span>1936 · variant · auksjon</span><b>8 400 kr</b>
-            <span>1975 · 1000 kroner · privat salg</span><b>4 500 kr</b>
+          <div className={styles.dataTable}>
+            <div><span>1877</span><span>100 kroner · 1. utgave</span><strong>+12,4 %</strong></div>
+            <div><span>1917</span><span>1 krone · litra A</span><strong>+8,1 %</strong></div>
+            <div><span>1942</span><span>London-regjeringen</span><strong>+6,8 %</strong></div>
+            <div><span>1975</span><span>1000 kroner · serie</span><strong>-1,2 %</strong></div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className={styles.pricing}>
-          <div className={styles.sectionHead}>
-            <p>VIII · Medlemskap</p>
-            <h2>Riktige priser, <em>riktig tilgangsnivå.</em></h2>
-            <span>
-              Fra gratis katalogstart til profesjonell bruker, forhandler og utvidet arkiv.
-            </span>
+      <section className={`${styles.section} ${styles.pricing}`}>
+        <div className={styles.sectionInner}>
+          <div className={styles.pricingHead}>
+            <div>
+              <p className={styles.kicker}>Medlemskap</p>
+              <h2>Riktige priser, <em>riktig tilgangsnivå.</em></h2>
+              <p className={styles.sectionText}>
+                Start gratis. Utvid tilgang når du trenger flere filter, dypere historikk
+                og mer markedsdata.
+              </p>
+            </div>
+
+            <div className={styles.togglePill}>
+              <span>Årlig</span>
+              <strong>Mnd</strong>
+            </div>
           </div>
 
           <div className={styles.priceGrid}>
-            {pricing.map((item) => (
-              <article key={item.name} className={item.name === "Silver" ? styles.featuredPrice : ""}>
-                <h3>{item.name}</h3>
-                <strong>{item.price}</strong>
-                <p>{item.text}</p>
-                <button type="button">{item.name === "Silver" ? "Velg Silver" : "Les mer"}</button>
+            {membership.map((plan) => (
+              <article
+                key={plan.name}
+                className={`${styles.priceCard} ${plan.featured ? styles.featuredPlan : ""}`}
+              >
+                {plan.featured ? <span className={styles.badge}>Anbefalt</span> : null}
+                <h3>{plan.name}</h3>
+                <strong>{plan.price}</strong>
+                <p>{plan.text}</p>
+                <ul>
+                  <li>Katalogtilgang</li>
+                  <li>Samlerfunksjoner</li>
+                  <li>Historisk kontekst</li>
+                </ul>
+                <a href="/medlemskap">{plan.cta}</a>
               </article>
             ))}
           </div>
-        </section>
 
-        <section className={styles.cta}>
+          <p className={styles.note}>
+            Prisene er introduksjonspriser. Tilgang styres senere av medlemskap,
+            feature_keys og DB-brytere.
+          </p>
+        </div>
+      </section>
+
+      <section className={`${styles.section} ${styles.cta}`}>
+        <div className={styles.ctaInner}>
           <h2>Bli en del av <em>Collectium-arkivet.</em></h2>
-          <p>Gratis å starte. Katalogen gir inngang til Samler, Historie og Finans.</p>
-          <div className={styles.heroActions}>
-            <a href="/registrering">Start gratis</a>
-            <a href="/katalog">Utforsk katalogen</a>
+          <p>
+            Gratis å starte. Katalogen gir inngang til Samler, Historie og Finans.
+          </p>
+          <div className={styles.actionsCenter}>
+            <a className={styles.primary} href="/sign-up">Start gratis</a>
+            <a className={styles.secondary} href="/katalog">Se katalogen</a>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <footer className={styles.footer}>
-          <strong>© Collectium</strong>
-          <span>Relasjonskatalog · samlerplattform · historisk og finansiell kontekst</span>
-        </footer>
-      </main>
+      <footer className={styles.footer}>
+        <span className={styles.brandMark}>C</span>
+        <strong>Collectium</strong>
+        <p>Norske sedler · mynter · historie · marked · samling</p>
+      </footer>
+    </main>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className={styles.stat}>
+      <strong>{value}</strong>
+      <span>{label}</span>
     </div>
   );
 }
 
+function InfoBlock({ title, text }: { title: string; text: string }) {
+  return (
+    <article className={styles.infoBlock}>
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </article>
+  );
+}
+
+function Progress({ label, value }: { label: string; value: string }) {
+  return (
+    <div className={styles.progressRow}>
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}

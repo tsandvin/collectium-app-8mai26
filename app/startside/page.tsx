@@ -6,7 +6,7 @@
  *
  * Definering / formål:
  * Next.js route for Collectium startside.
- * Viser kontrollert V42 Tema Preview.
+ * Renderer kontrollert Startside V42 med fire skins.
  *
  * Bruksområde:
  * Route: /startside
@@ -31,7 +31,7 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0002
+ * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0003
  *
  * Endringsregel:
  * Denne filen skal kun rendre startsidens innholdskomponent.
