@@ -46,11 +46,7 @@
  * Ingen DB-logging.
  *
  * Versjon:
- * CT-TEMPLATE-ROOT-8.5-ROUTE-AWARE-0002
- *
- * Endringsregel:
- * Public routes skal ikke pakkes i app-sidebar/app-topbar.
- * App routes skal fortsatt bruke global app-template.
+ * CT-TEMPLATE-ROOT-8.5-ROUTE-AWARE-0003
  */
 
 import { usePathname } from "next/navigation";

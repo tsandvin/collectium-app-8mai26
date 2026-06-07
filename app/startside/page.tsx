@@ -1,50 +1,41 @@
-﻿import CollectiumPublicShell from "@/components/layout/CollectiumPublicShell";
-/**
+﻿/**
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
  * Startside
  *
- * Definering / formÃ¥l:
- * Next.js route for Collectium startside. Renders only the page content component.
- * The global shell, topbar, sidebar, mobile menu, page frame and skin are owned by
- * app/layout.tsx and components/layout/components/templates.
+ * Definering / formål:
+ * Public startside for Collectium.
  *
- * BruksomrÃ¥de:
- * Public startside route.
+ * Bruksområde:
+ * Route: /startside
  *
- * BerÃ¸rte sider / routes:
- * - /startside
+ * Berørte DB-brytere / feature_keys:
+ * - public.startside.view
  *
- * BerÃ¸rte DB-brytere / feature_keys:
- * - landing.view
- * - catalog.view
- * - membership.view
+ * Berørte API-ruter:
+ * - Ingen direkte.
  *
- * BerÃ¸rte API-ruter:
- * - none in this static first React version
- *
- * BerÃ¸rte tabeller / views:
- * - none in this static first React version
+ * Berørte tabeller / views:
+ * - Ingen direkte.
  *
  * Dataretning:
- * MariaDB â†’ API/backend â†’ Next.js â†’ React â†’ UI
+ * Public route -> PublicShell -> Startside V47
  *
- * Logging:
- * log_category: landing
- * log_action: view
+ * Versjon:
+ * CT-STARTSIDE-ROUTE-8.5-V47-0001
  *
  * Endringsregel:
- * This file must not create AppShell, Topbar, Sidebar, body/html or local global shell.
+ * Denne route-filen skal ikke lage app-sidebar, app-topbar, body/html eller lokal global shell.
  */
 
-import CollectiumStartsideV46React from "@/components/startside/CollectiumStartsideV46React";
+import CollectiumPublicShell from "@/components/layout/CollectiumPublicShell";
+import CollectiumStartsideV47Public from "@/components/startside/CollectiumStartsideV47Public";
 
 export default function StartsidePage() {
   return (
     <CollectiumPublicShell>
-      <CollectiumStartsideV46React />
+      <CollectiumStartsideV47Public />
     </CollectiumPublicShell>
   );
 }
-

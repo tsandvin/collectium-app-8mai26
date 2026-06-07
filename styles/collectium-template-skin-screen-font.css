@@ -11,41 +11,9 @@
  * Importeres globalt i app/layout.tsx og brukes av PublicShell, AppShell, Topbar, Sidebar,
  * PageFrame og sideinnhold.
  *
- * Berørte sider / routes:
- * - /startside
- * - /katalog
- * - /auksjon
- * - /min-side
- * - /admin
- *
- * Berørte DB-brytere / feature_keys:
- * - template.ui.view
- * - template.skin.switch
- * - template.viewport.switch
- * - template.font.switch
- *
- * Berørte API-ruter:
- * - Ingen direkte. Dette er lokal UI/template-kontroll.
- *
- * Berørte tabeller / views:
- * - Ingen direkte.
- *
- * Dataretning:
- * Global template/design → React UI
- *
- * Logging:
- * Lokal UI-kontroll. Ingen DB-skriving.
- *
  * Versjon:
- * CT-DESIGN-TOKENS-8.5-0001
- *
- * Endringsregel:
- * Design/skall styres globalt. Sider skal ikke eie shell, rammer eller skin.
+ * CT-DESIGN-TOKENS-8.5-0002
  */
-
-/* ============================================================
-   COLLECTIUM TEMPLATE / SKIN / SCREEN / FONT TOKENS 8.5
-   ============================================================ */
 
 :root {
   --ct-font-base: 14px;
@@ -53,7 +21,7 @@
   --ct-topbar-h: 72px;
   --ct-sidebar-w: 264px;
   --ct-page-pad: clamp(18px, 2.3vw, 42px);
-  --ct-page-max: 1780px;
+  --ct-page-max: 1840px;
   --ct-radius-shell: 28px;
   --ct-radius-card: 18px;
 
@@ -61,8 +29,8 @@
   --ct-shadow-card: 0 18px 44px rgba(18, 34, 47, 0.10);
 
   --ct-app-bg: #eaf3f6;
-  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f6f8f8 48%, #dfe9ec 100%);
-  --ct-panel-bg: rgba(255, 255, 255, 0.72);
+  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f8faf9 48%, #dfe9ec 100%);
+  --ct-panel-bg: rgba(255, 255, 255, 0.74);
   --ct-panel-border: rgba(101, 130, 146, 0.22);
   --ct-text: #14242e;
   --ct-muted: #617482;
@@ -77,12 +45,12 @@
   --ct-frame-line: rgba(85, 113, 130, 0.32);
 }
 
-/* Template names */
 html[data-template="collectium"] {
   --ct-radius-shell: 28px;
   --ct-radius-card: 18px;
 }
 
+html[data-template="enkel"],
 html[data-template="minimal"] {
   --ct-radius-shell: 16px;
   --ct-radius-card: 12px;
@@ -101,10 +69,9 @@ html[data-template="finans"] {
   --ct-accent: #1d6b63;
 }
 
-/* Skins */
 html[data-skin="signature-light"] {
   --ct-app-bg: #eaf3f6;
-  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f6f8f8 48%, #dfe9ec 100%);
+  --ct-page-bg: linear-gradient(135deg, #e7f0f3 0%, #f8faf9 48%, #dfe9ec 100%);
   --ct-panel-bg: rgba(255, 255, 255, 0.74);
   --ct-panel-border: rgba(87, 116, 133, 0.24);
   --ct-text: #14242e;
@@ -162,7 +129,6 @@ html[data-skin="minimal-dark"] {
   --ct-accent-2: #6aa6c9;
 }
 
-/* Screen / viewport modes */
 html[data-vp="mobile"] {
   --ct-font-base: 13px;
   --ct-topbar-h: 64px;
@@ -185,7 +151,7 @@ html[data-vp="pc"] {
   --ct-topbar-h: 72px;
   --ct-sidebar-w: 264px;
   --ct-page-pad: clamp(24px, 2.2vw, 42px);
-  --ct-page-max: 1780px;
+  --ct-page-max: 1840px;
 }
 
 html[data-vp="wide"] {
@@ -193,7 +159,7 @@ html[data-vp="wide"] {
   --ct-topbar-h: 72px;
   --ct-sidebar-w: 264px;
   --ct-page-pad: 42px;
-  --ct-page-max: 2400px;
+  --ct-page-max: 2440px;
 }
 
 html[data-vp="tv"] {
@@ -204,13 +170,11 @@ html[data-vp="tv"] {
   --ct-page-max: 2900px;
 }
 
-/* Font scale */
 html[data-font="compact"] { --ct-font-base: 12.5px; }
 html[data-font="normal"] { --ct-font-base: 14px; }
 html[data-font="large"] { --ct-font-base: 15.5px; }
 html[data-font="presentation"] { --ct-font-base: 17px; }
 
-/* Global frame/signature helper */
 .ct-frame,
 .ct-panel,
 .ct-card,
@@ -236,7 +200,6 @@ html[data-font="presentation"] { --ct-font-base: 17px; }
   pointer-events: none;
 }
 
-/* Utility shell */
 .ct-public-page {
   min-height: 100vh;
   background: var(--ct-page-bg);
@@ -249,18 +212,4 @@ html[data-font="presentation"] { --ct-font-base: 17px; }
   background: var(--ct-page-bg);
   color: var(--ct-text);
   font-size: var(--ct-font-base);
-}
-
-@media (max-width: 719px) {
-  :root {
-    --ct-topbar-h: 64px;
-    --ct-page-pad: 14px;
-  }
-}
-
-@media (min-width: 720px) and (max-width: 1100px) {
-  :root {
-    --ct-topbar-h: 68px;
-    --ct-page-pad: 22px;
-  }
 }

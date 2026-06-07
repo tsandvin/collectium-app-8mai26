@@ -8,32 +8,14 @@
  * Offentlig shell for startside/landingsside uten app-sidemeny.
  *
  * Bruksområde:
- * Skal brukes av /startside og andre offentlige sider som ikke skal ha venstre app-sidebar.
- *
- * Berørte sider / routes:
- * - /startside
- * - /landingsside
+ * Skal brukes av /startside og andre public routes.
  *
  * Berørte DB-brytere / feature_keys:
  * - public.startside.view
- *
- * Berørte API-ruter:
- * - Ingen direkte.
- *
- * Berørte tabeller / views:
- * - Ingen direkte.
- *
- * Dataretning:
- * Template/design → React UI
- *
- * Logging:
- * Ingen DB-logging.
+ * - template.public.shell
  *
  * Versjon:
- * CT-PUBLIC-SHELL-8.5-0001
- *
- * Endringsregel:
- * PublicShell er separat fra AppShell. Fjerner ikke global app-sidebar for app-sider.
+ * CT-PUBLIC-SHELL-8.5-0002
  */
 
 import Link from "next/link";
