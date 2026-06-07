@@ -19,67 +19,131 @@
 }
 
 .previewShell[data-tema="collectium"] {
-  --bg: #101417;
-  --bg2: #1b252b;
-  --section: #17252e;
-  --panel: #202c34;
-  --panel2: #eef4f4;
-  --text: #edf3f2;
-  --muted: #9daeb4;
-  --line: rgba(255, 255, 255, 0.13);
-  --accent: #18b982;
-  --accent2: #0d5f88;
-  --paper: #edf4f4;
-  --paperText: #13252f;
-  --gold: #caa85b;
+  --ct-app-bg: #f3eadb;
+  --ct-app-sidebar-bg: linear-gradient(180deg, #ead9bd 0%, #dfcaa3 100%);
+  --ct-app-topbar-bg: rgba(33, 35, 29, 0.92);
+  --ct-panel-bg: rgba(255, 248, 235, 0.86);
+  --ct-panel-solid: #fff7e8;
+  --ct-card-bg: #fff8ed;
+  --ct-panel-border: #e2cfad;
+  --ct-border-strong: #d2b98b;
+  --ct-line: #d8d2c7;
+  --ct-text: #103b2b;
+  --ct-text-soft: #354f3f;
+  --ct-text-muted: #927f5f;
+  --ct-accent: #11683f;
+  --ct-accent-dark: #093c2b;
+  --ct-accent-soft: #d8ad3f;
+  --ct-signature: #a67d36;
+  --ct-watermark: #a83a21;
+  --ct-status-ok: #126b3f;
+  --ct-status-pending: #aa7f34;
+  --ct-status-rejected: #a83a21;
+  --ct-hero-bg:
+    radial-gradient(circle at 82% 12%, rgba(17, 104, 63, 0.10), transparent 25%),
+    linear-gradient(180deg, #f3eadb 0%, #ead9bd 100%);
+  --ct-dark-section: #171813;
+  --ct-dark-panel: #242018;
+  --ct-font-display: "Playfair Display", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --ct-font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --ct-font-ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ct-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
 .previewShell[data-tema="enkel"] {
-  --bg: #f5f1e8;
-  --bg2: #eef5f8;
-  --section: #f6efe3;
-  --panel: #ffffff;
-  --panel2: #ffffff;
-  --text: #12304a;
-  --muted: #526b78;
-  --line: rgba(20, 55, 78, 0.18);
-  --accent: #0c5e93;
-  --accent2: #0c5e93;
-  --paper: #ffffff;
-  --paperText: #12304a;
-  --gold: #b58c35;
+  --ct-app-bg: #f7fafc;
+  --ct-app-sidebar-bg: linear-gradient(180deg, #ffffff 0%, #edf4f8 100%);
+  --ct-app-topbar-bg: rgba(255, 255, 255, 0.92);
+  --ct-panel-bg: rgba(255, 255, 255, 0.92);
+  --ct-panel-solid: #ffffff;
+  --ct-card-bg: #ffffff;
+  --ct-panel-border: #d8e4ee;
+  --ct-border-strong: #c2d4e3;
+  --ct-line: #dcebf6;
+  --ct-text: #0b3558;
+  --ct-text-soft: #41566f;
+  --ct-text-muted: #7f90a4;
+  --ct-accent: #2765a3;
+  --ct-accent-dark: #0d3457;
+  --ct-accent-soft: #9ac7ad;
+  --ct-signature: #2765a3;
+  --ct-watermark: #2765a3;
+  --ct-status-ok: #3d765e;
+  --ct-status-pending: #82672a;
+  --ct-status-rejected: #a63a22;
+  --ct-hero-bg:
+    radial-gradient(circle at 82% 12%, rgba(39, 101, 163, 0.08), transparent 25%),
+    linear-gradient(180deg, #ffffff 0%, #edf4f8 100%);
+  --ct-dark-section: #102a3d;
+  --ct-dark-panel: #17374d;
+  --ct-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --ct-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ct-font-ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ct-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
 .previewShell[data-tema="museum"] {
-  --bg: #11100f;
-  --bg2: #25221d;
-  --section: #29251f;
-  --panel: #25231f;
-  --panel2: #f2eadb;
-  --text: #f5ecdc;
-  --muted: #b8aa92;
-  --line: rgba(214, 178, 98, 0.22);
-  --accent: #c9a34f;
-  --accent2: #c9a34f;
-  --paper: #f1eadc;
-  --paperText: #243221;
-  --gold: #c9a34f;
+  --ct-app-bg: #161514;
+  --ct-app-sidebar-bg: linear-gradient(180deg, #24211d 0%, #11100f 100%);
+  --ct-app-topbar-bg: rgba(17, 16, 15, 0.94);
+  --ct-panel-bg: rgba(31, 29, 27, 0.88);
+  --ct-panel-solid: #211f1d;
+  --ct-card-bg: #1b1b1c;
+  --ct-panel-border: #4a3f2b;
+  --ct-border-strong: #65583b;
+  --ct-line: #40392c;
+  --ct-text: #e7dfcf;
+  --ct-text-soft: #c3b9a3;
+  --ct-text-muted: #8a8578;
+  --ct-accent: #c1a05b;
+  --ct-accent-dark: #aa7d34;
+  --ct-accent-soft: #dbc780;
+  --ct-signature: #a97d36;
+  --ct-watermark: #bd9850;
+  --ct-status-ok: #8fb67d;
+  --ct-status-pending: #d6bf7e;
+  --ct-status-rejected: #c97759;
+  --ct-hero-bg:
+    radial-gradient(circle at 82% 12%, rgba(193, 160, 91, 0.09), transparent 24%),
+    linear-gradient(180deg, #161514 0%, #24211d 100%);
+  --ct-dark-section: #11100f;
+  --ct-dark-panel: #24211d;
+  --ct-font-display: "Cinzel", "Trajan Pro", Georgia, "Times New Roman", serif;
+  --ct-font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --ct-font-ui: "Cinzel", Inter, ui-sans-serif, system-ui, sans-serif;
+  --ct-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
 .previewShell[data-tema="finans"] {
-  --bg: #071318;
-  --bg2: #132933;
-  --section: #18323c;
-  --panel: #1d3440;
-  --panel2: #eef5f4;
-  --text: #f0f7f6;
-  --muted: #a5b9bf;
-  --line: rgba(42, 203, 151, 0.18);
-  --accent: #20c987;
-  --accent2: #168f78;
-  --paper: #edf4f4;
-  --paperText: #0f2730;
-  --gold: #20c987;
+  --ct-app-bg: #0b2028;
+  --ct-app-sidebar-bg: linear-gradient(180deg, #122c35 0%, #07171d 100%);
+  --ct-app-topbar-bg: rgba(8, 22, 28, 0.94);
+  --ct-panel-bg: rgba(25, 44, 54, 0.9);
+  --ct-panel-solid: #192d36;
+  --ct-card-bg: #1b303a;
+  --ct-panel-border: #2c4050;
+  --ct-border-strong: #205b4c;
+  --ct-line: #2d3f4a;
+  --ct-text: #dbe9ef;
+  --ct-text-soft: #a8bdc6;
+  --ct-text-muted: #7891a1;
+  --ct-accent: #2cab81;
+  --ct-accent-dark: #218f69;
+  --ct-accent-soft: #ba913b;
+  --ct-signature: #2cab81;
+  --ct-watermark: #2cab81;
+  --ct-status-ok: #2cab81;
+  --ct-status-pending: #ba913b;
+  --ct-status-rejected: #d14d50;
+  --ct-hero-bg:
+    radial-gradient(circle at 82% 12%, rgba(44, 171, 129, 0.12), transparent 24%),
+    linear-gradient(180deg, #0b2028 0%, #122c35 100%);
+  --ct-dark-section: #071419;
+  --ct-dark-panel: #132d37;
+  --ct-font-display: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --ct-font-body: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --ct-font-ui: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --ct-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
 .topbar {
@@ -853,3 +917,4 @@
     top: 90px;
   }
 }
+
