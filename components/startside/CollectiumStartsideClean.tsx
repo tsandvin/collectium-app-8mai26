@@ -46,6 +46,14 @@
 import { useMemo, useState } from "react";
 import styles from "./CollectiumStartsideClean.module.css";
 
+
+const marketImageStyle: CSSProperties = {
+  backgroundImage:
+    "linear-gradient(90deg, rgba(8, 10, 9, 0.96) 0%, rgba(8, 10, 9, 0.84) 42%, rgba(8, 10, 9, 0.92) 100%), url('/collectium-tema/anno-2022-konge-bg.png')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+};
 type ThemeKey = "collectium" | "enkel" | "museum" | "finans";
 type SegmentKey = "samler" | "historie" | "finans";
 type ObjectKind = "banknote" | "coin";
@@ -570,4 +578,6 @@ function Access({ tier, title }: { tier: string; title: string }) {
     </div>
   );
 }
+
+
 
