@@ -43,6 +43,8 @@ import styles from "./CollectiumStartsideV46React.module.css";
 
 type TemplateKey = "collectium" | "enkel" | "museum" | "finans";
 type CatalogSegment = "samler" | "historie" | "finans";
+type ObjectKind = "banknote" | "coin";
+type PeriodKey = "all" | "oscar" | "karl" | "haakon" | "modern";
 type BillingMode = "monthly" | "yearly";
 
 const templates: Array<{
