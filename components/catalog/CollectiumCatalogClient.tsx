@@ -262,10 +262,26 @@ export default function CollectiumCatalogClient() {
 
     if (periodOverride && access.canUsePeriod) {
       const set = activePeriod.set
-      if (set.ruler) result = result.filter((obj) => obj.ruler === set.ruler || set.ruler === "Historisk kontekst")
-      if (set.signature) result = result.filter((obj) => obj.signature === set.signature)
-      if (set.finance && access.canUseFinance) result = result.filter((obj) => obj.finance === set.finance)
-      if (set.variant) result = result.filter((obj) => obj.variant === set.variant)
+
+      if ("ruler" in set && set.ruler) {
+        const ruler = set.ruler
+        result = result.filter((obj) => obj.ruler === ruler || ruler === "Historisk kontekst")
+      }
+
+      if ("signature" in set && set.signature) {
+        const signature = set.signature
+        result = result.filter((obj) => obj.signature === signature)
+      }
+
+      if ("finance" in set && set.finance && access.canUseFinance) {
+        const finance = set.finance
+        result = result.filter((obj) => obj.finance === finance)
+      }
+
+      if ("variant" in set && set.variant) {
+        const variant = set.variant
+        result = result.filter((obj) => obj.variant === variant)
+      }
     }
 
     return result.slice(0, access.limit)
@@ -693,3 +709,4 @@ function Actions({ href }: { href: string }) {
     </div>
   )
 }
+
