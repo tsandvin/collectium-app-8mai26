@@ -615,7 +615,7 @@
 
 .membershipHead {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 30px;
 }
@@ -940,7 +940,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 28px;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .objectKindSwitch,
@@ -997,7 +997,7 @@
 
 .periodHead {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
 }
@@ -1437,4 +1437,5 @@
     font-size: 3rem;
   }
 }
+
 
