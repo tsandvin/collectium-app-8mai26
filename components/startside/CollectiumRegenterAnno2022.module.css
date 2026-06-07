@@ -327,3 +327,62 @@
 
 /* END COLLECTIUM REGENT LINK ACTIONS 0002 */
 
+/* COLLECTIUM REGENT LINK ACTIONS 0002
+   Formål:
+   Regentfeltets "Utforsk regenter" og "Tidslinje" skal se ut som rolige lenker,
+   ikke som tunge knapper. Bildet og historiefeltet skal beholde museumspreg.
+*/
+
+.actions {
+  align-items: center !important;
+  gap: 28px !important;
+  margin-top: 48px !important;
+}
+
+.actions a {
+  min-height: 0 !important;
+  padding: 0 0 5px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(245, 237, 217, .86) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  letter-spacing: .02em !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(198, 163, 72, .42) !important;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.actions a:first-child {
+  background: transparent !important;
+  border-color: rgba(198, 163, 72, .68) !important;
+  color: #d6b459 !important;
+}
+
+.actions a:hover {
+  transform: translateY(-1px) !important;
+  color: #f6edda !important;
+  border-color: #d6b459 !important;
+  box-shadow: none !important;
+}
+
+.imageLayer {
+  filter: saturate(.92) contrast(1.12) brightness(1.05) !important;
+}
+
+.content h2,
+.lead,
+.kicker,
+.yearGrid,
+.actions {
+  text-shadow: none !important;
+}
+
+/* END COLLECTIUM REGENT LINK ACTIONS 0002 */
+
