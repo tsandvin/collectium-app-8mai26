@@ -1438,208 +1438,6 @@
   }
 }
 
-/* === COLLECTIUM 3D BUTTON SYSTEM START === */
-
-/*
- * COLLECTIUM FILE HEADER
- *
- * Overskrift:
- * Startside 3D button system
- *
- * Definering / formål:
- * Gir alle knapper, CTA-er, segmentbrytere og filterbrytere på startsiden
- * en tydeligere Collectium-stil med to grønntoner, 3D-dybde, glød og hover.
- *
- * Bruksområde:
- * /startside
- *
- * Berørte sider / routes:
- * - /startside
- *
- * Berørte DB-brytere / feature_keys:
- * - public.startside.view
- * - landing.register
- * - landing.catalog.open
- *
- * Berørte API-ruter:
- * - ingen, dette er lokal UI/template-stil
- *
- * Dataretning:
- * Template/local UI -> React -> UI
- *
- * Logging:
- * ingen
- *
- * Versjon:
- * CT-STARTSIDE-BUTTONS-3D-0001 / CHANGE-2026-06-07-BUTTON-DEPTH-GLOW
- */
-
-.page {
-  --ct-btn-green-top: #0f8d5e;
-  --ct-btn-green-mid: #087249;
-  --ct-btn-green-deep: #043f2d;
-  --ct-btn-green-dark: #02281f;
-  --ct-btn-gold-edge: rgba(203, 164, 72, 0.55);
-  --ct-btn-light-edge: rgba(255, 248, 222, 0.42);
-  --ct-btn-glow: rgba(12, 145, 93, 0.42);
-  --ct-btn-glow-strong: rgba(17, 175, 113, 0.58);
-  --ct-btn-shadow: rgba(0, 35, 23, 0.42);
-}
-
-/* Alle vanlige knapper og lenke-knapper inne på startsiden */
-.page :where(button, a[class*="button"], a[class*="Button"], a[class*="cta"], a[class*="Cta"], a[class*="linkButton"], a[href="/katalog"], a[href="/registrering"], a[href="/sign-up"], a[href="/login"]) {
-  position: relative;
-  isolation: isolate;
-  min-height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(218, 190, 112, 0.42);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 38%),
-    linear-gradient(180deg, var(--ct-btn-green-top) 0%, var(--ct-btn-green-mid) 48%, var(--ct-btn-green-deep) 100%);
-  color: #fff9df;
-  font-weight: 850;
-  letter-spacing: 0.015em;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.42);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.24),
-    0 8px 18px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.035);
-  transform: translateY(0);
-  transition:
-    transform 170ms ease,
-    box-shadow 170ms ease,
-    border-color 170ms ease,
-    background 170ms ease,
-    color 170ms ease,
-    filter 170ms ease;
-}
-
-/* Lys kant/glans på toppen */
-.page :where(button, a[class*="button"], a[class*="Button"], a[class*="cta"], a[class*="Cta"], a[class*="linkButton"], a[href="/katalog"], a[href="/registrering"], a[href="/sign-up"], a[href="/login"])::before {
-  content: "";
-  position: absolute;
-  inset: 1px 1px auto 1px;
-  height: 42%;
-  border-radius: 7px 7px 4px 4px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.035));
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Hover: mer 3D, grønn glød og tydelig kant */
-.page :where(button, a[class*="button"], a[class*="Button"], a[class*="cta"], a[class*="Cta"], a[class*="linkButton"], a[href="/katalog"], a[href="/registrering"], a[href="/sign-up"], a[href="/login"]):hover {
-  border-color: rgba(231, 205, 128, 0.82);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 36%),
-    linear-gradient(180deg, #16a86f 0%, #078158 50%, #034431 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.28),
-    0 12px 26px rgba(0, 0, 0, 0.24),
-    0 0 18px var(--ct-btn-glow),
-    0 0 0 1px rgba(231, 205, 128, 0.18);
-  transform: translateY(-2px);
-  filter: saturate(1.08);
-}
-
-/* Trykk-effekt */
-.page :where(button, a[class*="button"], a[class*="Button"], a[class*="cta"], a[class*="Cta"], a[class*="linkButton"], a[href="/katalog"], a[href="/registrering"], a[href="/sign-up"], a[href="/login"]):active {
-  transform: translateY(1px);
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.35),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.12),
-    0 4px 10px rgba(0, 0, 0, 0.18);
-}
-
-/* Aktiv bryter/chip */
-.page :where(button[aria-pressed="true"], button[class*="active"], button[class*="Active"], button[class*="on"], button[class*="On"]) {
-  border-color: rgba(233, 202, 122, 0.88);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 38%),
-    linear-gradient(180deg, #129b69 0%, #05704d 50%, #023729 100%);
-  color: #fff7d7;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.34),
-    0 10px 24px rgba(0, 0, 0, 0.22),
-    0 0 20px var(--ct-btn-glow-strong);
-}
-
-/* Sekundærknapper: behold tydelig knapp, men roligere */
-.page :where(a[href="/katalog"], a[href*="katalog"], button[class*="secondary"], a[class*="secondary"]) {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 38%),
-    linear-gradient(180deg, #fbf5df 0%, #eee2bf 100%);
-  color: #063627;
-  text-shadow: none;
-  border-color: rgba(7, 95, 65, 0.36);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 0 rgba(86, 66, 22, 0.12),
-    0 8px 18px rgba(53, 39, 13, 0.14);
-}
-
-.page :where(a[href="/katalog"], a[href*="katalog"], button[class*="secondary"], a[class*="secondary"]):hover {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 35%),
-    linear-gradient(180deg, #fff8df 0%, #e9d7a8 100%);
-  color: #032d20;
-  border-color: rgba(7, 114, 76, 0.62);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.84),
-    inset 0 -2px 0 rgba(86, 66, 22, 0.16),
-    0 12px 24px rgba(53, 39, 13, 0.2),
-    0 0 14px rgba(205, 164, 72, 0.22);
-}
-
-/* Primær CTA: Opprett konto / registrering skal være sterkest */
-.page :where(a[href="/registrering"], a[href="/sign-up"], a[href*="register"], a[href*="registrer"], button[class*="primary"], a[class*="primary"]) {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 36%),
-    linear-gradient(180deg, #19b778 0%, #08784f 48%, #033f2e 100%);
-  color: #fff8da;
-  border-color: rgba(233, 202, 122, 0.78);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.48),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.28),
-    0 12px 28px rgba(0, 35, 23, 0.28),
-    0 0 22px rgba(18, 161, 103, 0.44);
-}
-
-/* Små topbar-/skin-knapper: ikke like store, men fortsatt 3D */
-.page header :where(button, a) {
-  min-height: 28px;
-  border-radius: 999px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
-    0 6px 14px rgba(0, 0, 0, 0.16);
-}
-
-/* Ikon-/statusknapper i katalogdemoen */
-.page :where(button svg, a svg) {
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.22));
-}
-
-/* Tastaturfokus */
-.page :where(button, a):focus-visible {
-  outline: 3px solid rgba(233, 202, 122, 0.62);
-  outline-offset: 3px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.24),
-    0 0 0 5px rgba(7, 114, 76, 0.22),
-    0 0 22px rgba(18, 161, 103, 0.36);
-}
-
-/* Bakgrunnsområdet rundt katalogdemoen litt mørkere/roligere */
-.page :where(section[class*="catalog"], section[class*="Catalog"], div[class*="catalog"], div[class*="Catalog"]) {
-  background-blend-mode: multiply;
-}
-
-/* === COLLECTIUM 3D BUTTON SYSTEM END === */
 
 /* COLLECTIUM DARK PRICING SECTION 0002
    Formål:
@@ -1910,4 +1708,196 @@
 }
 
 /* END COLLECTIUM DARK PRICING SECTION 0002 */
+
+/* COLLECTIUM STARTSIDE LINK BUTTON RESET 0001
+   Formål:
+   - Fjerner tung knappestil fra lenker.
+   - Logo og venstre toppmeny skal ikke ha skygge.
+   - Primærhandlinger kan fortsatt være diskrete CTA-er.
+   - Skin-farger justeres etter Collectium / Enkel / Museum / Finans.
+*/
+
+/* ---------- Skin tokens på startsiden ---------- */
+
+.page[data-theme="collectium"],
+.page[data-skin="collectium"],
+:global([data-skin="collectium"]) .page {
+  --ct-ui-bg: #f7efe2;
+  --ct-ui-bg-2: #efe1c9;
+  --ct-ui-panel: #fff9ed;
+  --ct-ui-panel-soft: #f8eddc;
+  --ct-ui-border: #dec89b;
+  --ct-ui-border-strong: #c6a35a;
+  --ct-ui-text: #06372f;
+  --ct-ui-soft: #50695f;
+  --ct-ui-muted: #8d7a58;
+  --ct-ui-accent: #087246;
+  --ct-ui-accent-2: #064d38;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(65, 47, 19, .12);
+}
+
+.page[data-theme="enkel"],
+.page[data-skin="enkel"],
+:global([data-skin="enkel"]) .page {
+  --ct-ui-bg: #f5f8fb;
+  --ct-ui-bg-2: #e7eef5;
+  --ct-ui-panel: #ffffff;
+  --ct-ui-panel-soft: #f4f8fb;
+  --ct-ui-border: #cdd9e3;
+  --ct-ui-border-strong: #9fb3c4;
+  --ct-ui-text: #0b324e;
+  --ct-ui-soft: #526b80;
+  --ct-ui-muted: #7d8d9c;
+  --ct-ui-accent: #1f628f;
+  --ct-ui-accent-2: #0b314d;
+  --ct-ui-gold: #9a8544;
+  --ct-ui-shadow: rgba(16, 42, 62, .12);
+}
+
+.page[data-theme="museum"],
+.page[data-skin="museum"],
+:global([data-skin="museum"]) .page {
+  --ct-ui-bg: #11100e;
+  --ct-ui-bg-2: #1d1a15;
+  --ct-ui-panel: #211f1b;
+  --ct-ui-panel-soft: #181612;
+  --ct-ui-border: rgba(198, 163, 72, .35);
+  --ct-ui-border-strong: rgba(214, 180, 89, .68);
+  --ct-ui-text: #f4ead8;
+  --ct-ui-soft: rgba(244, 234, 216, .72);
+  --ct-ui-muted: rgba(244, 234, 216, .48);
+  --ct-ui-accent: #c6a348;
+  --ct-ui-accent-2: #8c6a27;
+  --ct-ui-gold: #d6b459;
+  --ct-ui-shadow: rgba(0, 0, 0, .28);
+}
+
+.page[data-theme="finans"],
+.page[data-skin="finans"],
+:global([data-skin="finans"]) .page {
+  --ct-ui-bg: #071d1e;
+  --ct-ui-bg-2: #0e2b2c;
+  --ct-ui-panel: #122d2e;
+  --ct-ui-panel-soft: #0c2425;
+  --ct-ui-border: rgba(55, 142, 127, .42);
+  --ct-ui-border-strong: rgba(65, 185, 152, .58);
+  --ct-ui-text: #e8fbf4;
+  --ct-ui-soft: rgba(232, 251, 244, .70);
+  --ct-ui-muted: rgba(232, 251, 244, .48);
+  --ct-ui-accent: #24aa7a;
+  --ct-ui-accent-2: #08705a;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(0, 30, 28, .32);
+}
+
+/* ---------- Generell panelnyanse ---------- */
+
+.page :where(section, article, aside, div)[class*="Card"],
+.page :where(section, article, aside, div)[class*="card"],
+.page :where(section, article, aside, div)[class*="Panel"],
+.page :where(section, article, aside, div)[class*="panel"] {
+  border-color: var(--ct-ui-border);
+}
+
+/* ---------- Logo og topp/venstre meny uten skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(nav, header, aside) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Menylenker skal være lenker/chips, ikke tunge knapper */
+.page :where(nav, header) a,
+.page :where(nav, header) button {
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-ui-text);
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.page :where(nav, header) a:hover,
+.page :where(nav, header) button:hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-ui-border);
+  background: rgba(255, 255, 255, .12);
+  color: var(--ct-ui-accent);
+}
+
+/* ---------- Lenker i innhold ---------- */
+
+.page main a:not([class]),
+.page section a:not([class]) {
+  color: var(--ct-ui-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* CTA-er skal være rolige, ikke overdrevne 3D-knapper */
+.page :where(a, button)[class*="primary"],
+.page :where(a, button)[class*="Primary"],
+.page :where(a, button)[class*="cta"],
+.page :where(a, button)[class*="Cta"] {
+  border: 1px solid var(--ct-ui-border-strong);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--ct-ui-accent), var(--ct-ui-accent-2));
+  color: #fff8df;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 18px var(--ct-ui-shadow);
+  text-shadow: none;
+}
+
+.page :where(a, button)[class*="primary"]:hover,
+.page :where(a, button)[class*="Primary"]:hover,
+.page :where(a, button)[class*="cta"]:hover,
+.page :where(a, button)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 12px 26px var(--ct-ui-shadow);
+}
+
+/* Sekundære handlinger bør se mer ut som lenker */
+.page :where(a, button)[class*="secondary"],
+.page :where(a, button)[class*="Secondary"] {
+  border: 0;
+  background: transparent;
+  color: var(--ct-ui-text);
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page :where(a, button)[class*="secondary"]:hover,
+.page :where(a, button)[class*="Secondary"]:hover {
+  color: var(--ct-ui-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Toggle/chip-brytere: mindre glød, tydelig aktiv farge */
+.page :where(button[aria-pressed="true"], button[class*="active"], button[class*="Active"], button[class*="isActive"]) {
+  background: var(--ct-ui-accent);
+  color: #fff8df;
+  border-color: var(--ct-ui-border-strong);
+  box-shadow: none;
+}
+
+/* END COLLECTIUM STARTSIDE LINK BUTTON RESET 0001 */
 
