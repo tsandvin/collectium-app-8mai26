@@ -28,3 +28,5 @@ pnpm-debug.log*
 Thumbs.db
 .vercel
 .env*
+
+_local-untracked/
