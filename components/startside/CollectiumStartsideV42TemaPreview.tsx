@@ -41,6 +41,7 @@ import { useState } from "react";
 import styles from "./CollectiumStartsideV42TemaPreview.module.css";
 
 type ThemeKey = "collectium" | "museum" | "enkel" | "finans";
+type BillingMode = "monthly" | "annual";
 
 const themes: Array<{ key: ThemeKey; label: string }> = [
   { key: "collectium", label: "Collectium" },
@@ -84,17 +85,53 @@ const timeline = [
 ];
 
 const membership = [
-  { name: "Free", price: "0 kr", text: "Start med katalog og enkel oversikt.", cta: "Start gratis" },
-  { name: "Bronze", price: "149 kr", text: "Ønskeliste, favoritter og samlingsverktøy.", cta: "Velg Bronze" },
-  { name: "Silver", price: "3 000 kr", text: "Flere filter, historikk og markedsoversikt.", cta: "Velg Silver", featured: true },
-  { name: "Gold", price: "10 000 kr", text: "Forhandler- og profesjonell samleraktivitet.", cta: "Gå Gold" },
-  { name: "Platinum", price: "50 000 kr", text: "Utvidet arkiv, analyse og flere kilder.", cta: "Kontakt oss" },
+  {
+    name: "Free",
+    monthlyPrice: "0 kr",
+    annualPrice: "0 kr",
+    monthlyText: "Start med katalog og enkel oversikt.",
+    annualText: "Gratis startnivå med enkel katalogtilgang.",
+    cta: "Start gratis",
+  },
+  {
+    name: "Bronze",
+    monthlyPrice: "149 kr / mnd",
+    annualPrice: "1 788 kr / år",
+    monthlyText: "Ønskeliste, favoritter og samlingsverktøy måned for måned.",
+    annualText: "Årlig Bronze gir samme tilgang samlet i én årsbetaling.",
+    cta: "Velg Bronze",
+  },
+  {
+    name: "Silver",
+    monthlyPrice: "499 kr / mnd",
+    annualPrice: "3 000 kr / år",
+    monthlyText: "Flere filter, historikk og markedsoversikt månedlig.",
+    annualText: "Årlig Silver gir dypere filter, historikk og markedsdata til lavere årsmodell.",
+    cta: "Velg Silver",
+    featured: true,
+  },
+  {
+    name: "Gold",
+    monthlyPrice: "2 999 kr / mnd",
+    annualPrice: "10 000 kr / år",
+    monthlyText: "Forhandler- og profesjonell samleraktivitet månedlig.",
+    annualText: "Årlig Gold for forhandler, auksjon, nettbutikk og profesjonell bruk.",
+    cta: "Gå Gold",
+  },
+  {
+    name: "Platinum",
+    monthlyPrice: "Kun år",
+    annualPrice: "50 000 kr / år",
+    monthlyText: "Platinum har ikke ordinær månedsplan.",
+    annualText: "Utvidet arkiv, analyse, flere kilder og bredere tilgang.",
+    cta: "Kontakt oss",
+  },
 ];
 
 export default function CollectiumStartsideV42TemaPreview() {
   const [theme, setTheme] = useState<ThemeKey>("collectium");
-
-  return (
+  const [billing, setBilling] = useState<BillingMode>("monthly");
+return (
     <main className={styles.page} data-theme={theme}>
       <header className={styles.topbar}>
         <a className={styles.brand} href="/startside" aria-label="Collectium startside">
@@ -324,9 +361,23 @@ export default function CollectiumStartsideV42TemaPreview() {
               </p>
             </div>
 
-            <div className={styles.togglePill}>
-              <span>Årlig</span>
-              <strong>Mnd</strong>
+            <div className={styles.togglePill} role="group" aria-label="Velg betalingsperiode">
+              <button
+                type="button"
+                className={billing === "annual" ? styles.billingActive : ""}
+                onClick={() => setBilling("annual")}
+                aria-pressed={billing === "annual"}
+              >
+                Årlig
+              </button>
+              <button
+                type="button"
+                className={billing === "monthly" ? styles.billingActive : ""}
+                onClick={() => setBilling("monthly")}
+                aria-pressed={billing === "monthly"}
+              >
+                Mnd
+              </button>
             </div>
           </div>
 
@@ -338,8 +389,8 @@ export default function CollectiumStartsideV42TemaPreview() {
               >
                 {plan.featured ? <span className={styles.badge}>Anbefalt</span> : null}
                 <h3>{plan.name}</h3>
-                <strong>{plan.price}</strong>
-                <p>{plan.text}</p>
+                <strong>{billing === "monthly" ? plan.monthlyPrice : plan.annualPrice}</strong>
+                <p>{billing === "monthly" ? plan.monthlyText : plan.annualText}</p>
                 <ul>
                   <li>Katalogtilgang</li>
                   <li>Samlerfunksjoner</li>
@@ -405,3 +456,8 @@ function Progress({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+
+
+
+

@@ -1,566 +1,2379 @@
 ﻿.page {
-  --ct-bg: #eef3f6;
-  --ct-panel: rgba(255, 255, 255, 0.86);
-  --ct-dark: #111b22;
-  --ct-dark-2: #17242d;
-  --ct-blue: #163a5a;
-  --ct-slate: #5d6972;
-  --ct-line: rgba(42, 62, 75, 0.18);
-  --ct-soft: rgba(255, 255, 255, 0.58);
-  --ct-shadow: 0 26px 70px rgba(20, 35, 45, 0.14);
-  --ct-serif: Georgia, "Times New Roman", serif;
-  --ct-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #f7efe1;
+  --bg2: #f2e3c9;
+  --panel: rgba(255, 249, 238, 0.88);
+  --panel2: #fff8ea;
+  --text: #062b20;
+  --soft: rgba(6, 43, 32, 0.72);
+  --muted: rgba(6, 43, 32, 0.54);
+  --line: rgba(158, 118, 46, 0.24);
+  --strong-line: rgba(13, 105, 66, 0.74);
+  --accent: #0f6b43;
+  --accent2: #a77d2d;
+  --gold: #d8aa3e;
+  --dark: #071112;
+  --dark2: #10201d;
+  --dark-text: #f7efe1;
+  --shadow: 0 24px 70px rgba(54, 38, 17, 0.16);
 
-  width: 100%;
-  color: #16232d;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(187, 211, 222, 0.62), transparent 34%),
-    linear-gradient(180deg, #edf3f6 0%, #f7fafb 36%, #e8eef1 100%);
-  font-family: var(--ct-sans);
-  font-size: 16px;
+    radial-gradient(circle at 80% 0%, rgba(167, 125, 45, 0.12), transparent 36rem),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.page * {
-  box-sizing: border-box;
+.page[data-template="enkel"] {
+  --bg: #f5f8fb;
+  --bg2: #e8f0f7;
+  --panel: rgba(255,255,255,.9);
+  --panel2: #ffffff;
+  --text: #082a46;
+  --soft: rgba(8,42,70,.72);
+  --muted: rgba(8,42,70,.54);
+  --line: rgba(30,90,154,.18);
+  --strong-line: rgba(30,90,154,.70);
+  --accent: #1e5a9a;
+  --accent2: #6f7f91;
+  --gold: #8a94a3;
+  --dark: #10283d;
+  --dark2: #17334c;
 }
 
-.page :is(p, span, a, button, li, small) {
-  font-size: max(10.5px, 1em);
+.page[data-template="museum"] {
+  --bg: #171615;
+  --bg2: #252119;
+  --panel: rgba(39,35,27,.88);
+  --panel2: #2b271f;
+  --text: #f4ead8;
+  --soft: rgba(244,234,216,.74);
+  --muted: rgba(244,234,216,.52);
+  --line: rgba(185,154,85,.22);
+  --strong-line: rgba(185,154,85,.76);
+  --accent: #b99a55;
+  --accent2: #d8b96c;
+  --gold: #e0c982;
+  --dark: #11100f;
+  --dark2: #1e1b16;
 }
 
-.hero,
-.manifestSection,
-.statsSection,
-.historySection,
-.dataSection,
-.membershipSection,
-.ctaSection {
-  width: min(1800px, calc(100% - 48px));
-  margin: 0 auto;
+.page[data-template="finans"] {
+  --bg: #07191d;
+  --bg2: #142a32;
+  --panel: rgba(22,47,56,.86);
+  --panel2: #1b3039;
+  --text: #e8f6f2;
+  --soft: rgba(232,246,242,.74);
+  --muted: rgba(232,246,242,.52);
+  --line: rgba(63,195,154,.18);
+  --strong-line: rgba(42,188,136,.72);
+  --accent: #27a777;
+  --accent2: #9ed9c1;
+  --gold: #2fb585;
+  --dark: #061316;
+  --dark2: #10272e;
 }
 
-.hero {
+.top {
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto;
+  height: 62px;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
-  gap: clamp(28px, 5vw, 82px);
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  min-height: 790px;
-  padding: clamp(72px, 8vw, 128px) 0 clamp(54px, 6vw, 92px);
+  gap: 24px;
+  padding: 0 clamp(18px, 4vw, 54px);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);
 }
 
-.heroCopy,
-.heroPanel,
-.manifestIntro,
-.manifestGrid article,
-.statsGrid article,
-.dataPanel,
-.memberGrid article {
-  position: relative;
-  border: 1px solid var(--ct-line);
-  box-shadow: var(--ct-shadow);
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: -0.03em;
 }
 
-.heroCopy {
-  padding: clamp(34px, 5vw, 76px);
-  border-radius: 34px;
-  background: linear-gradient(135deg, rgba(255,255,255,.76), rgba(218,229,235,.72));
-  backdrop-filter: blur(12px);
+.brand img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
-.year {
-  margin: 0 0 18px;
-  color: var(--ct-slate);
-  letter-spacing: .18em;
-  font-weight: 360;
+.nav {
+  display: flex;
+  gap: 20px;
 }
 
-.kicker,
-.sectionKicker {
-  margin: 0 0 16px;
-  color: #36566d;
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .78em;
+  font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
-  font-size: 12px !important;
-  font-weight: 520;
 }
 
-.heroTitle {
-  margin: 0;
-  font-family: var(--ct-serif);
-  font-size: clamp(42px, 6.2vw, 100px);
-  line-height: .94;
-  letter-spacing: -.055em;
-  font-weight: 540;
-  color: #0e1a22;
+.nav a:hover {
+  color: var(--accent);
 }
 
-.lead {
-  max-width: 740px;
-  margin: 28px 0 0;
-  font-size: clamp(18px, 2vw, 30px) !important;
-  line-height: 1.28;
-  font-weight: 380;
-  color: #172b38;
-}
-
-.heroText {
-  max-width: 780px;
-  margin: 18px 0 0;
-  color: #425663;
-  font-size: clamp(16px, 1.3vw, 21px) !important;
-  line-height: 1.6;
-  font-weight: 340;
-}
-
-.actions {
+.topActions,
+.heroActions,
+.centerActions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 34px;
+  gap: 10px;
 }
 
-.primaryAction,
-.secondaryAction,
-.ctaSection a {
+.btn,
+.designTrigger,
+.tierCta,
+.billingToggle button,
+.segmentBar button,
+.statsTabs button,
+.resetButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 13px 22px;
+  min-height: 40px;
   border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 0 16px;
+  background: var(--panel);
+  color: var(--text);
   text-decoration: none;
-  font-weight: 620;
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  font-size: .78em;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
 }
 
-.primaryAction,
-.ctaSection a {
+.btn:hover,
+.designTrigger:hover,
+.tierCta:hover,
+.billingToggle button:hover,
+.segmentBar button:hover,
+.statsTabs button:hover,
+.resetButton:hover {
+  transform: translateY(-2px);
+  border-color: var(--strong-line);
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.btnPrimary,
+.btnGold,
+.billingToggle .on,
+.segmentBar .isActive,
+.statsTabs .on {
+  background: var(--accent);
   color: #fff;
-  background: linear-gradient(135deg, #123d62, #1f5c83);
-  box-shadow: 0 18px 30px rgba(22, 58, 90, .22);
+  border-color: var(--accent);
 }
 
-.secondaryAction {
-  color: #14344d;
-  background: rgba(255,255,255,.72);
-  border: 1px solid rgba(20, 52, 77, .18);
+.btnSecondary,
+.btnGhost {
+  background: transparent;
 }
 
-.primaryAction:hover,
-.secondaryAction:hover,
-.ctaSection a:hover,
-.memberGrid article:hover,
-.statsGrid article:hover,
-.manifestGrid article:hover,
-.historyGrid article:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 54px rgba(16, 32, 44, .18);
+.darkSection {
+  background:
+    radial-gradient(circle at 76% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 32rem),
+    linear-gradient(180deg, var(--dark), var(--dark2));
+  color: var(--dark-text);
 }
 
-.heroPanel {
-  padding: clamp(20px, 3vw, 34px);
-  border-radius: 38px;
-  background: linear-gradient(145deg, rgba(16, 27, 35, .96), rgba(32, 48, 58, .94));
-  color: #edf5f7;
+.darkSection .sectionLead,
+.darkSection p,
+.darkSection .roman,
+.darkSection .stat span {
+  color: rgba(247,239,225,.74);
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px clamp(22px, 7vw, 120px) 90px;
   overflow: hidden;
 }
 
-.heroPanel::before {
-  content: "Katalog";
+.heroBg {
   position: absolute;
-  right: -16px;
-  top: 14px;
-  font-family: var(--ct-serif);
-  font-size: clamp(70px, 9vw, 150px);
-  line-height: 1;
-  color: rgba(255,255,255,.035);
-  pointer-events: none;
-}
-
-.cardToolbar,
-.billingToggle {
-  position: relative;
-  display: flex;
-  gap: 8px;
-  padding: 7px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.12);
-  width: fit-content;
-  z-index: 2;
-}
-
-.segmentButton,
-.segmentActive,
-.billingToggle button {
-  border: 0;
-  cursor: pointer;
-  border-radius: 999px;
-  padding: 10px 16px;
-  font: inherit;
-  font-size: 13px !important;
-  font-weight: 560;
-  color: rgba(237,245,247,.84);
-  background: transparent;
-  transition: background .2s ease, color .2s ease, transform .2s ease;
-}
-
-.segmentActive,
-.billingToggle .billingActive {
-  color: #10202a;
-  background: linear-gradient(135deg, #f1f5f7, #ccd8de);
-}
-
-.objectCard {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: 18px;
-  margin-top: 22px;
-  padding: 18px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, rgba(230, 238, 242, .18), rgba(130, 147, 158, .16));
-  border: 1px solid rgba(255,255,255,.14);
-}
-
-.objectImage {
-  min-height: 230px;
-  border-radius: 22px;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  color: rgba(255,255,255,.8);
+  inset: 0;
   background:
-    radial-gradient(circle at 30% 22%, rgba(255,255,255,.22), transparent 24%),
-    linear-gradient(135deg, #62737f, #2a3b47 56%, #141f27);
+    linear-gradient(90deg, rgba(0,0,0,.78), rgba(0,0,0,.22)),
+    url("/collectium-tema/collectium-tema-familie-samling.png") center right / cover no-repeat;
+  opacity: .72;
 }
 
-.objectImage span {
-  font-family: var(--ct-serif);
-  font-size: 24px !important;
+.heroFade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 68% 35%, transparent 0, rgba(0,0,0,.26) 30%, rgba(0,0,0,.86) 100%);
 }
 
-.objectBody h2 {
-  margin: 8px 0 10px;
-  font-family: var(--ct-serif);
-  font-size: clamp(26px, 2.6vw, 40px);
-  line-height: 1.03;
-  letter-spacing: -.035em;
-  font-weight: 520;
+.heroYear,
+.bgYear {
+  position: absolute;
+  right: 8%;
+  top: 14%;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(7rem, 20vw, 24rem);
+  font-weight: 900;
+  line-height: .8;
+  color: rgba(216,170,62,.08);
+  letter-spacing: -.08em;
 }
 
-.objectBody p,
-.objectMeta {
-  color: rgba(237,245,247,.74);
-  line-height: 1.45;
-  font-weight: 330;
-}
-
-.fieldGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.fieldGrid span {
-  padding: 12px 13px;
-  border-radius: 15px;
-  background: rgba(220, 230, 235, .16);
-  border: 1px solid rgba(255,255,255,.11);
-  font-size: 13px !important;
-  color: rgba(245,248,250,.9);
-}
-
-.segmentInfo {
+.heroContent {
   position: relative;
   z-index: 2;
-  margin-top: 18px;
-  padding: 22px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(224, 233, 238, .16), rgba(82, 100, 112, .18));
-  border: 1px solid rgba(255,255,255,.13);
+  max-width: 880px;
+  animation: fadeRise .7s ease both;
 }
 
-.segmentInfo p {
-  margin: 0 0 8px;
-  color: #bdd1dc;
-  font-weight: 620;
-}
-
-.segmentInfo h3 {
-  margin: 0 0 10px;
-  font-size: 24px;
-  font-family: var(--ct-serif);
-  font-weight: 520;
-}
-
-.segmentInfo span {
-  display: block;
-  color: rgba(237,245,247,.82);
-  line-height: 1.55;
-  font-weight: 330;
-}
-
-.manifestSection,
-.statsSection,
-.historySection,
-.dataSection,
-.membershipSection,
-.ctaSection {
-  padding: clamp(58px, 7vw, 104px) 0;
-}
-
-.manifestIntro,
-.dataPanel {
-  padding: clamp(28px, 5vw, 66px);
-  border-radius: 34px;
-  background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(222,230,235,.78));
-}
-
-.manifestIntro h2,
-.sectionHead h2,
-.sectionHeadDark h2,
-.dataPanel h2,
-.membershipSection h2,
-.ctaSection h2 {
-  margin: 0;
-  font-family: var(--ct-serif);
-  font-size: clamp(34px, 4vw, 72px);
-  line-height: 1;
-  letter-spacing: -.045em;
-  font-weight: 520;
-}
-
-.manifestIntro p,
-.sectionHead p,
-.sectionHeadDark p,
-.dataPanel p,
-.ctaSection p {
-  max-width: 980px;
-  color: #415766;
-  line-height: 1.65;
-  font-size: 18px !important;
-  font-weight: 330;
-}
-
-.manifestGrid,
-.statsGrid,
-.memberGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 24px;
-}
-
-.manifestGrid article,
-.statsGrid article,
-.memberGrid article {
-  padding: 26px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(219,228,233,.76));
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.manifestGrid article p,
-.memberGrid article p {
-  margin: 0 0 14px;
-  color: #526977;
-  font-size: 13px !important;
-  letter-spacing: .06em;
+.eyebrow,
+.roman {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--accent2);
+  font-size: .78em;
+  font-weight: 900;
+  letter-spacing: .16em;
   text-transform: uppercase;
 }
 
-.manifestGrid article h3,
-.statsGrid article h3,
-.memberGrid article h3 {
-  margin: 0 0 14px;
-  font-family: var(--ct-serif);
-  font-size: 26px;
-  line-height: 1.08;
-  font-weight: 520;
+.roman i {
+  height: 1px;
+  flex: 1;
+  max-width: 90px;
+  background: currentColor;
+  opacity: .55;
 }
 
-.manifestGrid article span,
-.memberGrid article span,
-.statsGrid article p {
-  display: block;
-  color: #435865;
-  line-height: 1.6;
-  font-size: 16px !important;
-  font-weight: 330;
+.hero h1,
+.sectionH,
+.deepTitle,
+.cta h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  letter-spacing: -.065em;
+  line-height: .92;
 }
 
-.sectionHead,
-.sectionHeadDark {
-  max-width: 1120px;
+.hero h1 {
+  font-size: clamp(3.8rem, 8vw, 9rem);
 }
 
-.statsGrid article strong {
-  display: block;
-  margin-bottom: 14px;
-  font-family: var(--ct-serif);
-  font-size: clamp(44px, 6vw, 92px);
-  line-height: .9;
-  font-weight: 520;
-  color: #173b59;
+.hero h1 em,
+.sectionH em,
+.cta h2 em {
+  color: var(--accent2);
+  font-style: italic;
+  font-weight: 400;
 }
 
-.historySection {
-  width: min(1800px, calc(100% - 48px));
-  padding-left: clamp(20px, 4vw, 64px);
-  padding-right: clamp(20px, 4vw, 64px);
-  border-radius: 42px;
-  background:
-    radial-gradient(circle at 80% 12%, rgba(142, 163, 174, .22), transparent 32%),
-    linear-gradient(145deg, #111b22, #1e2c35 60%, #111820);
-  color: #eef5f7;
+.heroSub,
+.heroLead,
+.sectionLead {
+  max-width: 780px;
+  color: var(--soft);
+  line-height: 1.7;
 }
 
-.sectionHeadDark p {
-  color: rgba(238,245,247,.78);
+.heroSub {
+  margin-top: 24px;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  color: rgba(247,239,225,.86);
 }
 
-.historyGrid {
+.heroLead {
+  color: rgba(247,239,225,.70);
+}
+
+.heroStats,
+.smallStats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 18px;
+  margin-top: 54px;
+}
+
+.stat {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.stat strong {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 2.4vw, 2.6rem);
+  color: currentColor;
+}
+
+.stat span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: .78em;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.wrap,
+.wrapWide {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.wrapWide {
+  max-width: 1380px;
+}
+
+.manifest,
+.catalog,
+.statsIndex,
+.collection {
+  padding: 105px clamp(22px, 6vw, 110px);
+}
+
+.history,
+.deepData,
+.regents,
+.market,
+.membership,
+.cta {
+  position: relative;
+  padding: 105px clamp(22px, 6vw, 110px);
+  overflow: hidden;
+}
+
+.sectionH,
+.deepTitle {
+  max-width: 900px;
+  font-size: clamp(2.25rem, 4.8vw, 5.6rem);
+  color: currentColor;
+}
+
+.manifestGrid,
+.deepGrid,
+.marketGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 44px;
+}
+
+.infoCard,
+.objCard,
+.segmentInfo,
+.statsPanel,
+.dashboard,
+.regentPanel,
+.tier {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 24px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.05);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.infoCard:hover,
+.objCard:hover,
+.segmentInfo:hover,
+.statsPanel:hover,
+.dashboard:hover,
+.regentPanel:hover,
+.tier:hover {
+  transform: translateY(-6px);
+  border-color: var(--strong-line);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.16),
+    0 0 0 1px color-mix(in srgb, var(--strong-line) 45%, transparent);
+}
+
+.infoCard span,
+.objCard span,
+.segmentInfo span {
+  color: var(--accent2);
+  font-size: .78em;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.infoCard h3,
+.objCard h3,
+.segmentInfo h3 {
+  margin: 12px 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+}
+
+.infoCard p,
+.objCard p,
+.segmentInfo p {
+  color: var(--soft);
+  line-height: 1.6;
+}
+
+.historyGrid,
+.regentGrid,
+.collectionGrid,
+.catalogDemo {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(34px, 6vw, 90px);
+  align-items: center;
+}
+
+.history blockquote {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.6vw, 4.6rem);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.timeline {
+  margin-top: 28px;
+}
+
+.timelineRow,
+.progress,
+.statsRow {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.timelineRow:hover,
+.progress:hover,
+.statsRow:hover {
+  transform: translateX(5px);
+  border-color: var(--strong-line);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+.timelineRow strong {
+  color: var(--accent2);
+}
+
+.timelineRow h3 {
+  margin: 0 0 5px;
+}
+
+.timelineRow p {
+  margin: 0;
+}
+
+.segmentBar,
+.statsTabs,
+.billingToggle {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel2) 76%, transparent);
+  margin: 32px 0;
+}
+
+.catalogDemo {
+  align-items: stretch;
+}
+
+.objectGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.objCard {
+  display: grid;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.objValue {
+  width: 64px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+}
+
+.objCard b {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.centerActions {
+  justify-content: center;
   margin-top: 32px;
 }
 
-.historyGrid article {
-  padding: 24px;
-  border-radius: 26px;
-  background: linear-gradient(145deg, rgba(220, 230, 235, .14), rgba(92, 111, 123, .16));
-  border: 1px solid rgba(255,255,255,.12);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.historyGrid strong {
-  color: #c6d7df;
-  font-size: 16px !important;
-}
-
-.historyGrid h3 {
-  margin: 14px 0;
-  font-family: var(--ct-serif);
-  font-size: 26px;
-  line-height: 1.05;
-  font-weight: 520;
-}
-
-.historyGrid p {
-  margin: 0;
-  color: rgba(238,245,247,.82);
-  font-size: 20px !important;
-  line-height: 1.42;
-  font-weight: 300;
-}
-
-.dataPanel {
-  background:
-    linear-gradient(135deg, rgba(241,246,248,.92), rgba(205,216,223,.86));
-}
-
-.membershipSection .sectionHead {
+.statsPanel {
   display: grid;
-  gap: 12px;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 28px;
 }
 
-.billingToggle {
-  background: rgba(31, 53, 69, .08);
-  border-color: rgba(31, 53, 69, .14);
+.statsPanel h3 {
+  margin-top: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
 }
 
-.billingToggle button {
-  color: #203746;
+.statsRows {
+  display: grid;
+  gap: 8px;
 }
 
-.billingToggle .billingActive {
-  color: #fff;
-  background: linear-gradient(135deg, #183d5b, #3f647a);
+.statsRow {
+  grid-template-columns: 110px 1fr auto;
 }
 
-.memberGrid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+.statsRow strong {
+  font-size: 1.7rem;
+  color: var(--accent);
 }
 
-.memberGrid article strong {
-  display: block;
-  margin: 0 0 14px;
-  font-size: 24px !important;
-  color: #173b59;
+.statsRow em {
+  color: var(--accent2);
+  font-style: normal;
+  font-weight: 800;
 }
 
-.ctaSection {
-  margin-bottom: 48px;
-  border-radius: 42px;
+.regentPanel {
   min-height: 420px;
+  display: grid;
+  align-content: end;
+  background:
+    radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--accent2) 25%, transparent), transparent 12rem),
+    linear-gradient(135deg, var(--panel), color-mix(in srgb, var(--accent) 10%, var(--panel2)));
+}
+
+.regentPanel span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 9vw, 9rem);
+  color: color-mix(in srgb, var(--accent2) 18%, transparent);
+}
+
+.dashboardNums {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.dashboardNums strong {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--panel2);
+  color: var(--accent);
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.progress {
+  grid-template-columns: 1fr auto;
+}
+
+.progress strong {
+  color: var(--accent);
+}
+
+.membershipHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.tierGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.tier {
+  min-height: 420px;
+  background: color-mix(in srgb, var(--panel) 94%, black);
+}
+
+.featured {
+  border-color: var(--strong-line);
+  box-shadow: 0 0 0 1px var(--strong-line), var(--shadow);
+}
+
+.tierBadge {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: .72em;
+  font-weight: 900;
+}
+
+.tier h3 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+}
+
+.tierPrice {
+  margin: 18px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.tierPrice strong {
+  display: block;
+  color: var(--accent2);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+}
+
+.tierPrice span,
+.tierPrice em {
+  display: block;
+  color: var(--soft);
+  font-style: normal;
+}
+
+.tier ul {
+  padding-left: 18px;
+  color: var(--soft);
+  line-height: 1.7;
+}
+
+.tierCta {
+  width: 100%;
+  margin-top: 16px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.cta {
+  min-height: 620px;
   display: grid;
   place-items: center;
   text-align: center;
-  color: #f4f8fa;
   background:
-    radial-gradient(circle at center, rgba(210, 225, 232, .18), transparent 28%),
-    linear-gradient(180deg, rgba(10, 15, 20, .86), rgba(9, 15, 20, .94)),
-    linear-gradient(135deg, #354955, #121b22);
-  box-shadow: 0 40px 90px rgba(12, 22, 30, .2);
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.78)),
+    url("/collectium-tema/collectium-tema-familie-samling.png") center / cover no-repeat;
+  color: #fff;
 }
 
-.ctaSection div {
-  width: min(760px, 100% - 40px);
+.ctaOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, transparent, rgba(0,0,0,.7));
 }
 
-.ctaSection p {
-  margin: 22px auto 30px;
-  color: rgba(244,248,250,.86);
-  font-weight: 300;
+.ctaContent {
+  position: relative;
+  z-index: 2;
+  max-width: 950px;
+}
+
+.cta h2 {
+  font-size: clamp(3rem, 6vw, 7rem);
+}
+
+.cta p {
+  max-width: 680px;
+  margin: 22px auto;
+  color: rgba(255,255,255,.78);
+  line-height: 1.7;
+}
+
+.footer {
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  padding: 54px 22px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.footer img {
+  width: min(280px, 75vw);
+  height: auto;
+}
+
+.designMenu {
+  position: fixed;
+  z-index: 70;
+  top: 80px;
+  right: 22px;
+  width: min(390px, calc(100vw - 44px));
+  max-height: calc(100vh - 110px);
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--strong-line);
+  border-radius: 22px;
+  background: var(--panel2);
+  color: var(--text);
+  box-shadow: 0 30px 90px rgba(0,0,0,.24);
+}
+
+.designHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.designHead button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.designList {
+  display: grid;
+  gap: 10px;
+}
+
+.designList button {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 14px;
+  cursor: pointer;
+}
+
+.designList button:hover,
+.designList .on {
+  border-color: var(--strong-line);
+  box-shadow: var(--shadow);
+}
+
+.designList span {
+  font-weight: 900;
+}
+
+.designList small,
+.designList em {
+  color: var(--soft);
+  font-style: normal;
+}
+
+.designMenu input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.resetButton {
+  width: 100%;
+}
+
+@keyframes fadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1180px) {
-  .hero,
+  .nav {
+    display: none;
+  }
+
   .manifestGrid,
-  .statsGrid,
-  .memberGrid,
-  .historyGrid {
+  .deepGrid,
+  .marketGrid,
+  .tierGrid {
     grid-template-columns: 1fr 1fr;
   }
 
-  .hero {
-    min-height: auto;
+  .historyGrid,
+  .regentGrid,
+  .collectionGrid,
+  .catalogDemo,
+  .statsPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .tierGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 760px) {
+  .top {
+    grid-template-columns: auto auto;
+    height: auto;
+    min-height: 62px;
+    padding: 10px 14px;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .topActions {
+    justify-content: end;
+  }
+
   .hero,
+  .manifest,
+  .catalog,
+  .statsIndex,
+  .collection,
+  .history,
+  .deepData,
+  .regents,
+  .market,
+  .membership,
+  .cta {
+    padding: 82px 18px;
+  }
+
+  .hero {
+    padding-top: 120px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.4rem, 17vw, 5.8rem);
+  }
+
+  .heroStats,
+  .smallStats,
   .manifestGrid,
-  .statsGrid,
-  .memberGrid,
-  .historyGrid,
-  .objectCard {
+  .deepGrid,
+  .marketGrid,
+  .objectGrid,
+  .tierGrid {
     grid-template-columns: 1fr;
   }
 
-  .hero,
-  .manifestSection,
-  .statsSection,
-  .historySection,
-  .dataSection,
-  .membershipSection,
-  .ctaSection {
-    width: min(100% - 24px, 1800px);
+  .membershipHead {
+    display: block;
   }
 
-  .heroTitle {
-    font-size: clamp(40px, 14vw, 64px);
+  .billingToggle,
+  .segmentBar,
+  .statsTabs {
+    max-width: 100%;
+    overflow-x: auto;
   }
 
-  .fieldGrid {
+  .statsRow {
     grid-template-columns: 1fr;
-  }
-
-  .historyGrid p {
-    font-size: 18px !important;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .heroContent,
+  .btn,
+  .designTrigger,
+  .tierCta,
+  .billingToggle button,
+  .segmentBar button,
+  .statsTabs button,
+  .resetButton,
+  .infoCard,
+  .objCard,
+  .segmentInfo,
+  .statsPanel,
+  .dashboard,
+  .regentPanel,
+  .tier,
+  .timelineRow,
+  .progress,
+  .statsRow {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* COLLECTIUM V46 HORIZONTAL OBJECT CARD PATCH */
+
+.catalogIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: flex-end;
+}
+
+.objectKindSwitch,
+.segmentMiniSwitch {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel2) 80%, transparent);
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
+}
+
+.objectKindSwitch button,
+.segmentMiniSwitch button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 18px;
+  background: transparent;
+  color: var(--soft);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.objectKindSwitch button:hover,
+.segmentMiniSwitch button:hover,
+.objectKindSwitch .on,
+.segmentMiniSwitch .on {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.periodFilter {
+  margin: 34px 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent2) 8%, transparent), transparent),
+    var(--panel);
+  box-shadow: 0 12px 34px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.periodFilter:hover {
+  transform: translateY(-4px);
+  border-color: var(--strong-line);
+  box-shadow: 0 24px 70px rgba(0,0,0,.14);
+}
+
+.periodHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.periodHead span {
+  color: var(--accent2);
+  font-size: .78em;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.periodHead strong {
+  display: block;
+  margin-top: 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+}
+
+.periodHead p {
+  margin: 7px 0 0;
+  color: var(--soft);
+}
+
+.periodRail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 24px;
+  padding: 16px 24px 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent2) 10%, transparent), color-mix(in srgb, var(--accent) 10%, transparent));
+}
+
+.periodRail::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 21px;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 38%, var(--line));
+}
+
+.periodRail button {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: var(--panel2);
+  color: var(--text);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.periodRail button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  border: 3px solid var(--panel2);
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.periodRail button:hover,
+.periodRail .activePeriod {
+  transform: translateY(-3px);
+  border-color: var(--strong-line);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+.periodRail .activePeriod::after {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.periodRail span {
+  font-size: .8em;
+  opacity: .78;
+}
+
+.horizontalObjectCard {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.8), transparent 22rem),
+    var(--panel2);
+  box-shadow: 0 30px 90px rgba(40, 40, 40, .10);
+  padding: 28px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.horizontalObjectCard:hover {
+  transform: translateY(-6px);
+  border-color: var(--strong-line);
+  box-shadow:
+    0 34px 100px rgba(0,0,0,.16),
+    0 0 0 1px color-mix(in srgb, var(--strong-line) 42%, transparent);
+}
+
+.cardTabs {
+  display: flex;
+  gap: 0;
+  position: absolute;
+  left: 28px;
+  top: -57px;
+}
+
+.cardTabs button {
+  min-width: 150px;
+  padding: 18px 24px;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+  background: color-mix(in srgb, var(--panel2) 82%, transparent);
+  color: var(--soft);
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cardTabs .activeTab {
+  color: var(--accent);
+  background: var(--panel2);
+  box-shadow: 0 -12px 28px rgba(0,0,0,.05);
+}
+
+.objectMain {
+  display: grid;
+  grid-template-columns: minmax(260px, 430px) minmax(0, 1fr) 260px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.objectImage {
+  min-height: 250px;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent),
+    linear-gradient(180deg, #e8edf1, #f7efe1);
+  color: #18324a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.objectImage:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--strong-line);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.78),
+    0 22px 50px rgba(0,0,0,.12);
+}
+
+.objectImage span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 900;
+  opacity: .84;
+}
+
+.objectImage strong {
+  font-size: 1.2rem;
+  letter-spacing: .18em;
+}
+
+.objectImage em {
+  font-style: normal;
+  color: rgba(24,50,74,.68);
+}
+
+.objectInfo h3 {
+  margin: 10px 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4.8vw, 5rem);
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+
+.objectInfo p {
+  color: var(--soft);
+  font-size: 1.12rem;
+}
+
+.objectFacts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.objectFacts div {
+  padding: 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: background .18s ease, transform .18s ease;
+}
+
+.objectFacts div:hover {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  transform: translateY(-2px);
+}
+
+.objectFacts span,
+.objectSide span,
+.dataPair span {
+  display: block;
+  color: var(--soft);
+  font-weight: 700;
+}
+
+.objectFacts strong,
+.objectSide strong,
+.dataPair strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.objectRelation {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--soft);
+}
+
+.objectSide {
+  display: grid;
+  gap: 14px;
+}
+
+.objectSide > div {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 16px 18px;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.objectSide > div:hover {
+  transform: translateY(-3px);
+  border-color: var(--strong-line);
+  box-shadow: 0 16px 38px rgba(0,0,0,.10);
+}
+
+.objectSide > div:not(.estimatedPrice) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.objectSide > div:not(.estimatedPrice) strong {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.estimatedPrice {
+  text-align: center;
+  padding: 26px 18px !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.8), transparent 9rem),
+    color-mix(in srgb, var(--accent) 7%, var(--panel2)) !important;
+}
+
+.estimatedPrice strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  color: var(--text);
+}
+
+.estimatedPrice em {
+  display: block;
+  margin-top: 10px;
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.dynamicField {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 22px;
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.dynamicField:hover {
+  transform: translateY(-4px);
+  border-color: var(--strong-line);
+  box-shadow: 0 22px 60px rgba(0,0,0,.12);
+}
+
+.dynamicIcon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.dynamicText h3 {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+}
+
+.dynamicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 30px;
+}
+
+.dataPair {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.catalogDefinition {
+  margin-top: 26px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel2) 78%, transparent);
+  color: var(--soft);
+}
+
+.catalogDefinition strong {
+  display: block;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .8em;
+  margin-bottom: 8px;
+}
+
+.catalogDefinition p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 1180px) {
+  .catalogIntro,
+  .periodHead,
+  .objectMain {
+    grid-template-columns: 1fr;
+  }
+
+  .periodRail {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cardTabs {
+    position: static;
+    margin-bottom: 18px;
+    overflow-x: auto;
+  }
+
+  .cardTabs button {
+    border-bottom: 1px solid var(--line);
+    border-radius: 999px;
+  }
+}
+
+@media (max-width: 760px) {
+  .objectKindSwitch,
+  .segmentMiniSwitch,
+  .periodRail,
+  .objectFacts,
+  .dynamicGrid,
+  .dataPair {
+    grid-template-columns: 1fr;
+  }
+
+  .objectKindSwitch,
+  .segmentMiniSwitch {
+    display: grid;
+    border-radius: 18px;
+  }
+
+  .periodRail {
+    padding-bottom: 18px;
+  }
+
+  .periodRail::after,
+  .periodRail button::after {
+    display: none;
+  }
+
+  .dynamicField {
+    grid-template-columns: 1fr;
+  }
+
+  .objectInfo h3 {
+    font-size: 3rem;
+  }
+}
+
+
+/* COLLECTIUM DARK PRICING SECTION 0002
+   Formål:
+   Matcher referansebilde 2:
+   - mørk Collectium medlemskapsseksjon
+   - mindre og roligere overskrift
+   - mørke kort med tynne rammer
+   - Silver markert med gullramme
+   - Årlig aktiv med gull knapp
+   - mindre grønn/glow på prisfeltet
+*/
+
+/* Hovedseksjon for pris/medlemskap */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+  position: relative !important;
+  padding: 72px 64px 92px !important;
+  background:
+    radial-gradient(circle at 63% 92%, rgba(190, 145, 51, .14), transparent 28rem),
+    radial-gradient(circle at 8% 18%, rgba(255, 255, 255, .025), transparent 24rem),
+    linear-gradient(180deg, #1a1b1a 0%, #202221 48%, #181918 100%) !important;
+  color: #f4ead8 !important;
+  border-top: 1px solid rgba(205, 164, 72, .10) !important;
+  border-bottom: 1px solid rgba(205, 164, 72, .10) !important;
+  overflow: hidden !important;
+}
+
+/* Fjern tidligere lys/cream effekt dersom den ligger i seksjonen */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"])::before,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"])::after {
+  opacity: .28 !important;
+}
+
+/* Header i prisfeltet */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(h2, h3) {
+  color: #fff4df !important;
+  text-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) h2 {
+  max-width: 780px !important;
+  margin: 0 !important;
+  font-size: clamp(26px, 2.3vw, 38px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.045em !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) p {
+  color: rgba(244, 234, 216, .78) !important;
+}
+
+/* Liten "MEDLEMSKAP"-label dersom den finnes / øvre label */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(.kicker, [class*="kicker"], [class*="eyebrow"], [class*="Eyebrow"]) {
+  color: #caa64e !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+}
+
+/* Header-rad: tekst venstre, toggle høyre */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="header"], [class*="Header"], [class*="top"], [class*="Top"]) {
+  align-items: end !important;
+}
+
+/* Månedlig/Årlig toggle */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) {
+  padding: 8px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, .025) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 18px 40px rgba(0, 0, 0, .22) !important;
+}
+
+/* Toggle-knapper: ikke grønn glød, rolig mørk/gull */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button {
+  min-height: 48px !important;
+  padding: 0 22px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, .14) !important;
+  background: transparent !important;
+  color: #fff4df !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button:hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(207, 169, 83, .52) !important;
+  background: rgba(207, 169, 83, .08) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22) !important;
+}
+
+/* Aktiv Årlig/Månedlig: gull slik som referanse */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[aria-pressed="true"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[class*="active"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="billing"], [class*="Billing"], [class*="toggle"], [class*="Toggle"]) button[class*="Active"] {
+  background: linear-gradient(180deg, #d6b459 0%, #b78c36 100%) !important;
+  border-color: #d6b459 !important;
+  color: #fff8df !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .24),
+    0 14px 30px rgba(0, 0, 0, .25) !important;
+}
+
+/* Kort-grid */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+  gap: 18px !important;
+  margin-top: 34px !important;
+}
+
+/* Alle medlemskort */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+  min-height: 525px !important;
+  padding: 30px 28px !important;
+  border: 1px solid rgba(255, 255, 255, .16) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .012)),
+    rgba(28, 31, 29, .88) !important;
+  color: #f6eddc !important;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, .20),
+    inset 0 0 0 1px rgba(255, 255, 255, .015) !important;
+  transform: none !important;
+}
+
+/* Unngå at gammel cream-card styling vinner */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) * {
+  text-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]):hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(207, 169, 83, .44) !important;
+  box-shadow:
+    0 42px 92px rgba(0, 0, 0, .30),
+    0 0 0 1px rgba(207, 169, 83, .12) !important;
+}
+
+/* Silver / valgt kort: gullramme, ikke grønn cream */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]):has(:where(h3, h4, strong):first-child),
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="active"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="highlight"],
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"])[class*="featured"] {
+  border-color: rgba(207, 169, 83, .74) !important;
+}
+
+/* Kort-titler */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(h3, h4) {
+  margin-top: 0 !important;
+  color: #fff4df !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Pris */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) {
+  color: #fff4df !important;
+  font-size: 28px !important;
+  line-height: 1.05 !important;
+  font-weight: 950 !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) strong,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) b {
+  color: #fff4df !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) span,
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) small {
+  color: #cfa953 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+/* Brødtekst og punktlister */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(li, p, span, small) {
+  color: rgba(246, 237, 220, .82) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) ul {
+  margin-top: 24px !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) li {
+  position: relative !important;
+  margin: 0 0 11px !important;
+  padding-left: 24px !important;
+  font-size: 15px !important;
+  line-height: 1.35 !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) li::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: .58em !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: #cfa953 !important;
+}
+
+/* Kortknapper: i referansen er de mørke/outline, ikke grønn glød */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(button, a) {
+  width: 100% !important;
+  min-height: 46px !important;
+  margin-top: auto !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  background: transparent !important;
+  color: #fff4df !important;
+  font-size: 15px !important;
+  font-weight: 950 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) :where(button, a):hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(207, 169, 83, .65) !important;
+  background: rgba(207, 169, 83, .08) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .24) !important;
+}
+
+/* Badge, f.eks. Aktiv samler */
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="badge"], [class*="Badge"], [class*="pill"], [class*="Pill"]) {
+  background: #cfa953 !important;
+  color: #fff9e7 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 950 !important;
+}
+
+/* Responsiv */
+@media (max-width: 1100px) {
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+    padding: 64px 24px 76px !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+    padding: 52px 14px 64px !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="grid"], [class*="Grid"], [class*="cards"], [class*="Cards"]) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+    min-height: auto !important;
+  }
+}
+
+/* END COLLECTIUM DARK PRICING SECTION 0002 */
+
+/* COLLECTIUM STARTSIDE LINK BUTTON RESET 0001
+   Formål:
+   - Fjerner tung knappestil fra lenker.
+   - Logo og venstre toppmeny skal ikke ha skygge.
+   - Primærhandlinger kan fortsatt være diskrete CTA-er.
+   - Skin-farger justeres etter Collectium / Enkel / Museum / Finans.
+*/
+
+/* ---------- Skin tokens på startsiden ---------- */
+
+.page[data-theme="collectium"],
+.page[data-skin="collectium"],
+:global([data-skin="collectium"]) .page {
+  --ct-ui-bg: #f7efe2;
+  --ct-ui-bg-2: #efe1c9;
+  --ct-ui-panel: #fff9ed;
+  --ct-ui-panel-soft: #f8eddc;
+  --ct-ui-border: #dec89b;
+  --ct-ui-border-strong: #c6a35a;
+  --ct-ui-text: #06372f;
+  --ct-ui-soft: #50695f;
+  --ct-ui-muted: #8d7a58;
+  --ct-ui-accent: #087246;
+  --ct-ui-accent-2: #064d38;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(65, 47, 19, .12);
+}
+
+.page[data-theme="enkel"],
+.page[data-skin="enkel"],
+:global([data-skin="enkel"]) .page {
+  --ct-ui-bg: #f5f8fb;
+  --ct-ui-bg-2: #e7eef5;
+  --ct-ui-panel: #ffffff;
+  --ct-ui-panel-soft: #f4f8fb;
+  --ct-ui-border: #cdd9e3;
+  --ct-ui-border-strong: #9fb3c4;
+  --ct-ui-text: #0b324e;
+  --ct-ui-soft: #526b80;
+  --ct-ui-muted: #7d8d9c;
+  --ct-ui-accent: #1f628f;
+  --ct-ui-accent-2: #0b314d;
+  --ct-ui-gold: #9a8544;
+  --ct-ui-shadow: rgba(16, 42, 62, .12);
+}
+
+.page[data-theme="museum"],
+.page[data-skin="museum"],
+:global([data-skin="museum"]) .page {
+  --ct-ui-bg: #11100e;
+  --ct-ui-bg-2: #1d1a15;
+  --ct-ui-panel: #211f1b;
+  --ct-ui-panel-soft: #181612;
+  --ct-ui-border: rgba(198, 163, 72, .35);
+  --ct-ui-border-strong: rgba(214, 180, 89, .68);
+  --ct-ui-text: #f4ead8;
+  --ct-ui-soft: rgba(244, 234, 216, .72);
+  --ct-ui-muted: rgba(244, 234, 216, .48);
+  --ct-ui-accent: #c6a348;
+  --ct-ui-accent-2: #8c6a27;
+  --ct-ui-gold: #d6b459;
+  --ct-ui-shadow: rgba(0, 0, 0, .28);
+}
+
+.page[data-theme="finans"],
+.page[data-skin="finans"],
+:global([data-skin="finans"]) .page {
+  --ct-ui-bg: #071d1e;
+  --ct-ui-bg-2: #0e2b2c;
+  --ct-ui-panel: #122d2e;
+  --ct-ui-panel-soft: #0c2425;
+  --ct-ui-border: rgba(55, 142, 127, .42);
+  --ct-ui-border-strong: rgba(65, 185, 152, .58);
+  --ct-ui-text: #e8fbf4;
+  --ct-ui-soft: rgba(232, 251, 244, .70);
+  --ct-ui-muted: rgba(232, 251, 244, .48);
+  --ct-ui-accent: #24aa7a;
+  --ct-ui-accent-2: #08705a;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(0, 30, 28, .32);
+}
+
+/* ---------- Generell panelnyanse ---------- */
+
+.page :where(section, article, aside, div)[class*="Card"],
+.page :where(section, article, aside, div)[class*="card"],
+.page :where(section, article, aside, div)[class*="Panel"],
+.page :where(section, article, aside, div)[class*="panel"] {
+  border-color: var(--ct-ui-border);
+}
+
+/* ---------- Logo og topp/venstre meny uten skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(nav, header, aside) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Menylenker skal være lenker/chips, ikke tunge knapper */
+.page :where(nav, header) a,
+.page :where(nav, header) button {
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-ui-text);
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.page :where(nav, header) a:hover,
+.page :where(nav, header) button:hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-ui-border);
+  background: rgba(255, 255, 255, .12);
+  color: var(--ct-ui-accent);
+}
+
+/* ---------- Lenker i innhold ---------- */
+
+.page main a:not([class]),
+.page section a:not([class]) {
+  color: var(--ct-ui-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* CTA-er skal være rolige, ikke overdrevne 3D-knapper */
+.page :where(a, button)[class*="primary"],
+.page :where(a, button)[class*="Primary"],
+.page :where(a, button)[class*="cta"],
+.page :where(a, button)[class*="Cta"] {
+  border: 1px solid var(--ct-ui-border-strong);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--ct-ui-accent), var(--ct-ui-accent-2));
+  color: #fff8df;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 18px var(--ct-ui-shadow);
+  text-shadow: none;
+}
+
+.page :where(a, button)[class*="primary"]:hover,
+.page :where(a, button)[class*="Primary"]:hover,
+.page :where(a, button)[class*="cta"]:hover,
+.page :where(a, button)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 12px 26px var(--ct-ui-shadow);
+}
+
+/* Sekundære handlinger bør se mer ut som lenker */
+.page :where(a, button)[class*="secondary"],
+.page :where(a, button)[class*="Secondary"] {
+  border: 0;
+  background: transparent;
+  color: var(--ct-ui-text);
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page :where(a, button)[class*="secondary"]:hover,
+.page :where(a, button)[class*="Secondary"]:hover {
+  color: var(--ct-ui-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Toggle/chip-brytere: mindre glød, tydelig aktiv farge */
+.page :where(button[aria-pressed="true"], button[class*="active"], button[class*="Active"], button[class*="isActive"]) {
+  background: var(--ct-ui-accent);
+  color: #fff8df;
+  border-color: var(--ct-ui-border-strong);
+  box-shadow: none;
+}
+
+/* END COLLECTIUM STARTSIDE LINK BUTTON RESET 0001 */
+
+/* COLLECTIUM STARTSIDE LINK BUTTON RESET 0001
+   Formål:
+   - Fjerner tung knappestil fra lenker.
+   - Logo og venstre toppmeny skal ikke ha skygge.
+   - Primærhandlinger kan fortsatt være diskrete CTA-er.
+   - Skin-farger justeres etter Collectium / Enkel / Museum / Finans.
+*/
+
+/* ---------- Skin tokens på startsiden ---------- */
+
+.page[data-theme="collectium"],
+.page[data-skin="collectium"],
+:global([data-skin="collectium"]) .page {
+  --ct-ui-bg: #f7efe2;
+  --ct-ui-bg-2: #efe1c9;
+  --ct-ui-panel: #fff9ed;
+  --ct-ui-panel-soft: #f8eddc;
+  --ct-ui-border: #dec89b;
+  --ct-ui-border-strong: #c6a35a;
+  --ct-ui-text: #06372f;
+  --ct-ui-soft: #50695f;
+  --ct-ui-muted: #8d7a58;
+  --ct-ui-accent: #087246;
+  --ct-ui-accent-2: #064d38;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(65, 47, 19, .12);
+}
+
+.page[data-theme="enkel"],
+.page[data-skin="enkel"],
+:global([data-skin="enkel"]) .page {
+  --ct-ui-bg: #f5f8fb;
+  --ct-ui-bg-2: #e7eef5;
+  --ct-ui-panel: #ffffff;
+  --ct-ui-panel-soft: #f4f8fb;
+  --ct-ui-border: #cdd9e3;
+  --ct-ui-border-strong: #9fb3c4;
+  --ct-ui-text: #0b324e;
+  --ct-ui-soft: #526b80;
+  --ct-ui-muted: #7d8d9c;
+  --ct-ui-accent: #1f628f;
+  --ct-ui-accent-2: #0b314d;
+  --ct-ui-gold: #9a8544;
+  --ct-ui-shadow: rgba(16, 42, 62, .12);
+}
+
+.page[data-theme="museum"],
+.page[data-skin="museum"],
+:global([data-skin="museum"]) .page {
+  --ct-ui-bg: #11100e;
+  --ct-ui-bg-2: #1d1a15;
+  --ct-ui-panel: #211f1b;
+  --ct-ui-panel-soft: #181612;
+  --ct-ui-border: rgba(198, 163, 72, .35);
+  --ct-ui-border-strong: rgba(214, 180, 89, .68);
+  --ct-ui-text: #f4ead8;
+  --ct-ui-soft: rgba(244, 234, 216, .72);
+  --ct-ui-muted: rgba(244, 234, 216, .48);
+  --ct-ui-accent: #c6a348;
+  --ct-ui-accent-2: #8c6a27;
+  --ct-ui-gold: #d6b459;
+  --ct-ui-shadow: rgba(0, 0, 0, .28);
+}
+
+.page[data-theme="finans"],
+.page[data-skin="finans"],
+:global([data-skin="finans"]) .page {
+  --ct-ui-bg: #071d1e;
+  --ct-ui-bg-2: #0e2b2c;
+  --ct-ui-panel: #122d2e;
+  --ct-ui-panel-soft: #0c2425;
+  --ct-ui-border: rgba(55, 142, 127, .42);
+  --ct-ui-border-strong: rgba(65, 185, 152, .58);
+  --ct-ui-text: #e8fbf4;
+  --ct-ui-soft: rgba(232, 251, 244, .70);
+  --ct-ui-muted: rgba(232, 251, 244, .48);
+  --ct-ui-accent: #24aa7a;
+  --ct-ui-accent-2: #08705a;
+  --ct-ui-gold: #c6a348;
+  --ct-ui-shadow: rgba(0, 30, 28, .32);
+}
+
+/* ---------- Generell panelnyanse ---------- */
+
+.page :where(section, article, aside, div)[class*="Card"],
+.page :where(section, article, aside, div)[class*="card"],
+.page :where(section, article, aside, div)[class*="Panel"],
+.page :where(section, article, aside, div)[class*="panel"] {
+  border-color: var(--ct-ui-border);
+}
+
+/* ---------- Logo og topp/venstre meny uten skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(nav, header, aside) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Menylenker skal være lenker/chips, ikke tunge knapper */
+.page :where(nav, header) a,
+.page :where(nav, header) button {
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-ui-text);
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.page :where(nav, header) a:hover,
+.page :where(nav, header) button:hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-ui-border);
+  background: rgba(255, 255, 255, .12);
+  color: var(--ct-ui-accent);
+}
+
+/* ---------- Lenker i innhold ---------- */
+
+.page main a:not([class]),
+.page section a:not([class]) {
+  color: var(--ct-ui-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* CTA-er skal være rolige, ikke overdrevne 3D-knapper */
+.page :where(a, button)[class*="primary"],
+.page :where(a, button)[class*="Primary"],
+.page :where(a, button)[class*="cta"],
+.page :where(a, button)[class*="Cta"] {
+  border: 1px solid var(--ct-ui-border-strong);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--ct-ui-accent), var(--ct-ui-accent-2));
+  color: #fff8df;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 18px var(--ct-ui-shadow);
+  text-shadow: none;
+}
+
+.page :where(a, button)[class*="primary"]:hover,
+.page :where(a, button)[class*="Primary"]:hover,
+.page :where(a, button)[class*="cta"]:hover,
+.page :where(a, button)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 12px 26px var(--ct-ui-shadow);
+}
+
+/* Sekundære handlinger bør se mer ut som lenker */
+.page :where(a, button)[class*="secondary"],
+.page :where(a, button)[class*="Secondary"] {
+  border: 0;
+  background: transparent;
+  color: var(--ct-ui-text);
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page :where(a, button)[class*="secondary"]:hover,
+.page :where(a, button)[class*="Secondary"]:hover {
+  color: var(--ct-ui-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Toggle/chip-brytere: mindre glød, tydelig aktiv farge */
+.page :where(button[aria-pressed="true"], button[class*="active"], button[class*="Active"], button[class*="isActive"]) {
+  background: var(--ct-ui-accent);
+  color: #fff8df;
+  border-color: var(--ct-ui-border-strong);
+  box-shadow: none;
+}
+
+/* END COLLECTIUM STARTSIDE LINK BUTTON RESET 0001 */
+
+/* COLLECTIUM UI85 SKIN LOCK 0001
+   Formål:
+   Låser riktige farger per skin etter UI 8.5-malene.
+   Viktig:
+   - Ikke én global farge over alt.
+   - Collectium = pergament, grønn, gull.
+   - Enkel = ren blå/grå katalogflate.
+   - Museum = mørk arkivflate med antikk gull.
+   - Finans = teal/data/markedsflate.
+   - Meny/logo skal ikke ha tung skygge.
+   - Regentlenker skal være lenker, ikke tunge knapper.
+*/
+
+.page {
+  --ct-radius: 8px;
+  --ct-motion: 150ms ease;
+}
+
+/* ---------- COLLECTIUM / SIGNATURE ---------- */
+.page[data-theme="collectium"] {
+  --ct-app-bg: #f5ead7;
+  --ct-section-bg: #f7eddd;
+  --ct-section-bg-2: #efe0c8;
+  --ct-panel-bg: #fff8ea;
+  --ct-panel-solid: #fbf1df;
+  --ct-card-bg: #fffaf0;
+  --ct-border: #dcc59a;
+  --ct-border-strong: #c4a24e;
+  --ct-line: #d5c09a;
+  --ct-text: #063a30;
+  --ct-text-soft: #4f6a60;
+  --ct-text-muted: #8f7c58;
+  --ct-accent: #087447;
+  --ct-accent-dark: #064f38;
+  --ct-accent-soft: #d9ad35;
+  --ct-signature: #a87c29;
+  --ct-watermark: rgba(166, 124, 41, .16);
+  --ct-status-ok: #0b754a;
+  --ct-status-pending: #b0832c;
+  --ct-status-rejected: #a23a22;
+  --ct-shadow: rgba(70, 48, 14, .12);
+  --ct-hero-dark: #10100e;
+  --ct-hero-text: #f7eedb;
+}
+
+/* ---------- ENKEL / SAMLER ---------- */
+.page[data-theme="enkel"] {
+  --ct-app-bg: #f5f8fb;
+  --ct-section-bg: #f7fafc;
+  --ct-section-bg-2: #e9f0f6;
+  --ct-panel-bg: #ffffff;
+  --ct-panel-solid: #f4f8fb;
+  --ct-card-bg: #ffffff;
+  --ct-border: #d5e0ea;
+  --ct-border-strong: #9db2c5;
+  --ct-line: #d3dde6;
+  --ct-text: #0b304c;
+  --ct-text-soft: #506a80;
+  --ct-text-muted: #7d8c9b;
+  --ct-accent: #1e6598;
+  --ct-accent-dark: #0c3858;
+  --ct-accent-soft: #b9d3e8;
+  --ct-signature: #1e6598;
+  --ct-watermark: rgba(30, 101, 152, .10);
+  --ct-status-ok: #376f58;
+  --ct-status-pending: #84682b;
+  --ct-status-rejected: #9c3a23;
+  --ct-shadow: rgba(13, 42, 68, .12);
+  --ct-hero-dark: #0c2236;
+  --ct-hero-text: #f5f8fb;
+}
+
+/* ---------- MUSEUM ---------- */
+.page[data-theme="museum"] {
+  --ct-app-bg: #13110f;
+  --ct-section-bg: #1b1916;
+  --ct-section-bg-2: #242019;
+  --ct-panel-bg: #201d19;
+  --ct-panel-solid: #171513;
+  --ct-card-bg: #211f1b;
+  --ct-border: rgba(190, 151, 69, .32);
+  --ct-border-strong: rgba(214, 181, 91, .68);
+  --ct-line: rgba(190, 151, 69, .25);
+  --ct-text: #f3ead8;
+  --ct-text-soft: rgba(243, 234, 216, .72);
+  --ct-text-muted: rgba(243, 234, 216, .48);
+  --ct-accent: #c6a348;
+  --ct-accent-dark: #8b6826;
+  --ct-accent-soft: #d8c17a;
+  --ct-signature: #b88f37;
+  --ct-watermark: rgba(198, 163, 72, .12);
+  --ct-status-ok: #8fb982;
+  --ct-status-pending: #d7bd77;
+  --ct-status-rejected: #c9785d;
+  --ct-shadow: rgba(0, 0, 0, .34);
+  --ct-hero-dark: #090807;
+  --ct-hero-text: #f3ead8;
+}
+
+/* ---------- FINANS ---------- */
+.page[data-theme="finans"] {
+  --ct-app-bg: #071b1d;
+  --ct-section-bg: #10282d;
+  --ct-section-bg-2: #17333a;
+  --ct-panel-bg: #172f35;
+  --ct-panel-solid: #0d2428;
+  --ct-card-bg: #162d33;
+  --ct-border: rgba(63, 148, 135, .36);
+  --ct-border-strong: rgba(43, 180, 132, .68);
+  --ct-line: rgba(80, 151, 143, .26);
+  --ct-text: #e9fbf4;
+  --ct-text-soft: rgba(233, 251, 244, .72);
+  --ct-text-muted: rgba(233, 251, 244, .48);
+  --ct-accent: #27ad7b;
+  --ct-accent-dark: #08735a;
+  --ct-accent-soft: #7dcaa8;
+  --ct-signature: #28ad7b;
+  --ct-watermark: rgba(39, 173, 123, .10);
+  --ct-status-ok: #27ad7b;
+  --ct-status-pending: #c0a24a;
+  --ct-status-rejected: #d24c4c;
+  --ct-shadow: rgba(0, 28, 26, .34);
+  --ct-hero-dark: #061012;
+  --ct-hero-text: #e9fbf4;
+}
+
+/* ---------- Grunnflate per skin ---------- */
+
+.page {
+  background: var(--ct-app-bg) !important;
+  color: var(--ct-text) !important;
+}
+
+.page :where(section) {
+  color: var(--ct-text);
+}
+
+.page :where(section[class*="catalog"], section[class*="Catalog"]) {
+  background:
+    radial-gradient(circle at 20% 12%, var(--ct-watermark), transparent 30rem),
+    linear-gradient(115deg, var(--ct-section-bg), var(--ct-section-bg-2)) !important;
+  color: var(--ct-text) !important;
+}
+
+.page :where(article, aside, div)[class*="Card"],
+.page :where(article, aside, div)[class*="card"],
+.page :where(article, aside, div)[class*="Panel"],
+.page :where(article, aside, div)[class*="panel"] {
+  border-color: var(--ct-border) !important;
+  background-color: var(--ct-panel-bg);
+}
+
+/* ---------- Tekst ---------- */
+
+.page :where(h1, h2, h3, h4) {
+  color: var(--ct-text) !important;
+}
+
+.page :where(p, span, small, li) {
+  color: inherit;
+}
+
+.page :where([class*="kicker"], [class*="Kicker"], [class*="eyebrow"], [class*="Eyebrow"]) {
+  color: var(--ct-signature) !important;
+}
+
+/* ---------- Logo og meny uten tung skygge ---------- */
+
+.page :where([class*="logo"], [class*="Logo"], [class*="brand"], [class*="Brand"]) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.page :where(header, nav) :where(a, button) {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Venstre/topplinker som rolige chips/lenker */
+.page :where(header, nav) :where(a, button) {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-text) !important;
+  text-decoration: none;
+  font-weight: 850;
+  transition:
+    color var(--ct-motion),
+    background var(--ct-motion),
+    border-color var(--ct-motion),
+    transform var(--ct-motion);
+}
+
+.page :where(header, nav) :where(a, button):hover {
+  transform: translateY(-1px);
+  border-color: var(--ct-border);
+  background: color-mix(in srgb, var(--ct-panel-bg) 54%, transparent);
+  color: var(--ct-accent) !important;
+}
+
+/* ---------- Normale handlingsknapper ---------- */
+
+.page :where(button, a)[class*="primary"],
+.page :where(button, a)[class*="Primary"],
+.page :where(button, a)[class*="cta"],
+.page :where(button, a)[class*="Cta"] {
+  border-radius: var(--ct-radius);
+  border: 1px solid var(--ct-border-strong);
+  background: linear-gradient(180deg, var(--ct-accent), var(--ct-accent-dark));
+  color: #fff8df !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    0 8px 18px var(--ct-shadow);
+  text-shadow: none !important;
+}
+
+.page :where(button, a)[class*="primary"]:hover,
+.page :where(button, a)[class*="Primary"]:hover,
+.page :where(button, a)[class*="cta"]:hover,
+.page :where(button, a)[class*="Cta"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    0 12px 26px var(--ct-shadow);
+}
+
+/* Sekundære CTA-er og regenthandlinger skal kunne være lenker */
+.page :where(button, a)[class*="secondary"],
+.page :where(button, a)[class*="Secondary"] {
+  background: transparent !important;
+  color: var(--ct-text) !important;
+  box-shadow: none !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Toggle / aktiv tilstand ---------- */
+
+.page :where(button[aria-pressed="true"], button[class*="isActive"], button[class*="active"], button[class*="Active"]) {
+  background: var(--ct-accent) !important;
+  border-color: var(--ct-border-strong) !important;
+  color: #fff8df !important;
+  box-shadow: 0 8px 18px var(--ct-shadow);
+}
+
+/* Museum aktiv = gull, ikke grønn */
+.page[data-theme="museum"] :where(button[aria-pressed="true"], button[class*="isActive"], button[class*="active"], button[class*="Active"]) {
+  background: linear-gradient(180deg, #d6b459, #a77c29) !important;
+  color: #11100e !important;
+}
+
+/* ---------- Pricing skal følge skin, ikke være fast blå/grønn ---------- */
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) {
+  background:
+    radial-gradient(circle at 68% 92%, var(--ct-watermark), transparent 28rem),
+    linear-gradient(180deg, var(--ct-hero-dark), color-mix(in srgb, var(--ct-hero-dark) 82%, var(--ct-section-bg) 18%)) !important;
+  color: var(--ct-hero-text) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(h2, h3, h4) {
+  color: var(--ct-hero-text) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(p, span, small, li) {
+  color: color-mix(in srgb, var(--ct-hero-text) 76%, transparent) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where(article, [class*="card"], [class*="Card"], [class*="plan"], [class*="Plan"]) {
+  border: 1px solid color-mix(in srgb, var(--ct-border-strong) 44%, transparent) !important;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+    color-mix(in srgb, var(--ct-panel-solid) 84%, #111 16%) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.22) !important;
+}
+
+.page :where(section[class*="pricing"], section[class*="Pricing"], section[class*="membership"], section[class*="Membership"]) :where([class*="price"], [class*="Price"]) {
+  color: var(--ct-accent-soft) !important;
+}
+
+/* END COLLECTIUM UI85 SKIN LOCK 0001 */
+

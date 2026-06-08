@@ -2,44 +2,38 @@
  * COLLECTIUM FILE HEADER
  *
  * Overskrift:
- * Startside
+ * Startside route
  *
  * Definering / formål:
- * Next.js route for Collectium startside.
- * Renderer kontrollert Startside V42 med fire skins.
+ * Next.js App Router-side for ny Collectium startside.
  *
  * Bruksområde:
- * Route: /startside
+ * Viser ny startside uten sidebar, med gjenbrukbar topbar.
  *
  * Berørte sider / routes:
  * - /startside
  *
  * Berørte DB-brytere / feature_keys:
- * - public.startside.view
- * - public.theme.preview
+ * - landing.view
  *
  * Berørte API-ruter:
- * - Ingen direkte.
+ * - Ingen i v1.
  *
  * Berørte tabeller / views:
- * - Ingen direkte.
+ * - Ingen i v1.
  *
  * Dataretning:
- * Statisk preview -> React -> UI
+ * Next.js route → React component → UI
  *
  * Logging:
- * Ingen DB-logging.
+ * Ingen serverlogging i v1.
  *
  * Versjon:
- * CT-STARTSIDE-ROUTE-V42-TEMA-PREVIEW-0004
- *
- * Endringsregel:
- * Denne filen skal kun rendre startsidens innholdskomponent.
- * Global template-root har kontrollert /startside-fullbleed-unntak.
+ * CT-FILE-STARTSIDE-V47-0003
  */
 
-import CollectiumStartsideV42TemaPreview from "@/components/startside/CollectiumStartsideV42TemaPreview";
+import CollectiumStartsideV47 from '@/components/frontpage/CollectiumStartsideV47'
 
 export default function StartsidePage() {
-  return <CollectiumStartsideV42TemaPreview />;
+  return <CollectiumStartsideV47 />
 }

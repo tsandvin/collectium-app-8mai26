@@ -1,0 +1,896 @@
+﻿.page {
+  --bg: #f5ead7;
+  --bg2: #efe0c8;
+  --panel: #fff8ea;
+  --card: #fffaf0;
+  --line: #d8c49b;
+  --border: #dcc59a;
+  --strong: #c6a348;
+  --text: #063a30;
+  --soft: #526a60;
+  --muted: #8c7855;
+  --accent: #087447;
+  --accent2: #064f38;
+  --dark: #090a09;
+  --heroText: #f6eddb;
+  --shadow: rgba(70, 48, 14, .13);
+  --watermark: rgba(166, 124, 41, .15);
+
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.page[data-theme="enkel"] {
+  --bg: #f5f8fb;
+  --bg2: #e9f0f6;
+  --panel: #ffffff;
+  --card: #ffffff;
+  --line: #d3dde6;
+  --border: #d5e0ea;
+  --strong: #9db2c5;
+  --text: #0b304c;
+  --soft: #506a80;
+  --muted: #7d8c9b;
+  --accent: #1f6598;
+  --accent2: #0c3858;
+  --dark: #0b2238;
+  --heroText: #f7fbff;
+  --shadow: rgba(13, 42, 68, .13);
+  --watermark: rgba(30, 101, 152, .1);
+}
+
+.page[data-theme="museum"] {
+  --bg: #13110f;
+  --bg2: #242019;
+  --panel: #201d19;
+  --card: #211f1b;
+  --line: rgba(190, 151, 69, .25);
+  --border: rgba(190, 151, 69, .34);
+  --strong: #d6b459;
+  --text: #f3ead8;
+  --soft: rgba(243, 234, 216, .72);
+  --muted: rgba(243, 234, 216, .48);
+  --accent: #c6a348;
+  --accent2: #8b6826;
+  --dark: #080706;
+  --heroText: #f3ead8;
+  --shadow: rgba(0, 0, 0, .32);
+  --watermark: rgba(198, 163, 72, .12);
+}
+
+.page[data-theme="finans"] {
+  --bg: #071b1d;
+  --bg2: #17333a;
+  --panel: #172f35;
+  --card: #162d33;
+  --line: rgba(80, 151, 143, .26);
+  --border: rgba(63, 148, 135, .38);
+  --strong: #27ad7b;
+  --text: #e9fbf4;
+  --soft: rgba(233, 251, 244, .72);
+  --muted: rgba(233, 251, 244, .48);
+  --accent: #27ad7b;
+  --accent2: #08735a;
+  --dark: #061012;
+  --heroText: #e9fbf4;
+  --shadow: rgba(0, 28, 26, .34);
+  --watermark: rgba(39, 173, 123, .1);
+}
+
+.wrap {
+  width: min(100% - 48px, 1540px);
+  margin: 0 auto;
+}
+
+.wrapTwo {
+  width: min(100% - 48px, 1240px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr .9fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 24px;
+  align-items: center;
+  padding: 0 28px;
+  background: color-mix(in srgb, var(--panel) 90%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo,
+.topbar a,
+.topbar button {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.logo {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
+.topbar nav,
+.themeBar,
+.userLinks {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.themeBar button,
+.userLinks a {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.themeBar .active {
+  background: var(--accent);
+  color: #fff8df;
+  border-color: var(--accent);
+}
+
+.hero,
+.historyDark,
+.regents,
+.market,
+.pricing {
+  background:
+    radial-gradient(circle at 72% 20%, var(--watermark), transparent 34rem),
+    linear-gradient(180deg, var(--dark), color-mix(in srgb, var(--dark) 88%, var(--bg2) 12%));
+  color: var(--heroText);
+}
+
+.hero {
+  min-height: 820px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroContent {
+  max-width: 720px;
+  position: relative;
+}
+
+.heroContent::after {
+  content: "2022";
+  position: absolute;
+  left: 500px;
+  top: -90px;
+  color: var(--watermark);
+  font-size: 260px;
+  font-weight: 950;
+  z-index: 0;
+}
+
+.hero h1,
+.hero p,
+.heroLinks,
+.stats {
+  position: relative;
+  z-index: 1;
+}
+
+.kicker {
+  margin: 0 0 14px;
+  color: var(--strong);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.page h1,
+.page h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -.055em;
+}
+
+.page h1 {
+  color: var(--heroText);
+  font-size: clamp(56px, 7.2vw, 112px);
+  line-height: .86;
+}
+
+.page h2 {
+  color: inherit;
+  font-size: clamp(38px, 4.5vw, 72px);
+  line-height: .95;
+}
+
+.page h2 em,
+.page h1 em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero p,
+.market p,
+.cta p {
+  max-width: 720px;
+  color: color-mix(in srgb, var(--heroText) 76%, transparent);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.heroLinks,
+.regentLinks,
+.actionLinks {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.primaryLink {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff8df;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.textLink,
+.regentLinks a,
+.actionLinks a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--strong);
+  font-weight: 900;
+}
+
+.stats,
+.marketStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 22px;
+  margin-top: 70px;
+  max-width: 850px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--heroText);
+  font-size: 24px;
+}
+
+.stat span {
+  color: color-mix(in srgb, var(--heroText) 58%, transparent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.archive,
+.catalog,
+.cta {
+  padding: 110px 0;
+  background:
+    radial-gradient(circle at 80% 12%, var(--watermark), transparent 32rem),
+    linear-gradient(115deg, var(--bg), var(--bg2));
+}
+
+.archive h2 {
+  color: var(--text);
+}
+
+.threeCols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+  margin-top: 42px;
+}
+
+.threeCols article,
+.access,
+.dynamic,
+.objectRow,
+.periodBox {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  box-shadow: 0 22px 58px var(--shadow);
+}
+
+.threeCols article {
+  padding: 26px;
+}
+
+.threeCols h3,
+.access h3,
+.dynamic h3 {
+  color: var(--text);
+}
+
+.threeCols p,
+.sectionHead p,
+.access p {
+  color: var(--soft);
+}
+
+.historyDark,
+.regents,
+.market,
+.pricing {
+  padding: 120px 0;
+}
+
+.page blockquote {
+  margin: 0;
+  max-width: 420px;
+  color: var(--heroText);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  line-height: 1.32;
+  font-style: italic;
+}
+
+.timeline {
+  display: grid;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.timeline div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--strong) 28%, transparent);
+}
+
+.timeline strong {
+  color: var(--strong);
+}
+
+.sectionHead,
+.pricingTop,
+.periodTop {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 36px;
+  align-items: end;
+}
+
+.sectionHead h2 {
+  color: var(--text);
+}
+
+.switchGroup,
+.periodButtons,
+.segmentTabs,
+.billing {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.switchGroup button,
+.periodButtons button,
+.segmentTabs button,
+.billing button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 11px 18px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.page button.active,
+.page .active {
+  background: var(--accent) !important;
+  color: #fff8df !important;
+  border-color: var(--accent) !important;
+}
+
+.page[data-theme="museum"] button.active,
+.page[data-theme="museum"] .active {
+  background: var(--strong) !important;
+  color: #11100e !important;
+}
+
+.periodBox {
+  margin-top: 28px;
+  padding: 26px;
+}
+
+.periodBox h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.periodBox p {
+  margin: 8px 0 0;
+  color: var(--soft);
+}
+
+.periodTrack {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.periodPill {
+  border: 0;
+  border-radius: 8px;
+  min-height: 48px;
+  color: #fff8df;
+  font-weight: 950;
+}
+
+.periodPill strong,
+.periodPill span {
+  display: block;
+  line-height: 1.1;
+}
+
+.gold { background: #d9ad35; color: #062f28; }
+.green { background: #087447; }
+.dark { background: #043f2d; }
+.muted { background: #4d6b5d; }
+
+.yearLine {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 3px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.catalogGrid {
+  display: grid;
+  grid-template-columns: minmax(760px, 1.5fr) minmax(390px, .72fr);
+  gap: 32px;
+  align-items: start;
+  margin-top: 34px;
+}
+
+.objectRow {
+  display: grid;
+  grid-template-columns: 250px 1fr 170px;
+  gap: 14px;
+  padding: 12px;
+}
+
+.objectStamp,
+.objectFacts,
+.price,
+.badge {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+}
+
+.objectStamp {
+  min-height: 250px;
+  padding: 34px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.objectStamp::after {
+  content: "♞";
+  position: absolute;
+  right: 28px;
+  bottom: -10px;
+  color: var(--watermark);
+  font-size: 130px;
+}
+
+.objectStamp strong {
+  display: block;
+  color: var(--text);
+  font-size: 64px;
+  line-height: .9;
+}
+
+.objectStamp span,
+.objectStamp small {
+  display: block;
+  color: var(--text);
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+
+.objectFacts {
+  padding: 30px;
+}
+
+.objectFacts h3 {
+  margin: 0 0 22px;
+  color: var(--text);
+  font-size: 44px;
+  line-height: .95;
+}
+
+.factGrid,
+.dynamicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 28px;
+}
+
+.fact {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.fact span {
+  display: block;
+  color: var(--soft);
+  font-size: 12px;
+}
+
+.fact strong {
+  display: block;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.objectFacts p {
+  color: var(--soft);
+}
+
+.objectStatus {
+  display: grid;
+  gap: 8px;
+}
+
+.badge {
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-color: var(--accent);
+}
+
+.badge span {
+  color: var(--accent);
+}
+
+.badge strong,
+.badge b {
+  color: var(--text);
+}
+
+.price {
+  display: grid;
+  place-items: center;
+  min-height: 110px;
+  border-color: var(--accent);
+}
+
+.price span,
+.price small {
+  color: var(--soft);
+}
+
+.price strong {
+  color: var(--text);
+  font-size: 30px;
+}
+
+.dynamic {
+  margin-top: 12px;
+  padding: 22px;
+}
+
+.actionLinks {
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.access {
+  padding: 34px;
+}
+
+.accessRow {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.accessRow strong {
+  color: var(--accent);
+}
+
+.accessRow span {
+  color: var(--text);
+  font-weight: 900;
+}
+
+.regents {
+  position: relative;
+  overflow: hidden;
+}
+
+.regents .wrapTwo {
+  grid-template-columns: 1fr .9fr;
+}
+
+.regents h2 {
+  color: var(--heroText);
+}
+
+.regents p {
+  color: color-mix(in srgb, var(--heroText) 78%, transparent);
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.regentImage {
+  min-height: 390px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.10), rgba(0,0,0,.42)),
+    url("/collectium-tema/collectium-tema-anno-2022-heraldikk.png");
+  background-size: cover;
+  background-position: 36% center;
+  border: 1px solid color-mix(in srgb, var(--strong) 26%, transparent);
+}
+
+.regentYears {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 44px;
+  border-top: 1px solid color-mix(in srgb, var(--strong) 28%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--strong) 28%, transparent);
+}
+
+.regentYears a {
+  padding: 24px;
+  text-decoration: none;
+  border-right: 1px solid color-mix(in srgb, var(--strong) 20%, transparent);
+}
+
+.regentYears strong {
+  display: block;
+  color: var(--strong);
+  font-size: 24px;
+}
+
+.regentYears span {
+  color: var(--heroText);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.regentLinks {
+  margin-top: 38px;
+}
+
+.marketStats {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: none;
+  background: color-mix(in srgb, var(--panel) 10%, transparent);
+  padding: 28px;
+  border: 1px solid color-mix(in srgb, var(--strong) 20%, transparent);
+}
+
+.pricingTop h2 {
+  color: var(--heroText);
+}
+
+.billing {
+  border: 1px solid color-mix(in srgb, var(--strong) 36%, transparent);
+  border-radius: 999px;
+  padding: 7px;
+}
+
+.billing button {
+  border-radius: 999px;
+  background: transparent;
+  color: var(--heroText);
+  border: 0;
+}
+
+.priceGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.priceGrid article {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid color-mix(in srgb, var(--strong) 32%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 12%, transparent);
+  color: var(--heroText);
+}
+
+.priceGrid h3 {
+  margin: 0;
+  color: var(--heroText);
+  font-size: 30px;
+}
+
+.priceGrid p,
+.priceGrid li,
+.priceGrid small {
+  color: color-mix(in srgb, var(--heroText) 72%, transparent);
+}
+
+.priceGrid strong {
+  display: block;
+  margin-top: 28px;
+  color: var(--strong);
+  font-size: 32px;
+}
+
+.priceGrid ul {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0;
+}
+
+.priceGrid li {
+  margin-bottom: 10px;
+}
+
+.priceGrid li::before {
+  content: "• ";
+  color: var(--strong);
+}
+
+.priceGrid a {
+  margin-top: auto;
+  text-align: center;
+  color: var(--heroText);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--strong) 40%, transparent);
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 950;
+}
+
+.featuredPlan {
+  border-color: var(--strong) !important;
+}
+
+.planBadge {
+  align-self: flex-start;
+  margin-bottom: 18px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff8df !important;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.cta {
+  text-align: center;
+}
+
+.cta h2 {
+  color: var(--text);
+}
+
+.cta p,
+.footer {
+  color: var(--soft);
+}
+
+.cta .heroLinks {
+  justify-content: center;
+}
+
+.footer {
+  padding: 28px;
+  text-align: center;
+  background: var(--dark);
+}
+
+@media (max-width: 1200px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    padding: 14px 18px;
+  }
+
+  .wrapTwo,
+  .catalogGrid,
+  .sectionHead,
+  .periodTop,
+  .pricingTop {
+    grid-template-columns: 1fr;
+  }
+
+  .priceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .objectRow {
+    grid-template-columns: 1fr;
+  }
+
+  .objectStatus {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .periodTrack {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .wrap,
+  .wrapTwo {
+    width: min(100% - 28px, 100%);
+  }
+
+  .hero,
+  .archive,
+  .catalog,
+  .historyDark,
+  .regents,
+  .market,
+  .pricing,
+  .cta {
+    padding: 70px 0;
+    min-height: auto;
+  }
+
+  .threeCols,
+  .stats,
+  .marketStats,
+  .priceGrid,
+  .factGrid,
+  .dynamicGrid,
+  .objectStatus,
+  .regentYears {
+    grid-template-columns: 1fr;
+  }
+
+  .heroContent::after {
+    display: none;
+  }
+
+  .objectFacts h3 {
+    font-size: 34px;
+  }
+}
+
+
+
+
