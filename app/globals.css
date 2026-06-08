@@ -74,3 +74,130 @@ button,
   accent-color: var(--ct-accent);
 }
 
+
+/* ==========================================================================
+   COLLECTIUM TEMPLATE PATCH 0007 - BACKGROUND GRADIENT
+
+   Formål:
+   - Legger svak bakgrunnsgradering fra nederste høyre hjørne opp mot midten.
+   - Legger tilsvarende, men svakere, gradering i sidemenyen.
+   - Skal ligge bak ANNO 2022, stempler og innhold.
+   - Skal ikke ha mer visuell tyngde enn Collectium-merket i sidemenyen.
+
+   Berørte template-deler:
+   - .ct-page-frame
+   - .ct-sidebar
+   - .ct-content-decor
+
+   Endringsregel:
+   - Kun global template/dekor.
+   - Ingen side-spesifikk layout.
+   ========================================================================== */
+
+.ct-page-frame {
+  position: relative;
+  isolation: isolate;
+}
+
+.ct-page-frame::after {
+  content: "";
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: min(880px, 58vw);
+  height: min(720px, 62vh);
+  z-index: -2;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      color-mix(in srgb, var(--ct-accent-2) 16%, transparent) 0%,
+      color-mix(in srgb, var(--ct-accent) 8%, transparent) 28%,
+      color-mix(in srgb, var(--ct-panel-solid) 5%, transparent) 52%,
+      transparent 74%
+    );
+
+  opacity: 0.42;
+  filter: blur(10px) saturate(0.85);
+}
+
+html[data-theme="museum"] .ct-page-frame::after,
+html[data-theme="finans"] .ct-page-frame::after {
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      color-mix(in srgb, var(--ct-accent-2) 13%, transparent) 0%,
+      color-mix(in srgb, var(--ct-accent) 9%, transparent) 34%,
+      color-mix(in srgb, var(--ct-panel-solid) 4%, transparent) 56%,
+      transparent 78%
+    );
+
+  opacity: 0.36;
+  mix-blend-mode: screen;
+}
+
+.ct-sidebar {
+  position: sticky;
+  isolation: isolate;
+}
+
+.ct-sidebar::before {
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: -40px;
+  width: 250px;
+  height: 360px;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      color-mix(in srgb, var(--ct-accent-2) 12%, transparent) 0%,
+      color-mix(in srgb, var(--ct-accent) 6%, transparent) 34%,
+      transparent 72%
+    );
+
+  opacity: 0.28;
+  filter: blur(8px) saturate(0.75);
+}
+
+html[data-theme="museum"] .ct-sidebar::before,
+html[data-theme="finans"] .ct-sidebar::before {
+  opacity: 0.24;
+  mix-blend-mode: screen;
+}
+
+/* Sikrer at sidebar-innhold ligger over svak gradering */
+.ct-sidebar__decor,
+.ct-brand,
+.ct-sidebar__section-label,
+.ct-sidebar__nav {
+  position: relative;
+}
+
+.ct-sidebar__decor {
+  z-index: 1;
+}
+
+.ct-brand,
+.ct-sidebar__section-label,
+.ct-sidebar__nav {
+  z-index: 2;
+}
+
+/* Mobil: svakere dekor for å unngå støy */
+@media (max-width: 719px) {
+  .ct-page-frame::after {
+    width: 72vw;
+    height: 48vh;
+    opacity: 0.24;
+  }
+
+  .ct-sidebar::before {
+    opacity: 0.16;
+  }
+}
+
