@@ -7,7 +7,8 @@
  * template-design-control
  *
  * Definering / formål:
- * Lokal template-kontroll for valg av fire godkjente Collectium-skinn.
+ * Global template-kontroll for valg av fire låste Collectium UI 8.5-skinn.
+ * Skinnene er: Collectium, Samler, Museum og Finans.
  * Dette er ikke DB-/tilgangslogikk og skal ikke styre katalog, API, medlemskap eller DB 8.4.
  *
  * Bruksområde:
@@ -15,44 +16,57 @@
  *
  * Berørte sider / routes:
  * - alle sider via global template
+ * - /admin/system/mariadb-neon som dokumenterer låst metode under Layout / Tema
  *
  * Berørte DB-brytere / feature_keys:
  * - local.template.design_skin
+ * - local.template.theme_ui85
  *
  * Berørte API-ruter:
- * - ingen
+ * - ingen i denne lokale template-versjonen
  *
  * Berørte tabeller / views:
- * - ingen
+ * - senere ct_ui_skins
+ * - senere ct_user_preferences.preferred_skin
  *
  * Dataretning:
- * Local UI → html[data-skin] → global CSS
+ * Local UI -> html[data-skin] + .ct-template-root[data-skin] -> global CSS tokens
  *
  * Logging:
- * ingen
+ * - localStorage: ct-active-skin-v2
  *
  * Versjon:
- * CT-FILE-TEMPLATE-DESIGN-CONTROL-0001 / CHANGE-2026-06-06-DESIGN-SKINS-4
+ * CT-FILE-TEMPLATE-DESIGN-CONTROL-0002 / CHANGE-2026-06-11-UI85-SKINS-LOCK
  */
 
 import { useEffect, useState } from "react";
 
-type CollectiumSkin = "collectium" | "enkel" | "museum" | "finans";
+export type CollectiumSkin = "collectium" | "samler" | "museum" | "finans";
 
-const STORAGE_KEY = "ct-active-skin-v1";
+const STORAGE_KEY = "ct-active-skin-v2";
+const LEGACY_STORAGE_KEY = "ct-active-skin-v1";
 
 const skins: ReadonlyArray<{
   key: CollectiumSkin;
   label: string;
+  description: string;
 }> = [
-  { key: "collectium", label: "Collectium" },
-  { key: "enkel", label: "Enkel" },
-  { key: "museum", label: "Museum" },
-  { key: "finans", label: "Finans" }
+  { key: "collectium", label: "Collectium", description: "Premium signatur" },
+  { key: "samler", label: "Samler", description: "Lys katalog" },
+  { key: "museum", label: "Museum", description: "Historisk arkiv" },
+  { key: "finans", label: "Finans", description: "Marked og KPI" }
 ];
 
-function isCollectiumSkin(value: string | null): value is CollectiumSkin {
-  return value === "collectium" || value === "enkel" || value === "museum" || value === "finans";
+function normalizeSkin(value: string | null): CollectiumSkin | null {
+  if (value === "collectium" || value === "samler" || value === "museum" || value === "finans") {
+    return value;
+  }
+
+  if (value === "enkel") {
+    return "samler";
+  }
+
+  return null;
 }
 
 function applySkin(skin: CollectiumSkin): void {
@@ -65,11 +79,13 @@ export function TemplateDesignControl() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    const skin = isCollectiumSkin(saved) ? saved : "collectium";
+    const saved =
+      normalizeSkin(window.localStorage.getItem(STORAGE_KEY)) ??
+      normalizeSkin(window.localStorage.getItem(LEGACY_STORAGE_KEY)) ??
+      "collectium";
 
-    setActiveSkin(skin);
-    applySkin(skin);
+    setActiveSkin(saved);
+    applySkin(saved);
   }, []);
 
   return (
@@ -81,7 +97,7 @@ export function TemplateDesignControl() {
         aria-label="Velg designskinn"
         onClick={() => setOpen((value) => !value)}
       >
-        Design
+        Tema
         <span>{skins.find((skin) => skin.key === activeSkin)?.label}</span>
       </button>
 
@@ -93,6 +109,7 @@ export function TemplateDesignControl() {
               type="button"
               role="menuitem"
               className={activeSkin === skin.key ? "is-active" : ""}
+              title={skin.description}
               onClick={() => {
                 setActiveSkin(skin.key);
                 applySkin(skin.key);
