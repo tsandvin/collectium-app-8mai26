@@ -1,0 +1,349 @@
+/**
+ * COLLECTIUM FILE HEADER
+ *
+ * Overskrift:
+ * collectium-ui85-v36
+ *
+ * Definering / formål:
+ * Global CSS-tokenfil for fire låste Collectium UI 8.5 v36-tema.
+ * Designkilde: collectium-ui85-v36-kompakt-visningskort-med-objektpresentasjon-link.html.
+ * Tema styres av html[data-theme="collectium"], html[data-theme="samler"],
+ * html[data-theme="museum"] og html[data-theme="finans"].
+ *
+ * Bruksområde:
+ * Importeres i app/layout.tsx etter collectium-global.css.
+ * Brukes av global template, kompakte visningskort, objektpresentasjon-link,
+ * katalogkort, statuskort, paneler og fremtidige UI 8.5-komponenter.
+ *
+ * Berørte sider / routes:
+ * - alle routes via app/layout.tsx
+ * - /admin/system/mariadb-neon
+ * - katalog-/objekt-/relasjonssider som bruker Collectium-kortmodell
+ *
+ * Berørte DB-brytere / feature_keys:
+ * - local.template.theme_ui85
+ * - local.template.design_definition
+ * - catalog.card.compact_view
+ * - catalog.object_presentation.link
+ *
+ * Berørte API-ruter:
+ * - ingen i denne CSS-versjonen
+ * - senere /api/user/preferences/theme
+ *
+ * Berørte tabeller / views:
+ * - senere ct_ui_skins
+ * - senere ct_user_preferences.preferred_skin
+ *
+ * Dataretning:
+ * html[data-theme] -> CSS tokens -> global template/UI komponenter.
+ *
+ * Logging:
+ * - ingen
+ *
+ * Versjon:
+ * CT-FILE-UI85-V36-CSS-0001 / CHANGE-2026-06-12-HTML-DATA-THEME-SKINS
+ */
+
+:root,
+html[data-theme="collectium"] {
+  --ct-font-head: "Cormorant Garamond", Georgia, serif;
+  --ct-font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ct-font-mono: "IBM Plex Mono", Consolas, monospace;
+
+  --ct-app-bg: #f7efe2;
+  --ct-app-sidebar-bg: #efe1c9;
+  --ct-app-topbar-bg: rgba(255, 248, 235, .88);
+  --ct-panel-bg: rgba(255, 249, 237, .82);
+  --ct-panel-solid: #fff9ed;
+  --ct-card-bg: #fbf2e4;
+  --ct-panel-border: #e1cfaa;
+  --ct-border-strong: #c49a59;
+  --ct-line: #e8d9be;
+  --ct-text: #06372f;
+  --ct-text-soft: #415f54;
+  --ct-text-muted: #907d58;
+  --ct-accent: #0f6a45;
+  --ct-accent-dark: #06372f;
+  --ct-accent-soft: #d6ad3e;
+  --ct-signature: #ad7f2e;
+  --ct-watermark: #a43b23;
+  --ct-status-ok: #14643c;
+  --ct-status-pending: #a97d36;
+  --ct-status-rejected: #a43b23;
+  --ct-shadow: 0 18px 46px rgba(88, 54, 14, .13);
+  --ct-radius-lg: 16px;
+  --ct-radius-md: 10px;
+  --ct-radius-sm: 6px;
+  --ct-page-max: 1480px;
+  --ct-sidebar-w: 286px;
+  --ct-density: 16px;
+  --ct-title-size: 31px;
+  --ct-row-label-w: 118px;
+}
+
+html[data-theme="samler"] {
+  --ct-font-head: "Libre Baskerville", Georgia, serif;
+  --ct-font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ct-font-mono: "IBM Plex Mono", Consolas, monospace;
+
+  --ct-app-bg: #f4f8fc;
+  --ct-app-sidebar-bg: #edf5fb;
+  --ct-app-topbar-bg: rgba(248, 251, 255, .90);
+  --ct-panel-bg: rgba(255, 255, 255, .84);
+  --ct-panel-solid: #ffffff;
+  --ct-card-bg: #f1f7fc;
+  --ct-panel-border: #d8e5f1;
+  --ct-border-strong: #bdd2e7;
+  --ct-line: #d9e7f3;
+  --ct-text: #062d52;
+  --ct-text-soft: #405670;
+  --ct-text-muted: #7c8ea6;
+  --ct-accent: #23609d;
+  --ct-accent-dark: #0b3156;
+  --ct-accent-soft: #9dcfb4;
+  --ct-signature: #23609d;
+  --ct-watermark: #23609d;
+  --ct-status-ok: #3f755b;
+  --ct-status-pending: #836327;
+  --ct-status-rejected: #a33b23;
+  --ct-shadow: 0 14px 34px rgba(8, 41, 67, .08);
+  --ct-radius-lg: 16px;
+  --ct-radius-md: 10px;
+  --ct-radius-sm: 6px;
+}
+
+html[data-theme="museum"] {
+  --ct-font-head: "Cormorant Garamond", Georgia, serif;
+  --ct-font-body: Georgia, "Times New Roman", serif;
+  --ct-font-mono: "IBM Plex Mono", Consolas, monospace;
+
+  --ct-app-bg: #111111;
+  --ct-app-sidebar-bg: #141312;
+  --ct-app-topbar-bg: rgba(18, 18, 17, .90);
+  --ct-panel-bg: rgba(31, 31, 32, .84);
+  --ct-panel-solid: #1b1b1d;
+  --ct-card-bg: #1c1c1f;
+  --ct-panel-border: #4a3c26;
+  --ct-border-strong: #6d5830;
+  --ct-line: #463723;
+  --ct-text: #fff4da;
+  --ct-text-soft: #b8ad94;
+  --ct-text-muted: #817866;
+  --ct-accent: #c6a157;
+  --ct-accent-dark: #a77b35;
+  --ct-accent-soft: #d7c481;
+  --ct-signature: #a77b35;
+  --ct-watermark: #bf8f56;
+  --ct-status-ok: #8ab37c;
+  --ct-status-pending: #d7c481;
+  --ct-status-rejected: #cc7b5e;
+  --ct-shadow: 0 22px 60px rgba(0, 0, 0, .34);
+  --ct-radius-lg: 2px;
+  --ct-radius-md: 2px;
+  --ct-radius-sm: 2px;
+}
+
+html[data-theme="finans"] {
+  --ct-font-head: "Space Grotesk", Inter, system-ui, sans-serif;
+  --ct-font-body: "IBM Plex Sans", Inter, system-ui, sans-serif;
+  --ct-font-mono: "IBM Plex Mono", Consolas, monospace;
+
+  --ct-app-bg: #0d1b20;
+  --ct-app-sidebar-bg: #0f2026;
+  --ct-app-topbar-bg: rgba(13, 30, 36, .92);
+  --ct-panel-bg: rgba(25, 42, 50, .86);
+  --ct-panel-solid: #1d3039;
+  --ct-card-bg: #1a2d36;
+  --ct-panel-border: #29424d;
+  --ct-border-strong: #236b57;
+  --ct-line: #2b414b;
+  --ct-text: #f4f7f4;
+  --ct-text-soft: #b9c7ce;
+  --ct-text-muted: #7690a0;
+  --ct-accent: #29ad7f;
+  --ct-accent-dark: #1d8f66;
+  --ct-accent-soft: #bc9340;
+  --ct-signature: #29ad7f;
+  --ct-watermark: #29ad7f;
+  --ct-status-ok: #29ad7f;
+  --ct-status-pending: #bc9340;
+  --ct-status-rejected: #d34d4d;
+  --ct-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+  --ct-radius-lg: 16px;
+  --ct-radius-md: 6px;
+  --ct-radius-sm: 6px;
+}
+
+html[data-screen="mobile"] {
+  --ct-sidebar-w: 1fr;
+  --ct-density: 12px;
+  --ct-title-size: 22px;
+  --ct-row-label-w: 82px;
+}
+
+html[data-screen="tablet"] {
+  --ct-sidebar-w: 1fr;
+  --ct-density: 14px;
+  --ct-title-size: 25px;
+}
+
+html[data-screen="desktop"] {
+  --ct-page-max: 1480px;
+}
+
+html[data-screen="wide"] {
+  --ct-page-max: 2420px;
+  --ct-density: 18px;
+  --ct-title-size: 34px;
+}
+
+html[data-screen="tv"] {
+  --ct-page-max: 2900px;
+  --ct-sidebar-w: 320px;
+  --ct-density: 22px;
+  --ct-title-size: 38px;
+  --ct-row-label-w: 138px;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--ct-accent-soft) 18%, transparent), transparent 320px),
+    linear-gradient(180deg, var(--ct-app-bg), color-mix(in srgb, var(--ct-app-bg) 84%, #000));
+  color: var(--ct-text);
+  font-family: var(--ct-font-body);
+}
+
+.ct-template-root {
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--ct-accent-soft) 18%, transparent), transparent 320px),
+    linear-gradient(180deg, var(--ct-app-bg), color-mix(in srgb, var(--ct-app-bg) 84%, #000));
+  color: var(--ct-text);
+}
+
+.ct-template-toppmeny {
+  background: var(--ct-app-topbar-bg);
+  border-bottom-color: var(--ct-panel-border);
+  box-shadow: var(--ct-shadow);
+}
+
+.ct-template-brand,
+.ct-template-topnav a,
+.ct-template-auth a,
+.ct-template-search label,
+.ct-template-design-button,
+.ct-template-sidemenu-link {
+  color: var(--ct-text);
+}
+
+.ct-template-brand small,
+.ct-template-search label,
+.ct-template-sidemenu-title,
+.ct-template-sidemenu-card p {
+  color: var(--ct-text-muted);
+}
+
+.ct-template-logo,
+.ct-template-auth a:last-child,
+.ct-template-design-panel button.is-active {
+  background: var(--ct-accent);
+  color: var(--ct-accent-text, #fff);
+}
+
+.ct-template-topnav a:hover,
+.ct-template-auth a:hover,
+.ct-template-design-button:hover,
+.ct-template-design-panel button:hover {
+  background: color-mix(in srgb, var(--ct-accent-soft) 28%, var(--ct-card-bg));
+  color: var(--ct-text);
+}
+
+.ct-template-search input,
+.ct-template-design-button,
+.ct-template-design-panel,
+.ct-template-sidemenu-card,
+.ct-startside-grid article,
+.collectium-card,
+.ct-card,
+.ct-panel {
+  background: var(--ct-card-bg);
+  border-color: var(--ct-panel-border);
+  color: var(--ct-text);
+  box-shadow: var(--ct-shadow);
+}
+
+.ct-template-sidemeny {
+  background:
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--ct-app-sidebar-bg) 88%, var(--ct-app-bg)) 0%,
+      color-mix(in srgb, var(--ct-app-sidebar-bg) 98%, var(--ct-panel-bg)) 50%,
+      color-mix(in srgb, var(--ct-app-sidebar-bg) 90%, var(--ct-app-bg)) 100%
+    );
+  border-right-color: var(--ct-panel-border);
+}
+
+.ct-template-sidemenu-link span {
+  background: color-mix(in srgb, var(--ct-accent-soft) 25%, var(--ct-card-bg));
+  color: var(--ct-accent);
+}
+
+.ct-startside-content h1,
+.ct-startside-grid h2,
+.ct-template-brand strong {
+  color: var(--ct-text);
+  font-family: var(--ct-font-head);
+}
+
+.ct-startside-kicker,
+.ct-startside-lead,
+.ct-startside-grid p {
+  color: var(--ct-text-soft);
+}
+
+.collectium-card,
+.ct-card,
+.ct-panel,
+.ct-signature-frame,
+.ct-template-sidemenu-card,
+.ct-startside-grid article {
+  position: relative;
+  container-type: inline-size;
+  border-radius: var(--ct-radius-lg);
+}
+
+.collectium-card::after,
+.ct-card::after,
+.ct-panel::after,
+.ct-signature-frame::after,
+.ct-template-sidemenu-card::after,
+.ct-startside-grid article::after {
+  content: "Collectium anno 2022";
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  color: var(--ct-signature);
+  font: italic 8px/1 var(--ct-font-head);
+  opacity: .5;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.collectium-card,
+.ct-card,
+.ct-panel,
+.ct-template-sidemenu-card,
+.ct-startside-grid article {
+  padding-bottom: max(var(--ct-density, 16px), 28px);
+}
+
+@container (max-width: 180px) {
+  .collectium-card::after,
+  .ct-card::after,
+  .ct-panel::after,
+  .ct-signature-frame::after,
+  .ct-template-sidemenu-card::after,
+  .ct-startside-grid article::after {
+    content: none;
+  }
+}
